@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 18:15:29 by junghwki          #+#    #+#             */
-/*   Updated: 2020/12/02 19:56:39 by junghwki         ###   ########.fr       */
+/*   Updated: 2020/12/03 17:25:17 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,18 @@
 # include "libft/libft.h"
 # include <math.h>
 # include <stdlib.h>
+# include <stdio.h>
 # include <mlx.h>
 
-typedef struct	s_b_list {
+typedef struct	s_box {
 	void		*ft_mlx;
 	void		*ft_win;
 	int			win_width;
 	int			win_height;
 	int			player_x;
 	int			player_y;
-}				t_b_list;
+	void		*img;
+	char		*img_addr;
+}				t_box;
 
 #endif
