@@ -6,28 +6,28 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 20:08:48 by junghwki          #+#    #+#             */
-/*   Updated: 2020/12/03 20:02:25 by junghwki         ###   ########.fr       */
+/*   Updated: 2020/12/04 17:11:46 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int				g_map[10][10] =
-{{1,1,1,1,1,1,1,1,1,1},
-{1,0,0,0,0,0,0,0,0,1},
-{1,0,1,0,0,0,0,0,0,1},
-{1,0,0,0,0,0,0,0,0,1},
-{1,0,0,0,0,0,0,0,0,1},
-{1,0,0,0,0,0,0,0,0,1},
-{1,0,0,0,0,0,0,0,0,1},
-{1,0,0,0,0,0,0,0,0,1},
-{1,0,0,0,0,0,0,0,0,1},
-{1,1,1,1,1,1,1,1,1,1}};
+int g_map[10][10] =
+	{{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+	 {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	 {1, 0, 1, 0, 0, 0, 0, 0, 0, 1},
+	 {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	 {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	 {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	 {1, 0, 0, 1, 0, 0, 0, 0, 0, 1},
+	 {1, 0, 0, 0, 0, 0, 1, 0, 0, 1},
+	 {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	 {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}};
 
-int				ft_player_set(t_box *box)
+int ft_player_set(t_box *box)
 {
-	int			start_x;
-	int			start_y;
+	int start_x;
+	int start_y;
 
 	start_y = box->player_y + 5;
 	while (start_y >= box->player_y - 5)
@@ -43,10 +43,10 @@ int				ft_player_set(t_box *box)
 	return (0);
 }
 
-int				ft_grid_set(t_box *box)
+int ft_grid_set(t_box *box)
 {
-	int			x;
-	int			y;
+	int x;
+	int y;
 
 	y = box->win_height;
 	while (y > 0)
@@ -73,7 +73,7 @@ int				ft_grid_set(t_box *box)
 	return (0);
 }
 
-int				ft_key_press(int keycode, t_box *box)
+int ft_key_press(int keycode, t_box *box)
 {
 	if (keycode == 13)
 		box->player_y -= 10;
@@ -88,47 +88,45 @@ int				ft_key_press(int keycode, t_box *box)
 	return (0);
 }
 
-int				ft_exit(t_box *box)
+int ft_exit(t_box *box)
 {
 	exit(0);
 	return (0);
 }
 
-int				ft_make_wall(t_box *box)
+int ft_fill_square(int x, int y, t_box *box)
 {
-	int			i;
-	int			j;
-	int			x;
-	int			y;
+	int start_x;
+	int start_y;
+
+	start_x = x;
+	start_y = y;
+	while (y < start_y + box->win_height / 10)
+	{
+		x = start_x;
+		while (x < start_x + box->win_width / 10)
+		{
+			mlx_pixel_put(box->ft_mlx, box->ft_win, x, y, 0xFF00FF);
+			x++;
+		}
+		y++;
+	}
+	return (0);
+}
+
+int ft_make_wall(t_box *box)
+{
+	int i;
+	int j;
 
 	i = 0;
-	j = 0;
-	x = 0;
-	y = 0;
 	while (i < 10)
 	{
 		j = 0;
 		while (j < 10)
 		{
 			if (g_map[i][j] == 1)
-			{
-				y = (box->win_height / 10) * i;
-				while (y < (box->win_height / 10) + (box->win_height / 10) * i)
-				{
-					x = (box->win_width / 10) * j;
-					while (x < (box->win_width / 10) + (box->win_width / 10) * j)
-					{
-						mlx_pixel_put(box->ft_mlx, box->ft_win, x, y, 0xFFFFFF);
-						x++;
-					}
-					y++;
-				}
-			}
-			// else if (g_map[i][j] == 0)
-			// {
-			// 	x += box->win_width / 10;
-			// 	y += box->win_height / 10;
-			// }
+				ft_fill_square((box->win_width / 10) * j, (box->win_height / 10) * i, box);
 			j++;
 		}
 		i++;
@@ -136,21 +134,21 @@ int				ft_make_wall(t_box *box)
 	return (0);
 }
 
-int				ft_make_img(t_box *box)
+int ft_make_img(t_box *box)
 {
-	int			*bits_per_pixel;
-	int			*size_line;
-	int			*endian;
-	
+	int *bits_per_pixel;
+	int *size_line;
+	int *endian;
+
 	printf("why");
 	box->img = mlx_new_image(box->ft_mlx, box->win_width / 10, box->win_height / 10);
-	// box->img_addr = mlx_get_data_addr(box->img, bits_per_pixel, size_line, endian);
+	box->img_addr = mlx_get_data_addr(box->img, bits_per_pixel, size_line, endian);
 	printf("\nwhy?");
 	// printf("%s, %p,%p,%p", img_addr, bits_per_pixel, size_line, endian);
 	return (0);
 }
 
-void			ft_box_set(t_box *box)
+void ft_box_set(t_box *box)
 {
 	box->win_width = 800;
 	box->win_height = 800;
@@ -160,27 +158,27 @@ void			ft_box_set(t_box *box)
 	box->player_y = box->win_height / 2;
 }
 
-int				ft_main_loop(t_box *box)
+int ft_main_loop(t_box *box)
 {
-	ft_grid_set(box);
+	mlx_clear_window(box->ft_mlx, box->ft_win);
 	ft_player_set(box);
 	ft_make_wall(box);
-	mlx_clear_window(box->ft_mlx, box->ft_win);
+	ft_grid_set(box);
+	// mlx_clear_window(box->ft_mlx, box->ft_win);
 	return (0);
 }
 
-int				main(void)
+int main(void)
 {
-	t_box		*box;
-	
+	t_box *box;
+
 	box = (t_box *)malloc(sizeof(t_box));
 	ft_box_set(box);
 	// ft_make_img(box);
 	mlx_loop_hook(box->ft_mlx, ft_main_loop, box);
 	mlx_hook(box->ft_win, 2, 0, &ft_key_press, box);
 	mlx_hook(box->ft_win, 17, 0, &ft_exit, box);
-	ft_make_wall(box);
-////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////
 	mlx_loop(box->ft_mlx);
 	return (0);
 }
