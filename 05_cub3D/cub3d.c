@@ -162,9 +162,8 @@ int ft_main_loop(t_box *box)
 {
 	mlx_clear_window(box->ft_mlx, box->ft_win);
 	ft_player_set(box);
-	ft_make_wall(box);
+//	ft_make_wall(box);
 	ft_grid_set(box);
-	// mlx_clear_window(box->ft_mlx, box->ft_win);
 	return (0);
 }
 

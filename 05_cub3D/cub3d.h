@@ -17,7 +17,7 @@
 # include <math.h>
 # include <stdlib.h>
 # include <stdio.h>
-# include <mlx.h>
+# include "./opengl/mlx.h"
 
 typedef struct	s_box {
 	void		*ft_mlx;
