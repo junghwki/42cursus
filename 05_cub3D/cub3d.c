@@ -136,34 +136,50 @@ int ft_make_wall(t_box *box)
 
 int ft_make_img(t_box *box)
 {
-	int *bits_per_pixel;
-	int *size_line;
-	int *endian;
+	int bits_per_pixel;
+	int size_line;
+	int endian;
+	int i;
+	int j;
 
 	printf("why");
 	box->img = mlx_new_image(box->ft_mlx, box->win_width / 10, box->win_height / 10);
-	box->img_addr = mlx_get_data_addr(box->img, bits_per_pixel, size_line, endian);
+	box->img_addr = (int *)mlx_get_data_addr(box->img, &bits_per_pixel, &size_line, &endian);
 	printf("\nwhy?");
-	// printf("%s, %p,%p,%p", img_addr, bits_per_pixel, size_line, endian);
+	// printf("%p, %p,%p,%p", box->img_addr, &bits_per_pixel, &size_line, &endian);
+	i = 0;
+	while (i < 50)
+	{
+		j = 0;
+		while (j < 50)
+		{
+			box->img_addr[i * 50 + j] = 0xFFFF00;
+			j++;
+		}
+		i++;
+	}
+	mlx_put_image_to_window(box->ft_mlx, box->ft_win, box->img, 0, 0);
 	return (0);
+
 }
 
 void ft_box_set(t_box *box)
 {
-	box->win_width = 800;
-	box->win_height = 800;
+	box->win_width = 600;
+	box->win_height = 600;
 	box->ft_mlx = mlx_init();
 	box->ft_win = mlx_new_window(box->ft_mlx, box->win_width, box->win_height, "cub3D");
-	box->player_x = box->win_width / 2;
-	box->player_y = box->win_height / 2;
+	box->player_x = 100;//box->win_width / 2;
+	box->player_y = 100;//box->win_height / 2;
 }
 
 int ft_main_loop(t_box *box)
 {
 	mlx_clear_window(box->ft_mlx, box->ft_win);
 	ft_player_set(box);
-//	ft_make_wall(box);
+	// ft_make_wall(box);
 	ft_grid_set(box);
+	ft_make_img(box);
 	return (0);
 }
 
@@ -175,8 +191,8 @@ int main(void)
 	ft_box_set(box);
 	// ft_make_img(box);
 	mlx_loop_hook(box->ft_mlx, ft_main_loop, box);
-	mlx_hook(box->ft_win, 2, 0, &ft_key_press, box);
-	mlx_hook(box->ft_win, 17, 0, &ft_exit, box);
+	mlx_hook(box->ft_win, 2, 0, &ft_key_press, box);//버튼이 눌렸을때
+	mlx_hook(box->ft_win, 17, 0, &ft_exit, box);//x눌렀을때
 	////////////////////////////////////////////////////////////////////
 	mlx_loop(box->ft_mlx);
 	return (0);

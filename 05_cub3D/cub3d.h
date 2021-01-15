@@ -27,7 +27,7 @@ typedef struct	s_box {
 	int			player_x;
 	int			player_y;
 	void		*img;
-	char		*img_addr;
+	int			*img_addr;
 }				t_box;
 
 #endif
