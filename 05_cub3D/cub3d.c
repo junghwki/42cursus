@@ -15,12 +15,12 @@
 int			map[10][10] =//row,col
 	{{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 	 {1, 0, 1, 0, 0, 0, 0, 0, 0, 1},
-	 {1, 0, 1, 0, 0, 0, 0, 0, 0, 1},
-	 {1, 0, 1, 0, 0, 0, 0, 0, 0, 1},
-	 {1, 0, 1, 0, 0, 0, 0, 1, 0, 1},
-	 {1, 0, 1, 0, 0, 0, 0, 1, 0, 1},
-	 {1, 0, 1, 0, 0, 0, 0, 0, 0, 1},
-	 {1, 0, 1, 0, 1, 0, 1, 0, 0, 1},
+	 {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	 {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	 {1, 0, 0, 0, 0, 0, 0, 1, 0, 1},
+	 {1, 0, 0, 0, 0, 0, 0, 1, 0, 1},
+	 {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	 {1, 0, 0, 0, 1, 0, 1, 0, 0, 1},
 	 {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 	 {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}};
 
@@ -111,89 +111,112 @@ void		ft_draw_player(t_box *box)
 	}
 }
 
-void		ft_draw_ray(t_box *box)
+double		ft_make_ray(t_box *box, double theta)
 {
 	double	dis_x;
 	double	dis_y;
-	t_vec	left_dis;
+	t_vec	rotate_dis;
 
-	dis_x = (int)box->pos.x;
-	dis_y = (int)box->pos.y;
-	while(map[(int)(dis_y / box->win.height_len)][(int)(dis_x / box->win.width_len)] == 0)//(int)dis_x % (int)box->win.width_len && (int)dis_y % (int)box->win.height_len &&
+	box->end_dis.x = box->pos.x;
+	box->end_dis.y = box->pos.y;
+	rotate_dis = ft_rot_vec(box->dis, theta);
+	while(map[(int)((int)box->end_dis.y / box->win.height_len)][(int)((int)box->end_dis.x / box->win.width_len)] == 0)
 	{
-		ft_pixel_put(box, dis_x, dis_y, 0x00FF00);
-		dis_x += box->dis.x; //++;
-		dis_y += box->dis.y; // += (int)(box->dis.x / box->dis.y);
+		// ft_pixel_put(box, box->end_dis.x, box->end_dis.y, 0x00FF00);
+		box->end_dis.x += rotate_dis.x;
+		box->end_dis.y += rotate_dis.y;
 	}
-	// dis_x = (int)box->pos.x;
-	// dis_y = (int)box->pos.y;
-	// left_dis = ft_rot_vec(box->dis, box->win.rotate_angle);
-	// while(map[(int)(dis_y / box->win.height_len)][(int)(dis_x / box->win.width_len)] == 0)//(int)dis_x % (int)box->win.width_len && (int)dis_y % (int)box->win.height_len &&
-	// {
-	// 	ft_pixel_put(box, dis_x, dis_y, 0x00FF00);
-	// 	dis_x += left_dis.x; //++;
-	// 	dis_y += left_dis.y; // += (int)(box->dis.x / box->dis.y);
-	// }
-	// dis_x = (int)box->pos.x;
-	// dis_y = (int)box->pos.y;
-	// left_dis = ft_rot_vec(box->dis, (box->win.rotate_angle * -1));
-	// while(map[(int)(dis_y / box->win.height_len)][(int)(dis_x / box->win.width_len)] == 0)//(int)dis_x % (int)box->win.width_len && (int)dis_y % (int)box->win.height_len &&
-	// {
-	// 	ft_pixel_put(box, dis_x, dis_y, 0x00FF00);
-	// 	dis_x += left_dis.x; //++;
-	// 	dis_y += left_dis.y; // += (int)(box->dis.x / box->dis.y);
-	// }
+	box->end_dis.x -= box->dis.x;
+	box->end_dis.y -= box->dis.y;
+	// printf("%f, %f, %f \n", box->end_dis.x, box->end_dis.y,(atan2(rotate_dis.y,rotate_dis.x) - atan2(box->pos.y, box->pos.x)) / M_PI * 180);
+	// printf("act=%f\n", atan2(box->dis.y,box->dis.x));
+	// printf("pos = %f\n",atan2(box->dis.y, box->dis.x));
+	// printf("rot = %f\n",atan2(rotate_dis.y, rotate_dis.x));
+	// return (cos(theta) * sqrt(pow(box->pos.x - box->end_dis.x, 2) + pow(box->pos.y - box->end_dis.y, 2)));
+	return (cos(atan2(box->end_dis.y-box->pos.y,box->end_dis.x-box->pos.x) - atan2(box->dis.y, box->dis.x)) * sqrt(pow((box->pos.x - box->end_dis.x), 2) + pow((box->pos.y - box->end_dis.y), 2)));
 }
+
+// double		ft_make_ray(t_box *box, double theta)
+// {
+// 	double	dis_x;
+// 	double	dis_y;
+// 	t_vec	rotate_dis;
+
+// 	dis_x = box->pos.x;
+// 	dis_y = box->pos.y;
+// 	rotate_dis = ft_rot_vec(box->dis, theta);
+// 	while(map[(int)(dis_y / box->win.height_len)][(int)(dis_x / box->win.width_len)] == 0)
+// 	{
+// 		ft_pixel_put(box, dis_x, dis_y, 0x00FF00);
+// 		dis_x += rotate_dis.x;
+// 		dis_y += rotate_dis.y;
+// 	}
+// 	dis_x -= box->dis.x;
+// 	dis_y -= box->dis.y;
+// 	return (cos(theta) * sqrt(pow(box->pos.x - dis_x, 2) + pow(box->pos.y - dis_y, 2)));
+// }
+
 
 // void		ft_draw_ray(t_box *box)
 // {
-// 	int		index;
-// 	double	dis_x;
-// 	double	dis_y;
+// 	int		i;
+// 	int		x;
+// 	int		y;
+// 	double	wall_height;
 
-// 	index = 0;
-// 	dis_x = (int)box->pos.x;
-// 	dis_y = (int)box->pos.y;
-// 	if(ft_gradient_cmp(box->dis.x,box->dis.y))//x의 절대값이 크거나 같으면
+// 	i = box->win.width / -2;
+// 	x = 0;
+// 	while (i <= (box->win.width / 2))
 // 	{
-// 		while((int)dis_x % (int)box->win.width_len && index < 50)
+// 		wall_height = (box->win.height / ft_make_ray(box, ft_deg_to_rad((66 / (double)(box->win.width) * i)))) / 2;
+// 		while(x < box->win.width)
 // 		{
-// 			ft_pixel_put(box, dis_x, dis_y, 0x00FF00);
-// 			if(box->dis.y)
-// 			{	
-// 				dis_x++;
-// 				dis_y += (int)(box->dis.x / box->dis.y);
-// 			}
-// 			index++;
-// 			// if(map[(int)(dis_x - box->win.width_len) / (int)box->win.width_len][(int)(dis_y - box->win.width_len) / (int)box->win.width_len] == 0)
-// 			// {
-// 			// 	mlx_pixel_put(box->m.ft_mlx, box->m.ft_win, dis_x, dis_y, 0x00FF00);
-// 				// dis_x += box->dis.x;
-// 				// dis_y += box->dis.y;
-// 			// }
-// 		// ft_where_am_i(box, ft_new_vec(dis_x, dis_y));
-// 		}
-// 	}
-// 	else//y의 절대값이 크면
-// 	{
-// 		while((int)dis_y % (int)box->win.height_len && index < 50)
-// 		{
-// 			ft_pixel_put(box, dis_x, dis_y, 0x00FF00);
-// 			if(box->dis.x)
+// 			y = (box->win.height / 2) - wall_height;
+// 			while(y < (box->win.height / 2) + wall_height)
 // 			{
-// 				dis_y++;
-// 				dis_x += (int)(box->dis.y / box->dis.x);
+// 				ft_pixel_put(box, x, y, 0xFF0000);
+// 				y++;
 // 			}
-// 			index++;
-// 			// if(map[(int)(dis_x - box->win.width_len) / (int)box->win.width_len][(int)(dis_y - box->win.width_len) / (int)box->win.width_len] == 0)
-// 			// {
-// 			// 	mlx_pixel_put(box->m.ft_mlx, box->m.ft_win, dis_x, dis_y, 0x00FF00);
-// 			// 	dis_x += box->dis.x;
-// 			// 	dis_y += box->dis.y;
-// 			// }
+// 			x++;
 // 		}
+// 		i++;
 // 	}
 // }
+
+void		ft_draw_3d(t_box *box)
+{
+	int		i;
+	int		x;
+	int		y;
+	double	wall_height;
+
+	i = box->win.width / 2;
+	x = 0;
+	while (x < box->win.width)
+	{
+		wall_height = (box->win.height / ft_make_ray(box, ft_deg_to_rad((60 / (double)(box->win.width)) * i))) * 20;
+		y = (box->win.height / 2) - wall_height;
+		while (y <= (box->win.height / 2) + wall_height)
+		{
+			if ((int)box->end_dis.x % 100 == 99)
+				ft_pixel_put(box, x, y, 0xFF9999);
+			else if ((int)box->end_dis.x % 100 == 0)
+				ft_pixel_put(box, x, y, 0xFF9999);
+			else if ((int)box->end_dis.y % 100 == 99)
+				ft_pixel_put(box, x, y, 0xFF9999);
+			else if ((int)box->end_dis.y % 100 == 0)
+				ft_pixel_put(box, x, y, 0xFF9999);
+			// if(box->pos.y > box->end_dis.y)
+			// 	ft_pixel_put(box, x, y, 0x0000FF);
+			// else if(box->pos.x <= box->end_dis.x)
+			// 	ft_pixel_put(box, x, y, 0xEE7777);
+			y++;
+		}
+		i--;
+		x++;
+	}
+}
+
 
 int			ft_key_press(int keycode, t_box *box)
 {
@@ -216,8 +239,8 @@ int			ft_key_press(int keycode, t_box *box)
 
 void		ft_box_set(t_box *box)
 {
-	box->win.width = 500;
-	box->win.height = 500;
+	box->win.width = 1000;
+	box->win.height = 1000;
 	box->win.col = 10;
 	box->win.row = 10;
 	box->win.width_len = box->win.width / box->win.col;
@@ -228,8 +251,8 @@ void		ft_box_set(t_box *box)
 	box->m.ft_win = mlx_new_window(box->m.ft_mlx, box->win.width, box->win.height, "cub3D");
 	box->i.img = mlx_new_image(box->m.ft_mlx, box->win.width, box->win.height);
 	box->i.img_addr = (int *)mlx_get_data_addr(box->i.img, &box->i.bits_per_pixel, &box->i.size_line, &box->i.endian);
-	box->pos.x = box->win.width / 2 + 25;
-	box->pos.y = box->win.height / 2 + 25;
+	box->pos.x = box->win.width / 2;
+	box->pos.y = box->win.height / 2;
 	box->dis.x = 0;
 	box->dis.y = -1;
 }
@@ -237,12 +260,12 @@ void		ft_box_set(t_box *box)
 int			ft_main_loop(t_box *box)
 {
 	mlx_clear_window(box->m.ft_mlx, box->m.ft_win);
-	// ft_background_init(box);
-	ft_clear_image(box);
-	ft_draw_wall(box);
-	ft_draw_grid(box);
-	ft_draw_player(box);
-	ft_draw_ray(box);
+	ft_background_init(box);
+	// ft_clear_image(box);
+	// ft_draw_wall(box);
+	// ft_draw_grid(box);
+	// ft_draw_player(box);
+	ft_draw_3d(box);
 	mlx_put_image_to_window(box->m.ft_mlx, box->m.ft_win, box->i.img, 0, 0);
 	return (0);
 }

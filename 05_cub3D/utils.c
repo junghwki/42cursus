@@ -24,12 +24,12 @@ void		ft_background_init(t_box *box)
 	index = 0;
 	while (index < (box->win.width) * (box->win.height) / 2)
 	{
-		box->i.img_addr[index] = 0x999999;
+		box->i.img_addr[index] = 0x9999FF;
 		index++;
 	}
 	while (index < (box->win.width) * (box->win.height))
     {
-        box->i.img_addr[index] = 0xBBBBBB;
+        box->i.img_addr[index] = 0x99FF99;
         index++;
     }    
 }

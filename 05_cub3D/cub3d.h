@@ -54,6 +54,7 @@ typedef struct	s_box {
 	t_img		i;
 	t_vec		pos;
 	t_vec		dis;
+	t_vec		end_dis;
 }				t_box;
 
 void			ft_pixel_put(t_box *box, int x, int y, int color);
