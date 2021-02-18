@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 20:08:48 by junghwki          #+#    #+#             */
-/*   Updated: 2021/02/18 21:10:05 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/02/18 21:37:42 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int			map[10][10] =//row,col
 	 {1, 0, 0, 0, 0, 0, 0, 1, 0, 1},
 	 {1, 0, 0, 0, 0, 0, 0, 1, 0, 1},
 	 {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	 {1, 0, 0, 0, 1, 1, 1, 1, 0, 1},
+	 {1, 0, 0, 0, 1, 0, 1, 0, 0, 1},
 	 {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 	 {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}};
 
@@ -127,11 +127,13 @@ double		ft_make_ray(t_box *box, double theta)
 	// 	box->end_ray.y += sin(rotate_theta);
 	// }
 	////////////////////////////////////////////////////////////////////////////////////////////////
-	while(map[(int)(box->end_ray.y / box->win.height_len)][(int)(box->end_ray.x / box->win.width_len)] == 0)
+	while(map[(int)((int)box->end_ray.y / (int)box->win.height_len)][(int)((int)box->end_ray.x / (int)box->win.width_len)] == 0)
 	{
 		ft_pixel_put(box, box->end_ray.x, box->end_ray.y, 0x00FF00);
 		box->end_ray.x += cos(rotate_theta);
 		box->end_ray.y += sin(rotate_theta);
+		// box->end_ray.x = (int)box->end_ray.x;
+		// box->end_ray.y = (int)box->end_ray.y;
 	}
 	/////////////////////////////////////////////////////////////////////////////////////////////////
 	box->end_ray.x -= cos(rotate_theta);
@@ -140,8 +142,8 @@ double		ft_make_ray(t_box *box, double theta)
 	// dis_y = box->end_ray.y;
 	// return (0);
 	// printf("%f\n",theta);
-	// return (cos(theta) * sqrt(pow((box->pos.x - box->end_ray.x), 2) + pow((int)(box->pos.y - (int)box->end_ray.y), 2)));
-	return (cos(theta) * sqrt(pow(((int)box->pos.y - (int)box->end_ray.y) / tan(rotate_theta) , 2) + pow(((int)box->pos.y - (int)box->end_ray.y), 2)));
+	return (cos(theta) * sqrt(pow(((int)box->pos.x - (int)box->end_ray.x), 2) + pow(((int)box->pos.y - (int)box->end_ray.y), 2)));
+	// return (cos(theta) * sqrt(pow(((int)box->pos.y - (int)box->end_ray.y) / tan(rotate_theta) , 2) + pow(((int)box->pos.y - (int)box->end_ray.y), 2)));
 	// return (cos(atan2(box->end_ray.y - box->pos.y,box->end_ray.x - box->pos.x) - atan2(box->dir.y, box->dir.x)) * sqrt((int)(pow((box->pos.x - box->end_ray.x), 2) + (int)pow((box->pos.y - box->end_ray.y), 2))));
 }
 
@@ -322,7 +324,7 @@ void		ft_box_set(t_box *box)
 	box->win.width_len = box->win.width / box->win.col;
 	box->win.height_len = box->win.height / box->win.row;
 	box->win.move_speed = 5;
-	box->win.rotate_angle = ft_deg_to_rad(3);
+	box->win.rotate_angle = ft_deg_to_rad(5);
 	box->mlx.ft_mlx = mlx_init();
 	box->mlx.ft_win = mlx_new_window(box->mlx.ft_mlx, box->win.width, box->win.height, "cub3D");
 	box->img.img = mlx_new_image(box->mlx.ft_mlx, box->win.width, box->win.height);

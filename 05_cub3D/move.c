@@ -67,14 +67,20 @@ void        ft_rotate_left(t_box *box)
 {
     // printf("X =%f, Y =%f\n", box->dir.x,box->dir.y);
     box->pos.theta -= box->win.rotate_angle;
-    printf("X =%f, Y =%f\n", box->dir.x,box->dir.y);
+	if(box->pos.theta < -1 * M_PI)
+		box->pos.theta += 2 * M_PI;
+	// printf("%f\n",box->pos.theta);
+    // printf("X =%f, Y =%f\n", box->dir.x,box->dir.y);
 }
 
 void        ft_rotate_right(t_box *box)
 {
     // printf("X =%f, Y =%f\n", box->dir.x,box->dir.y);
     box->pos.theta += box->win.rotate_angle;
-    printf("X =%f, Y =%f\n", box->dir.x, box->dir.y);
+	if(box->pos.theta > M_PI)
+		box->pos.theta -= 2 * M_PI;
+	// printf("%f\n",box->pos.theta);
+    // printf("X =%f, Y =%f\n", box->dir.x, box->dir.y);
 }
 
 // #include "cub3d.h"
