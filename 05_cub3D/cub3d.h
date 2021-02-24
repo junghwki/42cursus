@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 18:15:29 by junghwki          #+#    #+#             */
-/*   Updated: 2021/02/18 18:16:16 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/02/24 22:28:59 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,10 @@ typedef struct	s_image {
 	int			bits_per_pixel;
 	int			size_line;
 	int			endian;
+	int			*n_texture;
+	int			*s_texture;
+	int			*w_texture;
+	int			*e_texture;
 }				t_img;
 
 typedef struct	s_position {
@@ -59,9 +63,8 @@ typedef struct	s_box {
 	t_win		win;
 	t_img		img;
 	t_pos		pos;
-	t_vec		step;
 	t_vec		dir;
-	t_vec		end_ray;
+	t_vec		comp;
 }				t_box;
 
 void			ft_pixel_put(t_box *box, int x, int y, int color);
@@ -79,11 +82,6 @@ void	    	ft_move_left(t_box *box);
 void    		ft_move_right(t_box *box);
 void			ft_rotate_left(t_box *box);
 void			ft_rotate_right(t_box *box);//move
-
-// void			ft_make_wall(t_box *box, int x, int y);
-// void			ft_draw_wall(t_box *box);
-// void			ft_draw_grid(t_box *box);
-// void			ft_draw_player(t_box *box);//draw
 
 t_vec           ft_new_vec(double x, double y);
 t_vec           ft_add_vec(t_vec a, t_vec b);

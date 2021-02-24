@@ -50,28 +50,6 @@ double      ft_deg_to_rad(double x)
     return (x * M_PI / 180);
 }
 
-// t_vec		ft_theta_check(double theta)
-// {
-// 	if(theta > ft_deg_to_rad(0) && theta < ft_deg_to_rad(90))
-// 		return(ft_new_vec(1,1));
-// 	else if(theta > ft_deg_to_rad(90) && theta < ft_deg_to_rad(180))
-// 		return(ft_new_vec(-1,1));
-// 	else if(theta > ft_deg_to_rad(180) && theta < ft_deg_to_rad(270))
-// 		return(ft_new_vec(-1,-1));
-// 	else if(theta > ft_deg_to_rad(270) && theta < ft_deg_to_rad(360))
-// 		return(ft_new_vec(1,-1));
-// 	else if(theta == ft_deg_to_rad(90))
-// 		return(ft_new_vec(0,1));
-// 	else if(theta == ft_deg_to_rad(180))
-// 		return(ft_new_vec(-1,0));
-// 	else if(theta == ft_deg_to_rad(270))
-// 		return(ft_new_vec(0,-1));
-// 	// else if(theta == ft_deg_to_rad(360))
-// 	// 	return(ft_new_vec(1,0));
-// 	else
-// 		return(ft_new_vec(1,0));
-// }
-
 t_vec		ft_theta_check(double theta)
 {
 	if(theta > ft_deg_to_rad(0) && theta < ft_deg_to_rad(90))
@@ -88,10 +66,10 @@ t_vec		ft_theta_check(double theta)
 		return(ft_new_vec(-1,0));
 	else if(theta == ft_deg_to_rad(270))
 		return(ft_new_vec(0,-1));
-	// else if(theta == ft_deg_to_rad(360))
-	// 	return(ft_new_vec(1,0));
-	else
+	else if(theta == ft_deg_to_rad(360) || theta == ft_deg_to_rad(0))
 		return(ft_new_vec(1,0));
+	else
+		return(ft_new_vec(0,0));
 }
 
 double		ft_rot_theta(t_box *box, double theta)
