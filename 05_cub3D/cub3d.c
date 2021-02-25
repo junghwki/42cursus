@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/02 20:08:48 by junghwki          #+#    #+#             */
-/*   Updated: 2021/02/24 22:33:44 by junghwki         ###   ########.fr       */
+/*   Created: 2021/02/25 14:21:20 by junghwki          #+#    #+#             */
+/*   Updated: 2021/02/25 19:11:18 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,12 @@ void		ft_draw_dir(t_box *box)
 	}
 }
 
+// void		ft_draw_tex(t_box *box)
+// {
+// 	box->end.x = box->pos.x ;
+// 	box->end.y = 
+// }
+
 double		ft_make_ray(t_box *box, double theta)
 {
 	double	delta_x;
@@ -136,95 +142,97 @@ double		ft_make_ray(t_box *box, double theta)
 	double	side_y;
 	int		map_x;
 	int		map_y;
-	double	result;
 	double	rotate_theta;
 
-	map_x = (int)box->pos.x;
-	map_y = (int)box->pos.y;
+	box->pos.map_x = (int)box->pos.x;
+	box->pos.map_y = (int)box->pos.y;
 	rotate_theta = ft_rot_theta(box, theta);
 	box->dir = ft_theta_check(rotate_theta);
 	delta_x = fabs(1 / cos(rotate_theta));
 	delta_y = fabs(1 / sin(rotate_theta));
-	// ft_draw_dir(box);
+	ft_draw_dir(box);
 	if(box->dir.x < 0)
 	{
-		side_x = (box->pos.x - map_x) * delta_x;
+		side_x = (box->pos.x - box->pos.map_x) * delta_x;
 	}
 	else
 	{
-		side_x = (map_x + 1 - box->pos.x) * delta_x;
+		side_x = (box->pos.map_x + 1 - box->pos.x) * delta_x;
 	}
 	if(box->dir.y < 0)
 	{
-		side_y = (box->pos.y - map_y) * delta_y;
+		side_y = (box->pos.y - box->pos.map_y) * delta_y;
 	}
 	else
 	{
-		side_y = (map_y + 1 - box->pos.y) * delta_y;
+		side_y = (box->pos.map_y + 1 - box->pos.y) * delta_y;
 	}
 	box->comp.x = 0;
 	box->comp.y = 0;
-	while(map[map_y][map_x] == 0)
+	while(map[box->pos.map_y][box->pos.map_x] == 0)
 	{
 		if(side_x < side_y)
 		{
-			map_x += box->dir.x;
-			if(map[map_y][map_x] == 1)
+			box->pos.map_x += box->dir.x;
+			if(map[box->pos.map_y][box->pos.map_x] == 1)
 			{
-				box->comp.x = 1; 
-				result = side_x;
-				break;
+				box->comp.x = 1;
+				box->end.x = box->pos.x + (side_x * cos(theta) * box->dir.x);
+				box->end.y = box->pos.y + (side_x * sin(theta) * box->dir.y);
+				return(side_x * cos(theta));
 			}
+
 			side_x += delta_x;
 		}
 		else
 		{
-			map_y += box->dir.y;
-			if(map[map_y][map_x] == 1)
+			box->pos.map_y += box->dir.y;
+			if(map[box->pos.map_y][box->pos.map_x] == 1)
 			{
 				box->comp.y = 1;
-				result = side_y;
-				break;
+				box->end.x = box->pos.x + (side_y * cos(theta) * box->dir.x);
+				box->end.y = box->pos.y + (side_y * sin(theta) * box->dir.y);
+				return(side_y * cos(theta));
 			}
 			side_y += delta_y;
 		}
 	}
-	return(cos(theta) * result);
+	return (0);
 }
 
 void		ft_draw_3d(t_box *box)
 {
-	int		ray_theta;
-	int		x;
-	int		y;
-	double	wall_height;
+	printf("dis=%f,X=%f,Y=%f\n",ft_make_ray(box, 0),box->end.x,box->end.y);
+	// int		ray_theta;
+	// int		x;
+	// int		y;
+	// double	wall_height;
 
-	ray_theta = box->win.width / 2;
-	x = box->win.width - 1;
-	while (x >= 0)
-	{
-		wall_height = (box->win.height / ft_make_ray(box, ft_deg_to_rad((66 / (double)box->win.width) * ray_theta))) * 0.34;
-		y = (box->win.height / 2) - wall_height;
-		while (y < (box->win.height / 2) + wall_height)
-		{
-			if(box->comp.x && box->dir.x < 0)
-				ft_pixel_put(box, x, y, 0xFF0000);
-			else if(box->comp.x && box->dir.x > 0)
-				ft_pixel_put(box, x, y, 0x00FF00);
-			else if(box->comp.y && box->dir.y < 0)
-				ft_pixel_put(box, x, y, 0x0000FF);
-			else if(box->comp.y && box->dir.y > 0)
-				ft_pixel_put(box, x, y, 0xFFFFFF);
-			else
-			{
-				ft_pixel_put(box,x,y,0x000000);
-			}
-			
-			y++;
-		}
-		ray_theta--;
-		x--;
-	}
+	// ray_theta = box->win.width / 2;
+	// x = box->win.width - 1;
+	// while (x >= 0)
+	// {
+	// 	wall_height = (box->win.height / ft_make_ray(box, ft_deg_to_rad((66 / (double)box->win.width) * ray_theta))) * 0.34;
+	// 	y = (box->win.height / 2) - wall_height;
+	// 	if (y < 0)
+	// 		y = 0;
+	// 	if (y >= box->win.height)
+	// 		y = box->win.height - 1;
+	// 	while ((y < (box->win.height / 2) + wall_height) && (y < box->win.height && y >= 0))
+	// 	{
+	// 		if(box->comp.x && box->dir.x < 0)
+	// 			ft_pixel_put(box, x, y, 0xFF0000);
+	// 		else if(box->comp.x && box->dir.x >= 0)
+	// 			ft_pixel_put(box, x, y, 0x00FF00);
+	// 		else if(box->comp.y && box->dir.y < 0)
+	// 			ft_pixel_put(box, x, y, 0x0000FF);
+	// 		else if(box->comp.y && box->dir.y >= 0)
+	// 			ft_pixel_put(box, x, y, 0xFFFFFF);
+	// 		y++;
+	// 	}
+	// 	ray_theta--;
+	// 	x--;
+	// }
 }
 
 
@@ -261,6 +269,16 @@ void		ft_box_set(t_box *box)
 	box->mlx.ft_win = mlx_new_window(box->mlx.ft_mlx, box->win.width, box->win.height, "cub3D");
 	box->img.img = mlx_new_image(box->mlx.ft_mlx, box->win.width, box->win.height);
 	box->img.img_addr = (int *)mlx_get_data_addr(box->img.img, &box->img.bits_per_pixel, &box->img.size_line, &box->img.endian);
+
+	box->e.ptr = mlx_xpm_file_to_image(box->mlx.ft_mlx, "./texture/e.xpm", &box->e.width, &box->e.height);
+	box->e.addr = (int *)mlx_get_data_addr(box->e.ptr, &box->img.bits_per_pixel, &box->img.size_line, &box->img.endian);
+	box->w.ptr = mlx_xpm_file_to_image(box->mlx.ft_mlx, "./texture/w.xpm", &box->w.width, &box->w.height);
+	box->w.addr = (int *)mlx_get_data_addr(box->w.ptr, &box->img.bits_per_pixel, &box->img.size_line, &box->img.endian);
+	box->s.ptr = mlx_xpm_file_to_image(box->mlx.ft_mlx, "./texture/s.xpm", &box->s.width, &box->s.height);
+	box->s.addr = (int *)mlx_get_data_addr(box->s.ptr, &box->img.bits_per_pixel, &box->img.size_line, &box->img.endian);
+	box->n.ptr = mlx_xpm_file_to_image(box->mlx.ft_mlx, "./texture/n.xpm", &box->n.width, &box->n.height);
+	box->n.addr = (int *)mlx_get_data_addr(box->n.ptr, &box->img.bits_per_pixel, &box->img.size_line, &box->img.endian);
+	
 	box->pos.x = box->win.col / 2;
 	box->pos.y = box->win.row / 2;
 	box->pos.theta = ft_deg_to_rad(90);
@@ -271,12 +289,13 @@ int			ft_main_loop(t_box *box)
 	mlx_clear_window(box->mlx.ft_mlx, box->mlx.ft_win);
 	ft_background_init(box);
 	// ft_clear_image(box);
-	// ft_draw_wall(box);
-	// ft_draw_grid(box);
-	// ft_draw_player(box);
-	// ft_make_ray(box, 0);
 	ft_draw_3d(box);
+	ft_draw_wall(box);
+	ft_draw_grid(box);
+	ft_draw_player(box);
+	// ft_make_ray(box, 0);
 	mlx_put_image_to_window(box->mlx.ft_mlx, box->mlx.ft_win, box->img.img, 0, 0);
+	mlx_put_image_to_window(box->mlx.ft_mlx, box->mlx.ft_win, box->s.ptr, 0, 0);
 	return (0);
 }
 

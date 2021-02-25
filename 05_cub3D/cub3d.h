@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/02 18:15:29 by junghwki          #+#    #+#             */
-/*   Updated: 2021/02/24 22:28:59 by junghwki         ###   ########.fr       */
+/*   Created: 2021/02/25 14:21:41 by junghwki          #+#    #+#             */
+/*   Updated: 2021/02/25 17:03:09 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,21 @@ typedef struct	s_image {
 	int			bits_per_pixel;
 	int			size_line;
 	int			endian;
-	int			*n_texture;
-	int			*s_texture;
-	int			*w_texture;
-	int			*e_texture;
 }				t_img;
+
+typedef struct	s_texture {
+	int			*addr;
+	void		*ptr;
+	int			width;
+	int			height;
+}				t_tex;
 
 typedef struct	s_position {
 	double		x;
 	double		y;
 	double		theta;
+	int			map_x;
+	int			map_y;
 }				t_pos;
 
 typedef struct	s_vector {
@@ -63,8 +68,13 @@ typedef struct	s_box {
 	t_win		win;
 	t_img		img;
 	t_pos		pos;
+	t_tex		e;
+	t_tex		w;
+	t_tex		s;
+	t_tex		n;
 	t_vec		dir;
 	t_vec		comp;
+	t_vec		end;
 }				t_box;
 
 void			ft_pixel_put(t_box *box, int x, int y, int color);
