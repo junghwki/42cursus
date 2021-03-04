@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 14:21:41 by junghwki          #+#    #+#             */
-/*   Updated: 2021/02/25 17:03:09 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/03/04 16:14:21 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ typedef struct	s_window {
 	double		width_len;
 	double		height_len;
 	double		move_speed;
+	double		fov;
+	double		dis;
 	double		rotate_angle;
 }				t_win;
 
