@@ -15,7 +15,7 @@ int			g_map[10][10] =//row,col
 	{{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 	 {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 	 {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	 {1, 0, 0, 1, 0, 0, 0, 0, 0, 1},
+	 {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 	 {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 	 {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 	 {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
@@ -77,7 +77,6 @@ void        ft_rotate_left(t_box *box)
 {
     // printf("X =%f, Y =%f\n", box->dir.x,box->dir.y);
     box->pos.theta = ft_rot_theta(box, -1 * box->win.rotate_angle);
-	printf("%f\n",box->pos.theta);
     // printf("X =%f, Y =%f\n", box->dir.x,box->dir.y);
 }
 
@@ -85,6 +84,5 @@ void        ft_rotate_right(t_box *box)
 {
     // printf("X =%f, Y =%f\n", box->dir.x,box->dir.y);
     box->pos.theta = ft_rot_theta(box, box->win.rotate_angle);
-	printf("%f\n",box->pos.theta);
     // printf("X =%f, Y =%f\n", box->dir.x, box->dir.y);
 }

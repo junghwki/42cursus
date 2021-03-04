@@ -37,7 +37,7 @@ typedef struct	s_window {
 
 typedef struct	s_image {
 	void		*img;
-	int			*img_addr;
+	int			*addr;
 	int			bits_per_pixel;
 	int			size_line;
 	int			endian;
@@ -46,6 +46,9 @@ typedef struct	s_image {
 typedef struct	s_texture {
 	int			*addr;
 	void		*ptr;
+	int			bits_per_pixel;
+	int			size_line;
+	int			endian;
 	int			width;
 	int			height;
 }				t_tex;
@@ -54,6 +57,7 @@ typedef struct	s_position {
 	double		x;
 	double		y;
 	double		theta;
+	double		tex;
 	int			map_x;
 	int			map_y;
 }				t_pos;
@@ -74,7 +78,6 @@ typedef struct	s_box {
 	t_tex		n;
 	t_vec		dir;
 	t_vec		comp;
-	t_vec		end;
 }				t_box;
 
 void			ft_pixel_put(t_box *box, int x, int y, int color);

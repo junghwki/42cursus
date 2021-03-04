@@ -14,7 +14,7 @@
 
 void		ft_pixel_put(t_box *box, int x, int y, int color)
 {
-	box->img.img_addr[(box->win.width * y) + x] = color;
+	box->img.addr[(box->win.width * y) + x] = color;
 }
 
 void		ft_clear_image(t_box *box)
@@ -24,7 +24,7 @@ void		ft_clear_image(t_box *box)
 	index = 0;
 	while (index < (box->win.width) * (box->win.height))
 	{
-		box->img.img_addr[index] = 0;
+		box->img.addr[index] = 0;
 		index++;
 	}
 }
@@ -36,12 +36,12 @@ void		ft_background_init(t_box *box)
 	index = 0;
 	while (index < (box->win.width) * (box->win.height) / 2)
 	{
-		box->img.img_addr[index] = 0x7777FF;
+		box->img.addr[index] = 0x7777FF;
 		index++;
 	}
 	while (index < (box->win.width) * (box->win.height))
     {
-        box->img.img_addr[index] = 0x77FF77;
+        box->img.addr[index] = 0x77FF77;
         index++;
     }    
 }
