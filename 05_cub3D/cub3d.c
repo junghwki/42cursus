@@ -12,17 +12,27 @@
 
 #include "cub3d.h"
 
-int			map[10][10] =//row,col
-	{{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-	 {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	 {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	 {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	 {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	 {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	 {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	 {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	 {1, 0, 1, 0, 1, 0, 1, 1, 0, 1},
-	 {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}};
+int			map[20][20] =//row,col
+	{{1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1,1,1,1,1,1,1,1,1},
+	 {1, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,0,0,0,0,0,0,0,0,1},
+	 {1, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,0,0,0,0,0,0,0,0,1},
+	 {1, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,0,0,0,0,0,0,0,0,1},
+	 {1, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,0,0,0,0,0,0,0,0,1},
+	 {1, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,0,0,0,0,0,0,0,0,1},
+	 {1, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,0,0,0,0,0,0,0,0,1},
+	 {1, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,0,0,0,0,0,0,0,0,1},
+	 {1, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,0,0,0,0,0,0,0,0,1},
+	 {1, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,0,0,0,0,0,0,0,0,1},
+	 {1, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,0,0,0,0,0,0,0,0,1},
+	 {1, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,0,0,0,0,0,0,0,0,1},
+	 {1, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,0,0,0,0,0,0,0,0,1},
+	 {1, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,0,0,0,0,0,0,0,0,1},
+	 {1, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,0,0,0,0,0,0,0,0,1},
+	 {1, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,0,0,0,0,0,0,0,0,1},
+	 {1, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,0,0,0,0,0,0,0,0,1},
+	 {1, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,0,0,0,0,0,0,0,0,1},
+	 {1, 0, 0, 0, 0, 0, 1, 0, 1, 0,0,0,0,0,0,0,0,0,0,1},
+	 {1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1,1,1,1,1,1,1,1,1}};
 
 void		ft_make_wall(t_box *box, int x, int y)
 {
@@ -139,18 +149,18 @@ void		ft_draw_tex(t_box *box, double wall_height, int x)
 	y = 0;
 	height = (box->win.height / 2) - wall_height;
 	y_index = 0;
-	if(height < 0)
-	{
-		y = 0;
-		y_tmp = (int)((wall_height * 2) / height * -1);
-		y_index = (int)box->e.height / y_tmp;
-		height = 0;
-	}
-	if (box->comp.y && box->dir.x >= 0)//동쪽text = 1 buf[1][x]
+	// if(height < 0)
+	// {
+	// 	y = 0;
+	// 	y_tmp = (int)((wall_height * 2) / height * -1);
+	// 	y_index = (int)box->e.height / y_tmp;
+	// 	height = 0;
+	// }
+	if (box->comp.y && box->dir.x >= 0)//동쪽
 	{
 		while ((y < (wall_height * 2) - 1) && (y + height < box->win.height))
 		{
-			if((int)(y_index * (wall_height * 2)) < (int)(y * box->e.height) && y_index < 63)
+			if((int)(y_index * (wall_height * 2)) < (int)(y * box->e.height))
 			{
 				y_index = (int)(box->e.height * (double)(y / (wall_height * 2)));
 			}
@@ -177,7 +187,7 @@ void		ft_draw_tex(t_box *box, double wall_height, int x)
 	{
 		while ((y < (wall_height * 2) - 1) && (y + height < box->win.height))
 		{
-			if((int)(y_index * (wall_height * 2)) <= (int)(y * box->w.height) && y_index < 63)
+			if((int)(y_index * (wall_height * 2)) <= (int)(y * box->w.height))
 			{
 				y_index = (int)(box->w.height * (double)(y / (wall_height * 2)));
 			}
@@ -191,7 +201,7 @@ void		ft_draw_tex(t_box *box, double wall_height, int x)
 		while ((y < (wall_height * 2) - 1) && (y + height < box->win.height))
 		{
 			tex_index = (int)(box->s.width - (box->pos.tex * box->s.width) + (box->s.width * y_index));
-			if((int)(y_index * (wall_height * 2)) <= (int)(y * box->s.height) && y_index < 63)
+			if((int)(y_index * (wall_height * 2)) <= (int)(y * box->s.height))
 			{
 				y_index = (int)(box->s.height * (double)(y / (wall_height * 2)));
 			}
@@ -204,7 +214,7 @@ void		ft_draw_tex(t_box *box, double wall_height, int x)
 		while ((y < (wall_height * 2) - 1) && (y + height < box->win.height))
 		{
 			tex_index = (int)((box->pos.tex * box->n.width) + (box->n.width * y_index));
-			if((int)(y_index * (wall_height * 2) ) <= (int)(y * box->n.height) && y_index < 63)
+			if((int)(y_index * (wall_height * 2) ) <= (int)(y * box->n.height))
 			{
 				y_index = (int)(box->n.height * (double)(y / (wall_height * 2)));
 			}
@@ -267,38 +277,21 @@ double		ft_wall_check(t_box *box, double theta)
 	return (0);
 }
 
-// void		ft_draw_3d(t_box *box)
-// {
-// 	int		x;
-// 	double	ray_theta;
-// 	double	wall_height;
-
-// 	ray_theta = box->win.width / 2;
-// 	x = box->win.width - 1;
-// 	while (x >= 0)
-// 	{
-// 		wall_height = (box->win.height / ft_wall_check(box, ft_deg_to_rad((66 / (double)box->win.width) * ray_theta))) * 0.34;
-// 		ft_draw_tex(box,wall_height, x);
-// 		ray_theta--;
-// 		x--;
-// 	}
-// }
-
 void		ft_draw_3d(t_box *box)
 {
 	int		x;
-	int		a;
+	int		ray;
 	double	ray_theta;
 	double	wall_height;
 
-	a = -1 * (box->win.width / 2);
+	ray = -1 * (box->win.width / 2);
 	x = 0;
 	while (x < box->win.width)
 	{
-		ray_theta = atan(a / box->win.dis);
-		wall_height = (box->win.height / (ft_wall_check(box, ray_theta))) * 0.66;
+		ray_theta = atan(ray / box->win.dis);
+		wall_height = (box->win.height / (ft_wall_check(box, ray_theta))) * 0.5;
 		ft_draw_tex(box, wall_height, x);
-		a++;
+		ray++;
 		x++;
 	}
 }
@@ -324,21 +317,20 @@ int			ft_key_press(int keycode, t_box *box)
 
 void		ft_box_set(t_box *box)
 {
-	box->win.width = 400;
-	box->win.height = 400;
-	box->win.col = 10;
-	box->win.row = 10;
+	box->win.width = 1000;
+	box->win.height = 1000;
+	box->win.col = 20;
+	box->win.row = 20;
 	box->win.width_len = box->win.width / box->win.col;
 	box->win.height_len = box->win.height / box->win.row;
 	box->win.move_speed = 0.05;
-	box->win.fov = ft_deg_to_rad(66);
+	box->win.fov = ft_deg_to_rad(90);
 	box->win.dis = box->win.width / tan(box->win.fov / 2);
 	box->win.rotate_angle = ft_deg_to_rad(5);
 	box->mlx.ft_mlx = mlx_init();
 	box->mlx.ft_win = mlx_new_window(box->mlx.ft_mlx, box->win.width, box->win.height, "cub3D");
 	box->img.img = mlx_new_image(box->mlx.ft_mlx, box->win.width, box->win.height);
 	box->img.addr = (int *)mlx_get_data_addr(box->img.img, &box->img.bits_per_pixel, &box->img.size_line, &box->img.endian);
-
 	box->e.ptr = mlx_xpm_file_to_image(box->mlx.ft_mlx, "./texture/e.xpm", &box->e.width, &box->e.height);
 	box->e.addr = (int *)mlx_get_data_addr(box->e.ptr, &box->e.bits_per_pixel, &box->e.size_line, &box->e.endian);
 	box->w.ptr = mlx_xpm_file_to_image(box->mlx.ft_mlx, "./texture/w.xpm", &box->w.width, &box->w.height);
@@ -347,7 +339,6 @@ void		ft_box_set(t_box *box)
 	box->s.addr = (int *)mlx_get_data_addr(box->s.ptr, &box->img.bits_per_pixel, &box->s.size_line, &box->s.endian);
 	box->n.ptr = mlx_xpm_file_to_image(box->mlx.ft_mlx, "./texture/n.xpm", &box->n.width, &box->n.height);
 	box->n.addr = (int *)mlx_get_data_addr(box->n.ptr, &box->img.bits_per_pixel, &box->n.size_line, &box->n.endian);
-	
 	box->pos.x = box->win.col / 2;
 	box->pos.y = box->win.row / 2;
 	box->pos.theta = ft_deg_to_rad(180);
@@ -359,10 +350,9 @@ int			ft_main_loop(t_box *box)
 	ft_background_init(box);
 	// ft_clear_image(box);
 	ft_draw_3d(box);
-	// ft_draw_wall(box);
-	// ft_draw_grid(box);
-	// ft_draw_player(box);
-	// ft_make_ray(box, 0);
+	ft_draw_wall(box);
+	ft_draw_grid(box);
+	ft_draw_player(box);
 	mlx_put_image_to_window(box->mlx.ft_mlx, box->mlx.ft_win, box->img.img, 0, 0);
 	// mlx_put_image_to_window(box->mlx.ft_mlx, box->mlx.ft_win, box->w.ptr, 0, 0);
 	return (0);
