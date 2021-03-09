@@ -1,36 +1,34 @@
-void		ft_draw_3d(t_box *box)
+static int	cmp_sprites( const void* a, const void* b )
 {
-	// ft_wall_check(box, 0);
-	int		x;
-	int		y;
-	double	ray_theta;
-	double	wall_height;
+	if (((const sprite_t*)a)->dist > ((const sprite_t*)b)->dist)))
+		return(-1);
+	else
+		return(1);
+}
 
-	ray_theta = box->win.width / 2;
-	x = box->win.width - 1;
-	while (x)
-	{
-		wall_height = (box->win.height / ft_wall_check(box, ft_deg_to_rad((66 / (double)box->win.width) * ray_theta))) * 0.34;
-		// y = (box->win.height / 2) - wall_height;
-		// if (y < 0)
-		// 	y = 0;
-		// if (y >= box->win.height)
-		// 	y = box->win.height - 1;
-		ft_draw_tex(box,wall_height, x);
-		// printf("%f\n",box->pos.tex_x);
-		// while ((y < (box->win.height / 2) + wall_height) && (y < box->win.height && y >= 0))
-		// {
-		// 	if(box->comp.x && box->dir.x < 0)
-		// 		ft_pixel_put(box, x, y, 0xFF0000);
-		// 	else if(box->comp.x && box->dir.x >= 0)
-		// 		ft_pixel_put(box, x, y, 0x00FF00);
-		// 	else if(box->comp.y && box->dir.y < 0)
-		// 		ft_pixel_put(box, x, y, 0x0000FF);
-		// 	else if(box->comp.y && box->dir.y >= 0)
-		// 		ft_pixel_put(box, x, y, 0xFFFFFF);
-		// 	y++;
-		// }
-		ray_theta--;
-		x--;
-	}
+static sprite_t* get_visible_sprites( player_t* pp, int** vis, int* pcnt )
+{
+    int n = 0;
+    sprite_t* sp = NULL; /* dynamic array */
+
+    /* build list of visible sprites */
+    for( int x=0; x<map_xmax(); x++ ) {
+        for( int y=0; y<map_ymax(); y++ ) {
+            if( vis[x][y] == 0 || map_get_cell(x,y) <= CELL_WALL )
+                continue;
+
+            if( n == 0 ) sp = (sprite_t*) malloc(sizeof(sprite_t));
+            else sp = (sprite_t*) realloc(sp, sizeof(sprite_t)*(n+1));
+
+            sp[n].tex = (map_get_cell(x,y) - CELL_WALL) + 5;
+            sp[n].x = x;
+            sp[n].y = y;
+            sp[n].th = atan2((y+0.5)-(pp->y), (x+0.5)-(pp->x));
+            if( sp[n].th < 0 ) sp[n].th += _2PI;
+            sp[n].dist = l2dist(pp->x, pp->y, x+0.5, y+0.5) * cos(pp->th - sp[n].th);
+            n++;
+        }
+    }
+    *pcnt = n;
+    return sp;
 }
