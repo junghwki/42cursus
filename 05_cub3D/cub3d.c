@@ -6,41 +6,39 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 14:21:20 by junghwki          #+#    #+#             */
-/*   Updated: 2021/03/11 21:17:40 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/03/11 22:23:13 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-// char map[20][20] = //row,col
-// 	{{'1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1'},
-// 	 {'1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
-// 	 {'1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
-// 	 {'1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
-// 	 {'1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
-// 	 {'1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
-// 	 {'1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
-// 	 {'1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
-// 	 {'1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '2', '1'},
-// 	 {'1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
-// 	 {'1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
-// 	 {'1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
-// 	 {'1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
-// 	 {'1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
-// 	 {'1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
-// 	 {'1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
-// 	 {'1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
-// 	 {'1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
-// 	 {'1', '0', '0', '0', '0', '0', '1', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
-// 	 {'1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1'}};
-
-void 		ft_get_map(t_box *box)
+void	ft_nbr_check(char *nbr)
 {
-	int 	fd;
+	while(*nbr)
+	{
+		if(!(ft_isdigit(*nbr)))
+			ft_error();
+		nbr++;
+	}
+}
+
+void	ft_map_print(t_box *box)
+{
+	int i;
+	
+	i = 0;
+	while(i < box->win.row)
+	{
+		printf("%s\n",box->win.map[i]);
+		i++;
+	}
+}
+
+void 		ft_get_map(t_box *box, int fd)
+{
 	char	**temp;
 	
 	ft_pars_init(box);
-	fd = open("./test.cub", O_RDONLY);
 	while (get_next_line(fd, &box->pars.line) > 0)
 	{
 		box->pars.word = ft_split(box->pars.line, ' ');
@@ -62,6 +60,8 @@ void 		ft_get_map(t_box *box)
 		{
 			if (box->pars.r_flag)
 				ft_error();
+			ft_nbr_check(box->pars.word[1]);
+			ft_nbr_check(box->pars.word[2]);
 			box->win.width = ft_atoi(box->pars.word[1]);
 			box->win.height = ft_atoi(box->pars.word[2]);
 			box->pars.r_flag = 1;
@@ -72,9 +72,7 @@ void 		ft_get_map(t_box *box)
 				ft_error();
 			box->no.route = ft_strdup(box->pars.word[1]);
 			if(open(box->no.route, O_RDONLY) < 0)
-			{
 				ft_error();
-			}
 			box->pars.no_flag = 1;
 		}
 		else if (!(ft_strcmp(box->pars.word[0], "SO")) && ft_rowlen(box->pars.word) == 2)
@@ -83,9 +81,7 @@ void 		ft_get_map(t_box *box)
 				ft_error();
 			box->so.route = ft_strdup(box->pars.word[1]);
 			if(open(box->so.route, O_RDONLY) < 0)
-			{
 				ft_error();
-			}
 			box->pars.so_flag = 1;
 		}
 		else if (!(ft_strcmp(box->pars.word[0], "WE")) && ft_rowlen(box->pars.word) == 2)
@@ -94,9 +90,7 @@ void 		ft_get_map(t_box *box)
 				ft_error();
 			box->we.route = ft_strdup(box->pars.word[1]);
 			if(open(box->we.route, O_RDONLY) < 0)
-			{
 				ft_error();
-			}
 			box->pars.we_flag = 1;
 		}
 		else if (!(ft_strcmp(box->pars.word[0], "EA")) && ft_rowlen(box->pars.word) == 2)
@@ -105,9 +99,7 @@ void 		ft_get_map(t_box *box)
 				ft_error();
 			box->ea.route = ft_strdup(box->pars.word[1]);
 			if(open(box->ea.route, O_RDONLY) < 0)
-			{
 				ft_error();
-			}
 			box->pars.ea_flag = 1;
 		}
 		else if (!(ft_strcmp(box->pars.word[0], "S")) && ft_rowlen(box->pars.word) == 2)
@@ -116,33 +108,23 @@ void 		ft_get_map(t_box *box)
 				ft_error();
 			box->s.route = ft_strdup(box->pars.word[1]);
 			// if(open(box->s.route, O_RDONLY) < 0)
-			// {
-			// 	printf("Error");
-			// 	ft_exit(box);
-			// }
+			// 	ft_error();
 			box->pars.s_flag = 1;
 		}
 		else if (!(ft_strcmp(box->pars.word[0], "F")) && ft_rowlen(box->pars.word) == 2)
 		{
 			if (box->pars.f_flag)
-			{
 				ft_error();
-			}
 			box->pars.f_flag = 1;
 		}
 		else if (!(ft_strcmp(box->pars.word[0], "C")) && ft_rowlen(box->pars.word) == 2)
 		{
 			if (box->pars.c_flag)
-			{
 				ft_error();
-			}
 			box->pars.c_flag = 1;
 		}
 		else
-		{
-			printf("Error");
-			ft_exit(box);
-		}
+			ft_error();
 	}
 	temp = ft_split(box->pars.map, '$');
 	box->win.row = ft_rowlen(temp);
@@ -160,21 +142,16 @@ void 		ft_get_map(t_box *box)
 		i = 0;
 		while (i < box->win.col)
 		{
-			box->win.map[j][i] = '@';
+			box->win.map[j][i] = '-';
 			i++;
 		}
 		box->win.map[j][i] = '\0';
 		j++;
 	}
-	i = 0;
 	ft_map_dup(box, temp);
-	while(i < box->win.row)
-	{
-		printf("%s\n",box->win.map[i]);
-		i++;
-	}
+	ft_map_print(box);
 	if(ft_map_check(box) < 0)
-		ft_exit(box);
+		ft_error();
 }
 
 void		ft_draw_dir(t_box *box)
@@ -289,8 +266,6 @@ double		ft_wall_check(t_box *box, double theta)
 				box->pos.tex = box->pos.y + (side_x * sin(rotate_theta)) - box->pos.map_y;
 				return(side_x * cos(theta));
 			}
-			// else if(map[box->pos.map_y][box->pos.map_x] == '2')
-			// 	box->sprt.visible[box->pos.map_y][box->pos.map_x] = '1';
 			side_x += delta_x;
 		}
 		else
@@ -302,8 +277,6 @@ double		ft_wall_check(t_box *box, double theta)
 				box->pos.tex = box->pos.x + (side_y * cos(rotate_theta)) - box->pos.map_x;
 				return(side_y * cos(theta));
 			}
-			// else if(map[box->pos.map_y][box->pos.map_x] == '2')
-			// 	box->sprt.visible[box->pos.map_y][box->pos.map_x] = '1';
 			side_y += delta_y;
 		}
 	}
@@ -389,10 +362,6 @@ int			ft_player_move(t_box *box)
 
 void		ft_box_set(t_box *box)
 {
-	// box->win.width = 1000;
-	// box->win.height = 1000;
-	// box->win.col = 20;
-	// box->win.row = 20;
 	box->win.width_len = box->win.width / box->win.col;
 	box->win.height_len = box->win.height / box->win.row;
 	box->win.move_speed = 0.06;
@@ -420,9 +389,9 @@ int			ft_main_loop(t_box *box)
 	ft_background_init(box);
 	// ft_clear_image(box);
 	ft_draw_fov(box);
-	ft_draw_wall(box);
-	ft_draw_grid(box);
-	ft_draw_player(box);
+	// ft_draw_wall(box);
+	// ft_draw_grid(box);
+	// ft_draw_player(box);
 	mlx_put_image_to_window(box->mlx.ft_mlx, box->mlx.ft_win, box->img.img, 0, 0);
 	return (0);
 }
@@ -430,11 +399,13 @@ int			ft_main_loop(t_box *box)
 int			main(void)//int argc, char *argv[])
 {
 	t_box	*box;
+	int		fd;
 
+	fd = open("./test.cub", O_RDONLY);
 	// if(argc == 2)
 	// {
 	box = (t_box *)malloc(sizeof(t_box));
-	ft_get_map(box);
+	ft_get_map(box,fd);
 	ft_box_set(box);
 	mlx_loop_hook(box->mlx.ft_mlx, ft_main_loop, box);
 	mlx_hook(box->mlx.ft_win, 2, 0, &ft_key_press, box);//버튼이 눌렸을때

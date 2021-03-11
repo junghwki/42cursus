@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 14:21:41 by junghwki          #+#    #+#             */
-/*   Updated: 2021/03/11 21:12:51 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/03/11 22:13:26 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,11 +169,15 @@ int	ft_strlcat(char *dst, const char *src, int dstsize);
 int	ft_strlcpy(char *dst, const char *src, int dstsize);
 int	ft_strlen(const char *s);
 int	ft_strcmp(const char *s1, const char *s2);
+int	ft_isdigit(int c);
 ///////////////////////////////
 int		ft_check_flag(t_box *box);
 int		ft_rowlen(char **array);
 void	ft_pars_init(t_box *box);
 void	ft_map_dup(t_box *box, char **src);
 int		ft_map_check(t_box *box);
-
+void	ft_error();
+///////////////////////////////////////지워야될것
+void	ft_map_print(t_box *box);
+//////////////////////////////////////
 #endif

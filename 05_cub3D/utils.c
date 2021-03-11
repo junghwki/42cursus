@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 14:20:38 by junghwki          #+#    #+#             */
-/*   Updated: 2021/03/11 20:48:06 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/03/11 22:19:37 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,7 +192,7 @@ int         ft_exit(t_box *box)
 
 void			ft_error()
 {
-	printf("Error");
+	printf("Error\n");
 	exit(0);
 }
 

@@ -12,7 +12,6 @@ void	ft_pars_init(t_box *box)
 	box->pars.c_flag = 0;
 	box->win.col = 0;
 	box->pars.map = NULL;
-	box->pos.theta = ft_deg_to_rad(-1);
 }
 
 int		ft_rowlen(char **array)
@@ -77,10 +76,7 @@ int		ft_map_check(t_box *box)
 				else if(box->win.map[j][i] == 'S' && flag == 0)
 					box->pos.theta = ft_deg_to_rad(90);
 				else
-				{
-					printf("Error");
 					return(-1);
-				}
 				box->win.map[j][i] = '0';
 				box->pos.x = i + 0.5;
 				box->pos.y = j + 0.5;
@@ -99,30 +95,23 @@ int		ft_map_check(t_box *box)
 			if(box->win.map[j][i] == '0' || box->win.map[j][i] == '2')
 			{
 				if(j == 0 || j == box->win.row || i == 0 || i == box->win.col)
-				{
-					printf("Error");
 					return(-1);
-				}
 				else
 				{
 					if(box->win.map[j+1][i] != '0' && box->win.map[j+1][i] != '1')
 					{
-						printf("Error");
 						return(-1);
 					}
 					if(box->win.map[j-1][i] != '0' && box->win.map[j-1][i] != '1')
 					{
-						printf("Error");
 						return(-1);
 					}
 					if(box->win.map[j][i+1] != '0' && box->win.map[j][i + 1] != '1')
 					{
-						printf("Error");
 						return(-1);
 					}
 					if(box->win.map[j][i-1] != '0' && box->win.map[j][i - 1] != '1')
 					{
-						printf("Error");
 						return(-1);
 					}
 				}
@@ -133,6 +122,5 @@ int		ft_map_check(t_box *box)
 	}
 	if(flag)
 		return(1);
-	printf("Error");
 	return(-1);
 }
