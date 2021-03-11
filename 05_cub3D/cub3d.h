@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 14:21:41 by junghwki          #+#    #+#             */
-/*   Updated: 2021/03/09 22:05:36 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/03/11 21:12:51 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define CUB3D_H
 # define BUFFER_SIZE 10
 
-# include "./libft/libft.h"
+// # include "./libft/libft.h"
 # include "./opengl/mlx.h"
 # include <math.h>
 # include <stdlib.h>
@@ -30,6 +30,7 @@ typedef struct	s_mlx {
 typedef struct	s_window {
 	int			width;
 	int			height;
+	char		**map;
 	int			row;
 	int			col;
 	double		width_len;
@@ -49,6 +50,7 @@ typedef struct	s_image {
 }				t_img;
 
 typedef struct	s_texture {
+	char		*route;
 	int			*addr;
 	void		*ptr;
 	int			bits_per_pixel;
@@ -76,6 +78,20 @@ typedef struct	s_sprite {
 
 }				t_sprt;
 
+typedef struct	s_parsing {
+	int			r_flag;
+	int			ea_flag;
+	int			we_flag;
+	int			so_flag;
+	int			no_flag;
+	int			s_flag;
+	int			f_flag;
+	int			c_flag;
+	char		*line;
+	char		**word;
+	char		*map;
+}				t_pars;
+
 typedef struct	s_key {
 	int			w;
 	int			s;
@@ -95,11 +111,13 @@ typedef struct	s_box {
 	t_win		win;
 	t_img		img;
 	t_pos		pos;
+	t_pars		pars;
 	t_key		key;
-	t_tex		e;
-	t_tex		w;
+	t_tex		ea;
+	t_tex		we;
+	t_tex		so;
+	t_tex		no;
 	t_tex		s;
-	t_tex		n;
 	t_sprt		sprt;
 	t_vec		dir;
 	t_vec		comp;
@@ -141,13 +159,21 @@ t_vec           ft_sub_vec(t_vec a, t_vec b);
 t_vec           ft_mul_vec(t_vec a, double k);
 t_vec           ft_rot_vec(t_vec a, double theta);//vector
 
-size_t			ft_strlen(const char *s);//gnl
-size_t			ft_strlcpy(char *dst, const char *src, size_t dstsize);
-char			*ft_strdup(const char *s1);
-size_t			ft_strlcat(char *dst, const char *src, size_t dstsize);
-char			*ft_strjoin(char const *s1, char const *s2);
-static int		ft_putline(char **line, char **next_buffer, int str_len);
-static int		ft_strclen(char *str, char c);
 int				get_next_line(int fd, char **line);//gnl
+////////////////////libft
+int	ft_atoi(const char *str);
+char				**ft_split(const char *s, char c);
+char	*ft_strdup(const char *s1);
+char	*ft_strjoin(char const *s1, char const *s2);
+int	ft_strlcat(char *dst, const char *src, int dstsize);
+int	ft_strlcpy(char *dst, const char *src, int dstsize);
+int	ft_strlen(const char *s);
+int	ft_strcmp(const char *s1, const char *s2);
+///////////////////////////////
+int		ft_check_flag(t_box *box);
+int		ft_rowlen(char **array);
+void	ft_pars_init(t_box *box);
+void	ft_map_dup(t_box *box, char **src);
+int		ft_map_check(t_box *box);
 
 #endif

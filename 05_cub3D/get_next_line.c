@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 16:24:01 by junghwki          #+#    #+#             */
-/*   Updated: 2021/03/09 21:46:46 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/03/10 22:21:18 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int					get_next_line(int fd, char **line)
 	char			*temp;
 	char			*buffer;
 	int				str_len;
-	ssize_t			index;
+	int				index;
 
 	if (fd < 0 || BUFFER_SIZE < 1 || !line)
 		return (-1);
