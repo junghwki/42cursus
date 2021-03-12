@@ -115,12 +115,30 @@ void 		ft_get_map(t_box *box, int fd)
 		{
 			if (box->pars.f_flag)
 				ft_error();
+			temp = ft_split(box->pars.word[1], ',');
+			ft_nbr_check(temp[0]);
+			ft_nbr_check(temp[1]);
+			ft_nbr_check(temp[2]);
+			box->win.f_color = ft_atoi(temp[0]);
+			box->win.f_color *= 256;
+			box->win.f_color += ft_atoi(temp[1]);
+			box->win.f_color *= 256;
+			box->win.f_color += ft_atoi(temp[2]);
 			box->pars.f_flag = 1;
 		}
 		else if (!(ft_strcmp(box->pars.word[0], "C")) && ft_rowlen(box->pars.word) == 2)
 		{
 			if (box->pars.c_flag)
 				ft_error();
+			temp = ft_split(box->pars.word[1], ',');
+			ft_nbr_check(temp[0]);
+			ft_nbr_check(temp[1]);
+			ft_nbr_check(temp[2]);
+			box->win.c_color = ft_atoi(temp[0]);
+			box->win.c_color *= 256;
+			box->win.c_color += ft_atoi(temp[1]);
+			box->win.c_color *= 256;
+			box->win.c_color += ft_atoi(temp[2]);
 			box->pars.c_flag = 1;
 		}
 		else
@@ -142,7 +160,7 @@ void 		ft_get_map(t_box *box, int fd)
 		i = 0;
 		while (i < box->win.col)
 		{
-			box->win.map[j][i] = '-';
+			box->win.map[j][i] = '#';
 			i++;
 		}
 		box->win.map[j][i] = '\0';
@@ -367,7 +385,7 @@ void		ft_box_set(t_box *box)
 	box->win.move_speed = 0.06;
 	box->win.fov = ft_deg_to_rad(90);
 	box->win.dis = box->win.width / tan(box->win.fov / 2);
-	box->win.rotate_angle = ft_deg_to_rad(1);
+	box->win.rotate_angle = ft_deg_to_rad(3);
 	box->mlx.ft_mlx = mlx_init();
 	box->mlx.ft_win = mlx_new_window(box->mlx.ft_mlx, box->win.width, box->win.height, "cub3D");
 	box->img.img = mlx_new_image(box->mlx.ft_mlx, box->win.width, box->win.height);
@@ -389,9 +407,9 @@ int			ft_main_loop(t_box *box)
 	ft_background_init(box);
 	// ft_clear_image(box);
 	ft_draw_fov(box);
-	// ft_draw_wall(box);
-	// ft_draw_grid(box);
-	// ft_draw_player(box);
+	ft_draw_wall(box);
+	ft_draw_grid(box);
+	ft_draw_player(box);
 	mlx_put_image_to_window(box->mlx.ft_mlx, box->mlx.ft_win, box->img.img, 0, 0);
 	return (0);
 }
@@ -405,7 +423,7 @@ int			main(void)//int argc, char *argv[])
 	// if(argc == 2)
 	// {
 	box = (t_box *)malloc(sizeof(t_box));
-	ft_get_map(box,fd);
+	ft_get_map(box, fd);
 	ft_box_set(box);
 	mlx_loop_hook(box->mlx.ft_mlx, ft_main_loop, box);
 	mlx_hook(box->mlx.ft_win, 2, 0, &ft_key_press, box);//버튼이 눌렸을때

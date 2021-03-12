@@ -39,6 +39,8 @@ typedef struct	s_window {
 	double		fov;
 	double		dis;
 	double		rotate_angle;
+	int			c_color;
+	int			f_color;
 }				t_win;
 
 typedef struct	s_image {
