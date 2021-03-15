@@ -14,52 +14,98 @@
 
 void        ft_move_up(t_box *box)
 {
-	box->pos.x += box->win.move_speed * cos(box->pos.theta);
-	box->pos.y += box->win.move_speed * sin(box->pos.theta);
-	if (box->win.map[(int)(box->pos.y)][(int)(box->pos.x)] == '1')
-	{
-		box->pos.x -= box->win.move_speed * cos(box->pos.theta);
-		box->pos.y -= box->win.move_speed * sin(box->pos.theta);
-	}
+	double	next_x;
+	double	next_y;
+	double	thick_x;
+	double	thick_y;
+
+	next_x = box->pos.x + box->win.move_speed * cos(box->pos.theta);
+	next_y = box->pos.y + box->win.move_speed * sin(box->pos.theta);
+	if(next_x > box->pos.x)
+		thick_x = 0.1;
+	else
+		thick_x = -0.1;
+	if(next_y > box->pos.y)
+		thick_y = 0.1;
+	else
+		thick_y = -0.1;
+	if (box->win.map[(int)(next_y + thick_y)][(int)(box->pos.x)] == '0')
+		box->pos.y = next_y;
+	if (box->win.map[(int)(box->pos.y)][(int)(next_x + thick_x)] == '0')
+		box->pos.x = next_x;
 }
 
 void        ft_move_down(t_box *box)
 {
-	box->pos.x -= box->win.move_speed * cos(box->pos.theta);
-	box->pos.y -= box->win.move_speed * sin(box->pos.theta);
-	if (box->win.map[(int)(box->pos.y)][(int)(box->pos.x)] == '1')
-	{
-		box->pos.x += box->win.move_speed * cos(box->pos.theta);
-		box->pos.y += box->win.move_speed * sin(box->pos.theta);
-	}
+	double	next_x;
+	double	next_y;
+	double	thick_x;
+	double	thick_y;
+
+	next_x = box->pos.x - box->win.move_speed * cos(box->pos.theta);
+	next_y = box->pos.y - box->win.move_speed * sin(box->pos.theta);
+	if(next_x > box->pos.x)
+		thick_x = 0.1;
+	else
+		thick_x = -0.1;
+	if(next_y > box->pos.y)
+		thick_y = 0.1;
+	else
+		thick_y = -0.1;
+	if (box->win.map[(int)(next_y + thick_y)][(int)(box->pos.x)] == '0')
+		box->pos.y = next_y;
+	if (box->win.map[(int)(box->pos.y)][(int)(next_x + thick_x)] == '0')
+		box->pos.x = next_x;
 }
 
 void        ft_move_left(t_box *box)
 {
     double	left_dir;
+	double	next_x;
+	double	next_y;
+	double	thick_x;
+	double	thick_y;
 
     left_dir = box->pos.theta - ft_deg_to_rad(90);
-    box->pos.x += box->win.move_speed * cos(left_dir);
-    box->pos.y += box->win.move_speed * sin(left_dir);
-    if (box->win.map[(int)(box->pos.y)][(int)(box->pos.x)] == '1')
-    {
-    	box->pos.x -= box->win.move_speed * cos(left_dir);
-    	box->pos.y -= box->win.move_speed * sin(left_dir);
-    }
+	next_x = box->pos.x + box->win.move_speed * cos(left_dir);
+	next_y = box->pos.y + box->win.move_speed * sin(left_dir);
+	if(next_x > box->pos.x)
+		thick_x = 0.1;
+	else
+		thick_x = -0.1;
+	if(next_y > box->pos.y)
+		thick_y = 0.1;
+	else
+		thick_y = -0.1;
+	if (box->win.map[(int)(next_y + thick_y)][(int)(box->pos.x)] == '0')
+		box->pos.y = next_y;
+	if (box->win.map[(int)(box->pos.y)][(int)(next_x + thick_x)] == '0')
+		box->pos.x = next_x;
 }
 
 void        ft_move_right(t_box *box)
 {
     double	right_dir;
+	double	next_x;
+	double	next_y;
+	double	thick_x;
+	double	thick_y;
 
 	right_dir = box->pos.theta + ft_deg_to_rad(90);
-	box->pos.x += box->win.move_speed * cos(right_dir);
-	box->pos.y += box->win.move_speed * sin(right_dir);
-	if (box->win.map[(int)(box->pos.y)][(int)(box->pos.x)] == '1')
-	{
-		box->pos.x -= box->win.move_speed * cos(right_dir);
-		box->pos.y -= box->win.move_speed * sin(right_dir);
-	}
+	next_x = box->pos.x + box->win.move_speed * cos(right_dir);
+	next_y = box->pos.y + box->win.move_speed * sin(right_dir);
+	if(next_x > box->pos.x)
+		thick_x = 0.1;
+	else
+		thick_x = -0.1;
+	if(next_y > box->pos.y)
+		thick_y = 0.1;
+	else
+		thick_y = -0.1;
+	if (box->win.map[(int)(next_y + thick_y)][(int)(box->pos.x)] == '0')
+		box->pos.y = next_y;
+	if (box->win.map[(int)(box->pos.y)][(int)(next_x + thick_x)] == '0')
+		box->pos.x = next_x;
 }
 
 void        ft_rotate_left(t_box *box)

@@ -100,19 +100,19 @@ int ft_map_check(t_box *box)
 					return (-1);
 				else
 				{
-					if (box->win.map[j + 1][i] != '0' && box->win.map[j + 1][i] != '1')
+					if (box->win.map[j + 1][i] != '0' && box->win.map[j + 1][i] != '1' && box->win.map[j + 1][i] != '2')
 					{
 						return (-1);
 					}
-					if (box->win.map[j - 1][i] != '0' && box->win.map[j - 1][i] != '1')
+					if (box->win.map[j - 1][i] != '0' && box->win.map[j - 1][i] != '1' && box->win.map[j - 1][i] != '2')
 					{
 						return (-1);
 					}
-					if (box->win.map[j][i + 1] != '0' && box->win.map[j][i + 1] != '1')
+					if (box->win.map[j][i + 1] != '0' && box->win.map[j][i + 1] != '1' && box->win.map[j][i + 1] != '2')
 					{
 						return (-1);
 					}
-					if (box->win.map[j][i - 1] != '0' && box->win.map[j][i - 1] != '1')
+					if (box->win.map[j][i - 1] != '0' && box->win.map[j][i - 1] != '1' && box->win.map[j][i - 1] != '2')
 					{
 						return (-1);
 					}

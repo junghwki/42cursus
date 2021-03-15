@@ -23,10 +23,10 @@ void		ft_clear_sprt(t_box *box)
 	int		j;
 	
 	i = 0;
-	box->sprt.visible = (int **)malloc(sizeof(int *) * box->win.row);
+	box->sprt.visible = (char **)malloc(sizeof(char *) * box->win.row);
 	while(i < box->win.row)
 	{
-		box->sprt.visible[i] = (int *)malloc(sizeof(int) * box->win.col);
+		box->sprt.visible[i] = (char *)malloc(sizeof(char) * box->win.col);
 		i++;
 	}
 	j = 0;

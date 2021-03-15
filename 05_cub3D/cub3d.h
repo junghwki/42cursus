@@ -74,7 +74,7 @@ typedef struct	s_position {
 typedef struct	s_sprite {
 	int			x;
 	int			y;
-	int			**visible;
+	char		**visible;
 	int			tex;
 	double		dist;
 

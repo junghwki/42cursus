@@ -12,9 +12,9 @@
 
 #include "../cub3d.h"
 
-static char			**ft_free(char **array)
+static char	**ft_free(char **array)
 {
-	int	index;
+	int		index;
 
 	index = 0;
 	while (array[index])
@@ -26,10 +26,10 @@ static char			**ft_free(char **array)
 	return (NULL);
 }
 
-static int		ft_s_l(const char *s, char c)
+static int	ft_s_l(const char *s, char c)
 {
-	int	index;
-	int	result;
+	int		index;
+	int		result;
 
 	index = 0;
 	result = 1;
@@ -46,9 +46,9 @@ static int		ft_s_l(const char *s, char c)
 	return (result);
 }
 
-static int		ft_wordlen(const char *s, char c)
+static int	ft_wordlen(const char *s, char c)
 {
-	int	index;
+	int		index;
 
 	index = 0;
 	while (s[index] != c && s[index])
@@ -58,12 +58,12 @@ static int		ft_wordlen(const char *s, char c)
 	return (index);
 }
 
-char				**ft_split(const char *s, char c)
+char		**ft_split(const char *s, char c)
 {
 	char	**answer;
-	int	index;
-	int	w_l;
-	int	str_len;
+	int		index;
+	int		w_l;
+	int		str_len;
 
 	index = 0;
 	str_len = 0;
