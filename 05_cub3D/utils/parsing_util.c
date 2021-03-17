@@ -1,5 +1,18 @@
 #include "../cub3d.h"
 
+void	ft_array_free(char **array)
+{
+	int	index;
+
+	index = 0;
+	while (array[index])
+	{
+		free(array[index]);
+		index++;
+	}
+	free(array);
+}
+
 void ft_pars_init(t_box *box)
 {
 	box->pars.r_flag = 0;
@@ -11,7 +24,9 @@ void ft_pars_init(t_box *box)
 	box->pars.f_flag = 0;
 	box->pars.c_flag = 0;
 	box->win.col = 0;
+	box->win.row = 0;
 	box->pars.map = NULL;
+	box->pars.s_cnt = 0;
 	box->win.c_color = 0;
 	box->win.f_color = 0;
 }
@@ -53,76 +68,75 @@ void ft_map_dup(t_box *box, char **src)
 	}
 }
 
-int ft_map_check(t_box *box)
+void	ft_dir_check(t_box *box)
 {
-	int i;
-	int j;
 	int flag;
-
-	i = 0;
-	j = 0;
+	int x;
+	int y;
+	
 	flag = 0;
-	while (j < box->win.row)
+	y = 0;
+	while (y < box->win.row)
 	{
-		i = 0;
-		while (i < box->win.col)
+		x = 0;
+		while (x < box->win.col)
 		{
-			if (box->win.map[j][i] == 'N' || box->win.map[j][i] == 'E' || box->win.map[j][i] == 'W' || box->win.map[j][i] == 'S')
+			if (box->win.map[y][x] == 'N' || box->win.map[y][x] == 'E' || box->win.map[y][x] == 'W' || box->win.map[y][x] == 'S')
 			{
-				if (box->win.map[j][i] == 'E' && flag == 0)
+				if (box->win.map[y][x] == 'E' && flag == 0)
 					box->pos.theta = ft_deg_to_rad(0);
-				else if (box->win.map[j][i] == 'S' && flag == 0)
+				else if (box->win.map[y][x] == 'S' && flag == 0)
 					box->pos.theta = ft_deg_to_rad(90);
-				else if (box->win.map[j][i] == 'W' && flag == 0)
+				else if (box->win.map[y][x] == 'W' && flag == 0)
 					box->pos.theta = ft_deg_to_rad(180);
-				else if (box->win.map[j][i] == 'N' && flag == 0)
+				else if (box->win.map[y][x] == 'N' && flag == 0)
 					box->pos.theta = ft_deg_to_rad(270);
 				else
-					return (-1);
-				box->win.map[j][i] = '0';
-				box->pos.x = i + 0.5;
-				box->pos.y = j + 0.5;
+					ft_error();
+				box->win.map[y][x] = '0';
+				box->pos.x = x + 0.5;
+				box->pos.y = y + 0.5;
 				flag = 1;
 			}
-			i++;
+			x++;
 		}
-		j++;
+		y++;
 	}
-	j = 0;
-	while (j < box->win.row)
+	if (!(flag))
+		ft_error();
+}
+void ft_map_check(t_box *box)
+{
+	int x;
+	int y;
+
+	ft_dir_check(box);
+	y = 0;
+	while (y < box->win.row)
 	{
-		i = 0;
-		while (i < box->win.col)
+		x = 0;
+		while (x < box->win.col)
 		{
-			if (box->win.map[j][i] == '0' || box->win.map[j][i] == '2')
+			if (box->win.map[y][x] == '0' || box->win.map[y][x] == '2')
 			{
-				if (j == 0 || j == box->win.row || i == 0 || i == box->win.col)
-					return (-1);
+				if (y == 0 || y == box->win.row || x == 0 || x == box->win.col)
+					ft_error();
 				else
 				{
-					if (box->win.map[j + 1][i] != '0' && box->win.map[j + 1][i] != '1' && box->win.map[j + 1][i] != '2')
-					{
-						return (-1);
-					}
-					if (box->win.map[j - 1][i] != '0' && box->win.map[j - 1][i] != '1' && box->win.map[j - 1][i] != '2')
-					{
-						return (-1);
-					}
-					if (box->win.map[j][i + 1] != '0' && box->win.map[j][i + 1] != '1' && box->win.map[j][i + 1] != '2')
-					{
-						return (-1);
-					}
-					if (box->win.map[j][i - 1] != '0' && box->win.map[j][i - 1] != '1' && box->win.map[j][i - 1] != '2')
-					{
-						return (-1);
-					}
+					if (box->win.map[y + 1][x] != '0' && box->win.map[y + 1][x] != '1' && box->win.map[y + 1][x] != '2')
+						ft_error();
+					if (box->win.map[y - 1][x] != '0' && box->win.map[y - 1][x] != '1' && box->win.map[y - 1][x] != '2')
+						ft_error();
+					if (box->win.map[y][x + 1] != '0' && box->win.map[y][x + 1] != '1' && box->win.map[y][x + 1] != '2')
+						ft_error();
+					if (box->win.map[y][x - 1] != '0' && box->win.map[y][x - 1] != '1' && box->win.map[y][x - 1] != '2')
+						ft_error();
 				}
+				if (box->win.map[y][x] == '2')
+					box->pars.s_cnt++;
 			}
-			i++;
+			x++;
 		}
-		j++;
+		y++;
 	}
-	if (flag)
-		return (1);
-	return (-1);
 }

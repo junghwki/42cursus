@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 14:20:31 by junghwki          #+#    #+#             */
-/*   Updated: 2021/03/11 22:09:18 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/03/17 15:36:20 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,10 +110,10 @@ void        ft_move_right(t_box *box)
 
 void        ft_rotate_left(t_box *box)
 {
-    box->pos.theta = ft_rot_theta(box, box->win.rotate_angle * -1);
+    box->pos.theta = ft_rot_angle(box->pos.theta, box->win.rotate_angle * -1);
 }
 
 void        ft_rotate_right(t_box *box)
 {
-    box->pos.theta = ft_rot_theta(box, box->win.rotate_angle);
+    box->pos.theta = ft_rot_angle(box->pos.theta, box->win.rotate_angle);
 }

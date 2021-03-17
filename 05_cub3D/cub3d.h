@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 14:21:41 by junghwki          #+#    #+#             */
-/*   Updated: 2021/03/11 22:13:26 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/03/17 17:00:32 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 
 // # include "./libft/libft.h"
 # include "./opengl/mlx.h"
+# include "./opengl_beta/mlx.h"
 # include <math.h>
 # include <stdlib.h>
 # include <stdio.h>
@@ -69,15 +70,15 @@ typedef struct	s_position {
 	double		tex;
 	int			map_x;
 	int			map_y;
+	int			visible_num;
 }				t_pos;
 
 typedef struct	s_sprite {
-	int			x;
-	int			y;
-	char		**visible;
-	int			tex;
+	double		x;
+	double		y;
+	int			visible;
+	double		angle;
 	double		dist;
-
 }				t_sprt;
 
 typedef struct	s_parsing {
@@ -89,6 +90,7 @@ typedef struct	s_parsing {
 	int			s_flag;
 	int			f_flag;
 	int			c_flag;
+	int			s_cnt;
 	char		*line;
 	char		**word;
 	char		*map;
@@ -120,7 +122,8 @@ typedef struct	s_box {
 	t_tex		so;
 	t_tex		no;
 	t_tex		s;
-	t_sprt		sprt;
+	t_sprt		*sprt;
+	t_sprt		*visible;
 	t_vec		dir;
 	t_vec		comp;
 }				t_box;
@@ -139,7 +142,7 @@ void			ft_background_init(t_box *box);
 double			ft_gradient_cmp(double x, double y);
 int				ft_exit(t_box *box);
 double			ft_deg_to_rad(double x);
-double			ft_rot_theta(t_box *box, double theta);
+double			ft_rot_angle(double angle, double theta);
 t_vec			ft_theta_check(double theta);
 void			ft_clear_sprt(t_box *box);//utils
 
@@ -177,9 +180,12 @@ int		ft_check_flag(t_box *box);
 int		ft_rowlen(char **array);
 void	ft_pars_init(t_box *box);
 void	ft_map_dup(t_box *box, char **src);
-int		ft_map_check(t_box *box);
+void	ft_map_check(t_box *box);
 void	ft_error();
+void	ft_dir_check(t_box *box);
+void	ft_array_free(char **array);
 ///////////////////////////////////////지워야될것
 void	ft_map_print(t_box *box);
+double		ft_rot_theta2(t_box *box, double base, double theta);
 //////////////////////////////////////
 #endif

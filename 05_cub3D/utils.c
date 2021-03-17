@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 14:20:38 by junghwki          #+#    #+#             */
-/*   Updated: 2021/03/11 22:19:37 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/03/17 15:37:30 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,30 +17,30 @@ void		ft_pixel_put(t_box *box, int x, int y, int color)
 	box->img.addr[(box->win.width * y) + x] = color;
 }
 
-void		ft_clear_sprt(t_box *box)
-{
-	int		i;
-	int		j;
+// void		ft_clear_sprt(t_box *box)
+// {
+// 	int		i;
+// 	int		j;
 	
-	i = 0;
-	box->sprt.visible = (char **)malloc(sizeof(char *) * box->win.row);
-	while(i < box->win.row)
-	{
-		box->sprt.visible[i] = (char *)malloc(sizeof(char) * box->win.col);
-		i++;
-	}
-	j = 0;
-	while(j < box->win.row)
-	{
-		i = 0;
-		while(i < box->win.col)
-		{
-			box->sprt.visible[j][i] = 0;
-			i++;
-		}
-		j++;
-	}
-}
+// 	i = 0;
+// 	box->sprt.visible = (char **)malloc(sizeof(char *) * box->win.row);
+// 	while(i < box->win.row)
+// 	{
+// 		box->sprt.visible[i] = (char *)malloc(sizeof(char) * box->win.col);
+// 		i++;
+// 	}
+// 	j = 0;
+// 	while(j < box->win.row)
+// 	{
+// 		i = 0;
+// 		while(i < box->win.col)
+// 		{
+// 			box->sprt.visible[j][i] = 0;
+// 			i++;
+// 		}
+// 		j++;
+// 	}
+// }
 
 void		ft_make_wall(t_box *box, int x, int y)
 {
@@ -181,36 +181,48 @@ double      ft_deg_to_rad(double x)
 
 t_vec		ft_theta_check(double theta)
 {
-	if(theta > ft_deg_to_rad(0) && theta < ft_deg_to_rad(90))
-		return(ft_new_vec(1,1));
-	else if(theta > ft_deg_to_rad(90) && theta < ft_deg_to_rad(180))
-		return(ft_new_vec(-1,1));
-	else if(theta > ft_deg_to_rad(180) && theta < ft_deg_to_rad(270))
-		return(ft_new_vec(-1,-1));
-	else if(theta > ft_deg_to_rad(270) && theta < ft_deg_to_rad(360))
-		return(ft_new_vec(1,-1));
-	else if(theta == ft_deg_to_rad(90))
-		return(ft_new_vec(0,1));
-	else if(theta == ft_deg_to_rad(180))
-		return(ft_new_vec(-1,0));
-	else if(theta == ft_deg_to_rad(270))
-		return(ft_new_vec(0,-1));
-	else if(theta == ft_deg_to_rad(360) || theta == ft_deg_to_rad(0))
-		return(ft_new_vec(1,0));
+	if (theta > ft_deg_to_rad(0) && theta < ft_deg_to_rad(90))
+		return (ft_new_vec(1, 1));
+	else if (theta > ft_deg_to_rad(90) && theta < ft_deg_to_rad(180))
+		return (ft_new_vec(-1, 1));
+	else if (theta > ft_deg_to_rad(180) && theta < ft_deg_to_rad(270))
+		return (ft_new_vec(-1, -1));
+	else if (theta > ft_deg_to_rad(270) && theta < ft_deg_to_rad(360))
+		return (ft_new_vec(1, -1));
+	else if (theta == ft_deg_to_rad(90))
+		return (ft_new_vec(0, 1));
+	else if (theta == ft_deg_to_rad(180))
+		return (ft_new_vec(-1, 0));
+	else if (theta == ft_deg_to_rad(270))
+		return (ft_new_vec(0, -1));
+	else if (theta == ft_deg_to_rad(360) || theta == ft_deg_to_rad(0))
+		return (ft_new_vec(1, 0));
 	else
-		return(ft_new_vec(0,0));
+		return (ft_new_vec(0, 0));
 }
 
-double		ft_rot_theta(t_box *box, double theta)
+double		ft_rot_angle(double angle, double theta)
 {
-	double	result;
+	double result;
 
-	result = box->pos.theta;
-	if(result + theta <= 0)
-		result = (result + (2 * M_PI)) + theta;
-	else if(result + theta >= 2 * M_PI)
-		result = (result - (2 * M_PI)) + theta;
-	else
-		result += theta;
+	result = angle + theta;
+	if (result <= 0)
+		result = (result + (2 * M_PI));
+	else if (result >= 2 * M_PI)
+		result = (result - (2 * M_PI));
 	return (result);
 }
+
+// double		ft_rot_theta(t_box *box, double theta)
+// {
+// 	double	result;
+
+// 	result = box->pos.theta;
+// 	if(result + theta <= 0)
+// 		result = (result + (2 * M_PI)) + theta;
+// 	else if(result + theta >= 2 * M_PI)
+// 		result = (result - (2 * M_PI)) + theta;
+// 	else
+// 		result += theta;
+// 	return (result);
+// }

@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 16:24:01 by junghwki          #+#    #+#             */
-/*   Updated: 2021/03/10 22:21:18 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/03/16 17:40:24 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static	int			ft_strclen(char *str, char c)
 
 int					get_next_line(int fd, char **line)
 {
-	static char		*next_buffer[1];
+	static char		*next_buffer[10];
 	char			*temp;
 	char			*buffer;
 	int				str_len;
