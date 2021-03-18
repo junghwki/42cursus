@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 14:21:20 by junghwki          #+#    #+#             */
-/*   Updated: 2021/03/18 19:00:21 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/03/18 19:33:48 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,12 @@ void ft_sprt_calc(t_box *box)
 	while (i < box->pars.s_cnt)
 	{
 		box->sprt[i].angle = ft_rot_angle(0, atan2(box->sprt[i].y - box->pos.y, box->sprt[i].x - box->pos.x));
-		if (box->sprt[i].angle >= box->pos.theta + (box->win.fov / -2) + ft_deg_to_rad(10) && 
-			box->sprt[i].angle <= box->pos.theta + (box->win.fov / 2) + ft_deg_to_rad(10) )
+		if (box->sprt[i].angle >= box->pos.theta + (box->win.fov / -2)&& 
+			box->sprt[i].angle <= box->pos.theta + (box->win.fov / 2))
 		{
 			box->pos.visible_num++;
 			box->sprt[i].visible = 1;
-			box->sprt[i].dist = ft_dist_calc(box->sprt[i].y - box->pos.y, box->sprt[i].x - box->pos.x);// * cos(box->sprt[i].angle -  box->pos.theta);
+			box->sprt[i].dist = ft_dist_calc(box->sprt[i].y - box->pos.y, box->sprt[i].x - box->pos.x) * cos(box->sprt[i].angle -  box->pos.theta);
 			// printf("x=%f\n",box->sprt[i].dist);
 		}
 		i++;
@@ -505,9 +505,8 @@ void	ft_sprite(t_box *box, double sprt_len, int sprt_x)
 {
 	int	x;
 	int	y;
-	int t;
-	double	tex_index;
-	int	y_index;
+	double	x_index;
+	double	y_index;
 	int start_x;
 	int start_y;
 
@@ -520,12 +519,14 @@ void	ft_sprite(t_box *box, double sprt_len, int sprt_x)
 		x = 0;
 		while (x < (2 * sprt_len) - 1)
 		{
-			if ((int)(y_index * (sprt_len * 2)) < (int)(y * box->s.height))
-				y_index = (int)(box->s.height * (double)(y / (sprt_len * 2)));
-			tex_index = (double)(box->s.width / (sprt_len * 2));//(int)(box->s.width * (double)(x / (sprt_len * 2))) + (box->s.width * y_index);
-			// if (start_x + x > 0 && start_x + x < box->win.width && start_y + y < box->win.height && box->s.addr[tex_index])
-			if (start_x + x > 0 && start_x + x < box->win.width && start_y + y < box->win.height && box->s.addr[(int)(y * box->s.width + (x * tex_index))])
-				ft_pixel_put(box, start_x + x, start_y + y, box->s.addr[(int)(y * box->s.width + (x * tex_index))]);
+			x_index = (double)(box->s.width / (sprt_len * 2));
+			y_index = (double)(box->s.height / (sprt_len * 2));
+			if (start_x + x > 0 && start_x + x < box->win.width &&
+				start_y + y < box->win.height && start_y + y > 0 &&
+				box->s.addr[(int)(x_index * x) + ((int)(y_index * y) * box->s.width)])
+			{
+				ft_pixel_put(box, start_x + x, start_y + y, box->s.addr[(int)(x_index * x) + ((int)(y_index * y) * box->s.width)]);
+			}
 			x++;
 		}
 		y++;
@@ -694,7 +695,7 @@ int ft_main_loop(t_box *box)
 	// ft_clear_image(box);
 	ft_draw_fov(box);
 	ft_sprt_calc(box);
-	ft_sprite_check(box);
+	// ft_sprite_check(box);
 	ft_draw_wall(box);
 	// ft_draw_grid(box);
 	// ft_draw_player(box);
