@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 14:21:41 by junghwki          #+#    #+#             */
-/*   Updated: 2021/03/17 17:00:32 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/03/18 15:34:26 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,6 +186,7 @@ void	ft_dir_check(t_box *box);
 void	ft_array_free(char **array);
 ///////////////////////////////////////지워야될것
 void	ft_map_print(t_box *box);
+void		ft_make_sprt(t_box *box, int x, int y);
 double		ft_rot_theta2(t_box *box, double base, double theta);
 //////////////////////////////////////
 #endif

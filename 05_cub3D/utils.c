@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 14:20:38 by junghwki          #+#    #+#             */
-/*   Updated: 2021/03/17 15:37:30 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/03/18 15:35:29 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,24 @@ void		ft_make_wall(t_box *box, int x, int y)
 	}
 }
 
+void		ft_make_sprt(t_box *box, int x, int y)
+{
+	int		first_x;
+	int		first_y;
+
+	first_y = y * box->win.height_len;
+	while(first_y < (box->win.height_len + (y * box->win.height_len)))
+	{
+		first_x = x * box->win.width_len;
+		while(first_x < (box->win.width_len + (x * box->win.width_len)))
+		{
+			ft_pixel_put(box, first_x, first_y, 0x5555FF);
+			first_x++;
+		}
+		first_y++;
+	}
+}
+
 void		ft_draw_wall(t_box *box)
 {
 	int		row;
@@ -73,6 +91,10 @@ void		ft_draw_wall(t_box *box)
 		{
 			if(box->win.map[row][col] == '1')
 				ft_make_wall(box, col, row);
+				///////////
+			if(box->win.map[row][col] == '2')
+				ft_make_sprt(box, col, row);
+				//////////
 			col++;
 		}
 		row++;
