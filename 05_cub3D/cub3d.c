@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 14:21:20 by junghwki          #+#    #+#             */
-/*   Updated: 2021/03/23 17:47:50 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/03/23 20:06:08 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,20 +50,23 @@ void	ft_sprt_calc(t_box *box)
 {
 	int i;
 	int j;
+	double	min_angle;
+	double	max_angle;
 
 	i = 0;
 	box->pos.visible_num = 0;
 	while (i < box->pars.s_cnt)
 	{
-		box->sprt[i].angle = ft_rot_angle(0, atan2(box->sprt[i].y - box->pos.y, box->sprt[i].x - box->pos.x));
-		if (box->sprt[i].angle >= ft_rot_angle(box->pos.theta, (box->win.fov / -2)) && 
-			box->sprt[i].angle <= ft_rot_angle(box->pos.theta, (box->win.fov / 2)))
+		// box->sprt[i].angle = ft_rot_angle(0, atan2(box->sprt[i].y - box->pos.y, box->sprt[i].x - box->pos.x));
+		box->sprt[i].angle = atan2(box->sprt[i].y - box->pos.y, box->sprt[i].x - box->pos.x);
+		if (box->sprt[i].angle - box->pos.theta > (box->pos.theta + ft_deg_to_rad(45)) &&
+		box->sprt[i].angle - box->pos.theta < box->pos.theta - ft_deg_to_rad(45))
 		// if (box->sprt[i].angle >= box->pos.theta + (box->win.fov / -2) && 
 		// 	box->sprt[i].angle <= box->pos.theta + (box->win.fov / 2))
 		{
 			box->pos.visible_num++;
 			box->sprt[i].visible = 1;
-			box->sprt[i].dist = ft_dist_calc(box->sprt[i].y - box->pos.y, box->sprt[i].x - box->pos.x) * cos(box->sprt[i].angle -  box->pos.theta);
+			box->sprt[i].dist = ft_dist_calc(box->sprt[i].y - box->pos.y, box->sprt[i].x - box->pos.x) * cos(box->sprt[i].angle - box->pos.theta);
 		}
 		i++;
 	}
@@ -251,7 +254,8 @@ void	ft_sprite(t_box *box, double sprt_len, int sprt_x)
 			y_index = (double)(box->s.height / (sprt_len * 2));
 			if (start_x + x > 0 && start_x + x < box->win.width &&
 				start_y + y > 0 && start_y + y < box->win.height &&
-				box->s.addr[(int)(x_index * x) + ((int)(y_index * y) * box->s.width)])
+				box->s.addr[(int)(x_index * x) + ((int)(y_index * y) * box->s.width)] &&
+				box->pos.x_height[start_x + x] < sprt_len)
 				ft_pixel_put(box, start_x + x, start_y + y, box->s.addr[(int)(x_index * x) + ((int)(y_index * y) * box->s.width)]);
 			x++;
 		}
@@ -291,8 +295,8 @@ void 	ft_draw_fov(t_box *box)
 	while (x < box->win.width)
 	{
 		ray_theta = atan(ray / box->win.dis);
-		wall_height = (box->win.height / (ft_wall_check(box, ray_theta))) / 2;
-		ft_draw_tex(box, wall_height, x);
+		box->pos.x_height[x] = (box->win.height / ft_wall_check(box, ray_theta)) / 2;
+		ft_draw_tex(box, box->pos.x_height[x], x);
 		box->comp.x = 0;
 		box->comp.y = 0;
 		ray++;

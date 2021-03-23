@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 14:21:41 by junghwki          #+#    #+#             */
-/*   Updated: 2021/03/23 16:24:12 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/03/23 19:02:49 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef struct	s_position {
 	double		y;
 	double		theta;
 	double		tex;
+	double		*x_height;
 	t_vec		dir;
 	int			map_x;
 	int			map_y;

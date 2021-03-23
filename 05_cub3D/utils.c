@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 14:20:38 by junghwki          #+#    #+#             */
-/*   Updated: 2021/03/23 16:39:34 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/03/23 19:04:10 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -255,4 +255,5 @@ void 		ft_box_set(t_box *box)
 	box->no.addr = (int *)mlx_get_data_addr(box->no.ptr, &box->img.bits_per_pixel, &box->no.size_line, &box->no.endian);
 	box->s.ptr = mlx_xpm_file_to_image(box->mlx.ft_mlx, box->s.route, &box->s.width, &box->s.height);
 	box->s.addr = (int *)mlx_get_data_addr(box->s.ptr, &box->img.bits_per_pixel, &box->s.size_line, &box->s.endian);
+	box->pos.x_height = (double *)malloc(sizeof(double) * box->win.width);
 }
