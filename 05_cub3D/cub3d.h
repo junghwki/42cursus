@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 14:21:41 by junghwki          #+#    #+#             */
-/*   Updated: 2021/03/18 15:34:26 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/03/23 16:24:12 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,11 @@ typedef struct	s_mlx {
 	void		*ft_mlx;
 	void		*ft_win;
 }				t_mlx;
+
+typedef struct	s_vector {
+	double		x;
+	double		y;
+}				t_vec;
 
 typedef struct	s_window {
 	int			width;
@@ -68,6 +73,7 @@ typedef struct	s_position {
 	double		y;
 	double		theta;
 	double		tex;
+	t_vec		dir;
 	int			map_x;
 	int			map_y;
 	int			visible_num;
@@ -105,11 +111,6 @@ typedef struct	s_key {
 	int			right;
 }				t_key;
 
-typedef struct	s_vector {
-	double		x;
-	double		y;
-}				t_vec;
-
 typedef struct	s_box {
 	t_mlx		mlx;
 	t_win		win;
@@ -124,7 +125,6 @@ typedef struct	s_box {
 	t_tex		s;
 	t_sprt		*sprt;
 	t_sprt		*visible;
-	t_vec		dir;
 	t_vec		comp;
 }				t_box;
 
@@ -134,14 +134,18 @@ double		ft_wall_check(t_box *box, double theta);
 void		ft_draw_fov(t_box *box);
 void		ft_box_set(t_box *box);
 int			ft_main_loop(t_box *box);
+int			ft_key_press(int keycode, t_box *box);
+int			ft_key_release(int keycode, t_box *box);
+int 		ft_player_move(t_box *box);
 
-
+void 		ft_box_set(t_box *box);
 void			ft_pixel_put(t_box *box, int x, int y, int color);//utils
 void			ft_clear_image(t_box *box);
 void			ft_background_init(t_box *box);
 double			ft_gradient_cmp(double x, double y);
 int				ft_exit(t_box *box);
 double			ft_deg_to_rad(double x);
+double			ft_dist_calc(double x, double y);
 double			ft_rot_angle(double angle, double theta);
 t_vec			ft_theta_check(double theta);
 void			ft_clear_sprt(t_box *box);//utils
@@ -166,16 +170,25 @@ t_vec           ft_rot_vec(t_vec a, double theta);//vector
 
 int				get_next_line(int fd, char **line);//gnl
 ////////////////////libft
-int	ft_atoi(const char *str);
-char				**ft_split(const char *s, char c);
+int		ft_atoi(const char *str);
+char	**ft_split(const char *s, char c);
 char	*ft_strdup(const char *s1);
 char	*ft_strjoin(char const *s1, char const *s2);
-int	ft_strlcat(char *dst, const char *src, int dstsize);
-int	ft_strlcpy(char *dst, const char *src, int dstsize);
-int	ft_strlen(const char *s);
-int	ft_strcmp(const char *s1, const char *s2);
-int	ft_isdigit(int c);
-///////////////////////////////
+int		ft_strlcat(char *dst, const char *src, int dstsize);
+int		ft_strlcpy(char *dst, const char *src, int dstsize);
+int		ft_strlen(const char *s);
+int		ft_strcmp(const char *s1, const char *s2);
+int		ft_isdigit(int c);
+///////////////////////////////sprt
+void 	ft_sprt_pos(t_box *box);
+
+//////////////////////////////sprt
+
+///////////////////////////////parsing
+void 	ft_nbr_check(char *nbr);
+void 	ft_map_print(t_box *box);
+void 	ft_make_base(t_box *box);
+void 	ft_get_map(t_box *box, int fd);
 int		ft_check_flag(t_box *box);
 int		ft_rowlen(char **array);
 void	ft_pars_init(t_box *box);
@@ -184,9 +197,10 @@ void	ft_map_check(t_box *box);
 void	ft_error();
 void	ft_dir_check(t_box *box);
 void	ft_array_free(char **array);
+///////////////////////////////parsing
 ///////////////////////////////////////지워야될것
 void	ft_map_print(t_box *box);
-void		ft_make_sprt(t_box *box, int x, int y);
-double		ft_rot_theta2(t_box *box, double base, double theta);
+void	ft_make_sprt(t_box *box, int x, int y);
+void 	ft_draw_dir(t_box *box);
 //////////////////////////////////////
 #endif

@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 14:20:38 by junghwki          #+#    #+#             */
-/*   Updated: 2021/03/18 15:35:29 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/03/23 16:39:34 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,31 +16,6 @@ void		ft_pixel_put(t_box *box, int x, int y, int color)
 {
 	box->img.addr[(box->win.width * y) + x] = color;
 }
-
-// void		ft_clear_sprt(t_box *box)
-// {
-// 	int		i;
-// 	int		j;
-	
-// 	i = 0;
-// 	box->sprt.visible = (char **)malloc(sizeof(char *) * box->win.row);
-// 	while(i < box->win.row)
-// 	{
-// 		box->sprt.visible[i] = (char *)malloc(sizeof(char) * box->win.col);
-// 		i++;
-// 	}
-// 	j = 0;
-// 	while(j < box->win.row)
-// 	{
-// 		i = 0;
-// 		while(i < box->win.col)
-// 		{
-// 			box->sprt.visible[j][i] = 0;
-// 			i++;
-// 		}
-// 		j++;
-// 	}
-// }
 
 void		ft_make_wall(t_box *box, int x, int y)
 {
@@ -57,6 +32,24 @@ void		ft_make_wall(t_box *box, int x, int y)
 			first_x++;
 		}
 		first_y++;
+	}
+}
+
+void 		ft_draw_dir(t_box *box)
+{
+	int i;
+	double x;
+	double y;
+
+	i = 0;
+	x = box->pos.x * box->win.width_len;
+	y = box->pos.y * box->win.height_len;
+	while (i < box->win.width_len / 2)
+	{
+		ft_pixel_put(box, x, y, 0x00FF00);
+		i++;
+		x += cos(box->pos.theta);
+		y += sin(box->pos.theta);
 	}
 }
 
@@ -190,7 +183,7 @@ int         ft_exit(t_box *box)
 	return (0);
 }
 
-void			ft_error()
+void		ft_error()
 {
 	printf("Error\n");
 	exit(0);
@@ -199,6 +192,11 @@ void			ft_error()
 double      ft_deg_to_rad(double x)
 {
     return (x * M_PI / 180);
+}
+
+double		ft_dist_calc(double x, double y)
+{
+	return (sqrt(pow(x, 2) + pow(y, 2)));
 }
 
 t_vec		ft_theta_check(double theta)
@@ -235,16 +233,26 @@ double		ft_rot_angle(double angle, double theta)
 	return (result);
 }
 
-// double		ft_rot_theta(t_box *box, double theta)
-// {
-// 	double	result;
-
-// 	result = box->pos.theta;
-// 	if(result + theta <= 0)
-// 		result = (result + (2 * M_PI)) + theta;
-// 	else if(result + theta >= 2 * M_PI)
-// 		result = (result - (2 * M_PI)) + theta;
-// 	else
-// 		result += theta;
-// 	return (result);
-// }
+void 		ft_box_set(t_box *box)
+{
+	box->win.width_len = box->win.width / box->win.col;
+	box->win.height_len = box->win.height / box->win.row;
+	box->win.move_speed = 0.06;
+	box->win.fov = ft_deg_to_rad(90);
+	box->win.dis = box->win.width / tan(box->win.fov / 2);
+	box->win.rotate_angle = ft_deg_to_rad(3);
+	box->mlx.ft_mlx = mlx_init();
+	box->mlx.ft_win = mlx_new_window(box->mlx.ft_mlx, box->win.width, box->win.height, "cub3D");
+	box->img.img = mlx_new_image(box->mlx.ft_mlx, box->win.width, box->win.height);
+	box->img.addr = (int *)mlx_get_data_addr(box->img.img, &box->img.bits_per_pixel, &box->img.size_line, &box->img.endian);
+	box->ea.ptr = mlx_xpm_file_to_image(box->mlx.ft_mlx, box->ea.route, &box->ea.width, &box->ea.height);
+	box->ea.addr = (int *)mlx_get_data_addr(box->ea.ptr, &box->ea.bits_per_pixel, &box->ea.size_line, &box->ea.endian);
+	box->we.ptr = mlx_xpm_file_to_image(box->mlx.ft_mlx, box->we.route, &box->we.width, &box->we.height);
+	box->we.addr = (int *)mlx_get_data_addr(box->we.ptr, &box->img.bits_per_pixel, &box->we.size_line, &box->we.endian);
+	box->so.ptr = mlx_xpm_file_to_image(box->mlx.ft_mlx, box->so.route, &box->so.width, &box->so.height);
+	box->so.addr = (int *)mlx_get_data_addr(box->so.ptr, &box->img.bits_per_pixel, &box->so.size_line, &box->so.endian);
+	box->no.ptr = mlx_xpm_file_to_image(box->mlx.ft_mlx, box->no.route, &box->no.width, &box->no.height);
+	box->no.addr = (int *)mlx_get_data_addr(box->no.ptr, &box->img.bits_per_pixel, &box->no.size_line, &box->no.endian);
+	box->s.ptr = mlx_xpm_file_to_image(box->mlx.ft_mlx, box->s.route, &box->s.width, &box->s.height);
+	box->s.addr = (int *)mlx_get_data_addr(box->s.ptr, &box->img.bits_per_pixel, &box->s.size_line, &box->s.endian);
+}
