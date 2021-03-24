@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 14:21:20 by junghwki          #+#    #+#             */
-/*   Updated: 2021/03/23 20:06:08 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/03/24 20:20:36 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,19 +50,23 @@ void	ft_sprt_calc(t_box *box)
 {
 	int i;
 	int j;
-	double	min_angle;
-	double	max_angle;
+	double min_angle;
+	double max_angle;
 
 	i = 0;
 	box->pos.visible_num = 0;
 	while (i < box->pars.s_cnt)
 	{
 		// box->sprt[i].angle = ft_rot_angle(0, atan2(box->sprt[i].y - box->pos.y, box->sprt[i].x - box->pos.x));
+		// if (box->sprt[i].angle < ft_rot_angle(box->pos.theta, ft_deg_to_rad(45)) &&
+		// 	box->sprt[i].angle > ft_rot_angle(box->pos.theta, ft_deg_to_rad(-45)))
 		box->sprt[i].angle = atan2(box->sprt[i].y - box->pos.y, box->sprt[i].x - box->pos.x);
-		if (box->sprt[i].angle - box->pos.theta > (box->pos.theta + ft_deg_to_rad(45)) &&
-		box->sprt[i].angle - box->pos.theta < box->pos.theta - ft_deg_to_rad(45))
-		// if (box->sprt[i].angle >= box->pos.theta + (box->win.fov / -2) && 
-		// 	box->sprt[i].angle <= box->pos.theta + (box->win.fov / 2))
+		min_angle = theta_change(box->pos.theta - ft_deg_to_rad(45));
+		max_angle = theta_change(box->pos.theta + ft_deg_to_rad(45));
+		// printf("%d\n\n sprt angle=%f\n",i,box->sprt[i].angle);
+		// printf("minangle=%f\nmaxangle=%f\n",min_angle,max_angle);
+		if (box->sprt[i].angle >= min_angle && 
+			box->sprt[i].angle <= max_angle)
 		{
 			box->pos.visible_num++;
 			box->sprt[i].visible = 1;
@@ -70,6 +74,7 @@ void	ft_sprt_calc(t_box *box)
 		}
 		i++;
 	}
+			// printf("%d\n\na\n\n\n",box->pos.visible_num);
 	i = 0;
 	j = 0;
 	while (i < box->pars.s_cnt)//////////시야안에 있는 구조체를 visible구조체로 복사
@@ -77,10 +82,12 @@ void	ft_sprt_calc(t_box *box)
 		if (box->sprt[i].visible)
 		{
 			box->visible[j] = box->sprt[i];
+	// printf("visible i = %d\n",i);
 			j++;
 		}
 		i++;
 	}
+	// printf("%d\n",j);
 	j = 0;
 	while (j < box->pos.visible_num - 1)///////////구조체 정렬
 	{
@@ -206,31 +213,31 @@ double 	ft_wall_check(t_box *box, double theta)
 	return (0);
 }
 
-void	ft_draw_sprite(t_box *box, double sprt_height, int x)
-{
-	int y;
-	int height;
-	int y_index;
-	int tex_index;
-	int start_x;
-	y = 0;
-	tex_index = 0;
-	height = (box->win.height / 2) - sprt_height;
-	y_index = 0;
-	start_x = x - sprt_height;
-	while ((y < (sprt_height * 2) - 1) && (y < box->win.height))
-	{
-		while (start_x < x + sprt_height)
-		{
-			if (x >= 0 && x < box->win.width && y >= 0 && y < box->win.height)
-			{
-				ft_pixel_put(box, x, y + height, 0x111111);	
-			}
-			start_x++;
-		}
-		y++;
-	}
-}
+// void	ft_draw_sprite(t_box *box, double sprt_height, int x)
+// {
+// 	int y;
+// 	int height;
+// 	int y_index;
+// 	int tex_index;
+// 	int start_x;
+// 	y = 0;
+// 	tex_index = 0;
+// 	height = (box->win.height / 2) - sprt_height;
+// 	y_index = 0;
+// 	start_x = x - sprt_height;
+// 	while ((y < (sprt_height * 2) - 1) && (y < box->win.height))
+// 	{
+// 		while (start_x < x + sprt_height)
+// 		{
+// 			if (x >= 0 && x < box->win.width && y >= 0 && y < box->win.height)
+// 			{
+// 				ft_pixel_put(box, x, y + height, 0x111111);	
+// 			}
+// 			start_x++;
+// 		}
+// 		y++;
+// 	}
+// }
 
 void	ft_sprite(t_box *box, double sprt_len, int sprt_x)
 {
@@ -274,6 +281,7 @@ void	ft_sprite_check(t_box *box)
 	i = 0;
 	while (i < box->pos.visible_num)
 	{
+		printf("%d\n",i);
 		sprt_angle = box->pos.theta - box->visible[i].angle;
 		sprt_height = (box->win.height / box->visible[i].dist) / 2;
 		sprt_dis = (double)(sprt_angle * box->win.width) / box->win.fov;

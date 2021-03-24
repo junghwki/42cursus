@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 14:21:41 by junghwki          #+#    #+#             */
-/*   Updated: 2021/03/23 19:02:49 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/03/24 19:29:38 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <fcntl.h>
+# include <string.h>
 
 typedef struct	s_mlx {
 	void		*ft_mlx;
@@ -203,5 +204,6 @@ void	ft_array_free(char **array);
 void	ft_map_print(t_box *box);
 void	ft_make_sprt(t_box *box, int x, int y);
 void 	ft_draw_dir(t_box *box);
+double		theta_change(double theta);
 //////////////////////////////////////
 #endif

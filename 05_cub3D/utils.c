@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 14:20:38 by junghwki          #+#    #+#             */
-/*   Updated: 2021/03/23 19:04:10 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/03/24 20:02:32 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,7 +230,22 @@ double		ft_rot_angle(double angle, double theta)
 		result = (result + (2 * M_PI));
 	else if (result >= 2 * M_PI)
 		result = (result - (2 * M_PI));
+		///////////
+	// if (result >= ft_deg_to_rad(180))
+	// {
+	// 	return(result - 2 * M_PI);
+	// }
+	// return (theta);
 	return (result);
+}
+
+double		theta_change(double theta)
+{
+	if (theta >= ft_deg_to_rad(180))
+	{
+		return(theta - 2 * M_PI);
+	}
+	return (theta);
 }
 
 void 		ft_box_set(t_box *box)
