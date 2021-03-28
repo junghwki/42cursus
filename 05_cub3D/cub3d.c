@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 14:21:20 by junghwki          #+#    #+#             */
-/*   Updated: 2021/03/28 19:53:28 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/03/28 21:22:51 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,22 @@ void	ft_sprt_calc(t_box *box)
 	i = 0;
 	while (i < box->pars.s_cnt)
 	{
+		// box->sprt[i].angle = atan2(box->sprt[i].y - box->pos.y, box->sprt[i].x - box->pos.x);
+		// if (box->sprt[i].angle < box->pos.theta + ft_deg_to_rad(50) && box->sprt[i].angle > box->pos.theta + ft_deg_to_rad(-50))
 		box->sprt[i].angle = atan2(box->sprt[i].y - box->pos.y, box->sprt[i].x - box->pos.x);
 		if (box->sprt[i].angle < box->pos.theta + ft_deg_to_rad(50) && box->sprt[i].angle > box->pos.theta + ft_deg_to_rad(-50))
+		{
+			box->pos.visible_num++;
+			box->sprt[i].visible = 1;
+			box->sprt[i].dist = ft_dist_calc(box->sprt[i].y - box->pos.y, box->sprt[i].x - box->pos.x) * cos(box->sprt[i].angle - box->pos.theta);
+		}
+		else if (box->sprt[i].angle + M_PI * 2 < box->pos.theta + ft_deg_to_rad(50) && box->sprt[i].angle + M_PI * 2 > box->pos.theta + ft_deg_to_rad(-50))
+		{
+			box->pos.visible_num++;
+			box->sprt[i].visible = 1;
+			box->sprt[i].dist = ft_dist_calc(box->sprt[i].y - box->pos.y, box->sprt[i].x - box->pos.x) * cos(box->sprt[i].angle - box->pos.theta);
+		}
+		else if (box->sprt[i].angle - M_PI * 2 < box->pos.theta + ft_deg_to_rad(50) && box->sprt[i].angle - M_PI * 2 > box->pos.theta + ft_deg_to_rad(-50))
 		{
 			box->pos.visible_num++;
 			box->sprt[i].visible = 1;
