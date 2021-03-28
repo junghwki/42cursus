@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 14:20:38 by junghwki          #+#    #+#             */
-/*   Updated: 2021/03/24 20:02:32 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/03/28 19:58:26 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,18 +49,42 @@ void 		ft_draw_dir(t_box *box)
 	int i;
 	double x;
 	double y;
+	double dir_theta;
 
-	i = 0;
-	x = box->pos.x * box->win.width_len;
-	y = box->pos.y * box->win.height_len;
-	while (i < box->win.width_len / 2)
+	dir_theta = box->pos.theta - (box->win.fov / 2);
+	while (dir_theta < box->pos.theta + (box->win.fov / 2))
 	{
-		ft_pixel_put(box, x, y, 0x00FF00);
-		i++;
-		x += cos(box->pos.theta);
-		y += sin(box->pos.theta);
+		i = 0;
+		x = box->pos.x * box->win.width_len;
+		y = box->pos.y * box->win.height_len;
+		while (i < box->win.width_len * 2)
+		{
+			ft_pixel_put(box, x, y, 0x00FF00);
+			x += cos(dir_theta);
+			y += sin(dir_theta);
+			i++;
+		}
+		dir_theta += ft_deg_to_rad(5);
 	}
 }
+
+// void 		ft_draw_dir(t_box *box)
+// {
+// 	int i;
+// 	double x;
+// 	double y;
+
+// 	i = 0;
+// 	x = box->pos.x * box->win.width_len;
+// 	y = box->pos.y * box->win.height_len;
+// 	while (i < box->win.width_len / 2)
+// 	{
+// 		ft_pixel_put(box, x, y, 0x00FF00);
+// 		i++;
+// 		x += cos(box->pos.theta);
+// 		y += sin(box->pos.theta);
+// 	}
+// }
 
 void		ft_make_sprt(t_box *box, int x, int y)
 {
@@ -235,9 +259,9 @@ double		ft_rot_angle(double angle, double theta)
 	double result;
 
 	result = angle + theta;
-	if (result <= -1 * M_PI)
+	if (result < -1 * M_PI)
 		result = (result + (2 * M_PI));
-	else if (result >= M_PI)
+	else if (result > M_PI)
 		result = (result - (2 * M_PI));
 	return (result);
 }

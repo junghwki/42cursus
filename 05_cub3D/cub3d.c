@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 14:21:20 by junghwki          #+#    #+#             */
-/*   Updated: 2021/03/24 20:20:36 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/03/28 19:53:28 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	ft_sprt_calc(t_box *box)
 		{
 			box->pos.visible_num++;
 			box->sprt[i].visible = 1;
-			box->sprt[i].dist = ft_dist_calc(box->sprt[i].y - box->pos.y, box->sprt[i].x - box->pos.x) * cos(ft_rot_angle(box->sprt[i].angle, -1 * box->pos.theta));
+			box->sprt[i].dist = ft_dist_calc(box->sprt[i].y - box->pos.y, box->sprt[i].x - box->pos.x) * cos(box->sprt[i].angle - box->pos.theta);
 		}
 		i++;
 	}
@@ -86,6 +86,7 @@ void	ft_sprt_calc(t_box *box)
 		}
 		j++;
 	}
+	printf("%d\n",box->pos.visible_num);
 }
 
 void 	ft_draw_tex(t_box *box, double wall_height, int x)
@@ -162,7 +163,6 @@ double 	ft_wall_check(t_box *box, double theta)
 	box->pos.dir = ft_theta_check(rotate_theta);
 	delta_x = fabs(1 / cos(rotate_theta));
 	delta_y = fabs(1 / sin(rotate_theta));
-	ft_draw_dir(box);
 	if (box->pos.dir.x < 0)
 		side_x = (box->pos.x - box->pos.map_x) * delta_x;
 	else
@@ -198,32 +198,6 @@ double 	ft_wall_check(t_box *box, double theta)
 	}
 	return (0);
 }
-
-// void	ft_draw_sprite(t_box *box, double sprt_height, int x)
-// {
-// 	int y;
-// 	int height;
-// 	int y_index;
-// 	int tex_index;
-// 	int start_x;
-// 	y = 0;
-// 	tex_index = 0;
-// 	height = (box->win.height / 2) - sprt_height;
-// 	y_index = 0;
-// 	start_x = x - sprt_height;
-// 	while ((y < (sprt_height * 2) - 1) && (y < box->win.height))
-// 	{
-// 		while (start_x < x + sprt_height)
-// 		{
-// 			if (x >= 0 && x < box->win.width && y >= 0 && y < box->win.height)
-// 			{ c
-// 				ft_pixel_put(box, x, y + height, 0x111111);	
-// 			}
-// 			start_x++;
-// 		}
-// 		y++;
-// 	}
-// }
 
 void	ft_sprite(t_box *box, double sprt_len, int sprt_x)
 {
@@ -269,10 +243,8 @@ void	ft_sprite_check(t_box *box)
 	while (i < box->pos.visible_num)
 	{
 		sprt_angle = ft_rot_angle(box->visible[i].angle, -1 * box->pos.theta);
-		// sprt_angle = box->visible[i].angle - box->pos.theta;
 		sprt_height = (box->win.height / box->visible[i].dist) / 2;
-		sprt_dis = (double)(sprt_angle * box->win.width) / box->win.fov;
-		printf("%d=%f\n%f\n\n",i,sprt_angle,sprt_dis);
+		sprt_dis = tan(sprt_angle) * box->win.dis;
 		start_x = (int)((box->win.width / 2) + sprt_dis);
 		ft_sprite(box, sprt_height, start_x);
 		i++;
@@ -309,10 +281,10 @@ int 	ft_main_loop(t_box *box)
 	ft_sprite_check(box);
 	// ft_draw_wall(box);
 	// ft_draw_grid(box);
-	ft_draw_player(box);
+	// ft_draw_dir(box);
+	// ft_draw_player(box);
 	ft_player_move(box);
 	mlx_put_image_to_window(box->mlx.ft_mlx, box->mlx.ft_win, box->img.img, 0, 0);
-	// printf("%f\n",box->pos.theta);
 	return (0);
 }
 
