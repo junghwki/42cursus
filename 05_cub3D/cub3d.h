@@ -141,6 +141,7 @@ int			ft_key_release(int keycode, t_box *box);
 int 		ft_player_move(t_box *box);
 
 void 		ft_box_set(t_box *box);
+void 		ft_sprt_swap(t_sprt *a, t_sprt *b);
 void			ft_pixel_put(t_box *box, int x, int y, int color);//utils
 void			ft_clear_image(t_box *box);
 void			ft_background_init(t_box *box);

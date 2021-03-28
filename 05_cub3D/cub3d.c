@@ -12,15 +12,6 @@
 
 #include "cub3d.h"
 
-void 	ft_sprt_swap(t_sprt *a, t_sprt *b)
-{
-	t_sprt temp;
-
-	temp = *a;
-	*a = *b;
-	*b = temp;
-}
-
 void 	ft_sprt_pos(t_box *box)
 {
 	int i;
@@ -50,31 +41,28 @@ void	ft_sprt_calc(t_box *box)
 {
 	int i;
 	int j;
-	double min_angle;
-	double max_angle;
 
 	i = 0;
 	box->pos.visible_num = 0;
+	while(i < box->pars.s_cnt)
+	{
+		box->sprt[i].visible = 0;
+		box->sprt[i].angle = 0;
+		box->sprt[i].dist = 0;
+		i++;
+	}
+	i = 0;
 	while (i < box->pars.s_cnt)
 	{
-		// box->sprt[i].angle = ft_rot_angle(0, atan2(box->sprt[i].y - box->pos.y, box->sprt[i].x - box->pos.x));
-		// if (box->sprt[i].angle < ft_rot_angle(box->pos.theta, ft_deg_to_rad(45)) &&
-		// 	box->sprt[i].angle > ft_rot_angle(box->pos.theta, ft_deg_to_rad(-45)))
 		box->sprt[i].angle = atan2(box->sprt[i].y - box->pos.y, box->sprt[i].x - box->pos.x);
-		min_angle = theta_change(box->pos.theta - ft_deg_to_rad(45));
-		max_angle = theta_change(box->pos.theta + ft_deg_to_rad(45));
-		// printf("%d\n\n sprt angle=%f\n",i,box->sprt[i].angle);
-		// printf("minangle=%f\nmaxangle=%f\n",min_angle,max_angle);
-		if (box->sprt[i].angle >= min_angle && 
-			box->sprt[i].angle <= max_angle)
+		if (box->sprt[i].angle < box->pos.theta + ft_deg_to_rad(50) && box->sprt[i].angle > box->pos.theta + ft_deg_to_rad(-50))
 		{
 			box->pos.visible_num++;
 			box->sprt[i].visible = 1;
-			box->sprt[i].dist = ft_dist_calc(box->sprt[i].y - box->pos.y, box->sprt[i].x - box->pos.x) * cos(box->sprt[i].angle - box->pos.theta);
+			box->sprt[i].dist = ft_dist_calc(box->sprt[i].y - box->pos.y, box->sprt[i].x - box->pos.x) * cos(ft_rot_angle(box->sprt[i].angle, -1 * box->pos.theta));
 		}
 		i++;
 	}
-			// printf("%d\n\na\n\n\n",box->pos.visible_num);
 	i = 0;
 	j = 0;
 	while (i < box->pars.s_cnt)//////////시야안에 있는 구조체를 visible구조체로 복사
@@ -82,12 +70,10 @@ void	ft_sprt_calc(t_box *box)
 		if (box->sprt[i].visible)
 		{
 			box->visible[j] = box->sprt[i];
-	// printf("visible i = %d\n",i);
 			j++;
 		}
 		i++;
 	}
-	// printf("%d\n",j);
 	j = 0;
 	while (j < box->pos.visible_num - 1)///////////구조체 정렬
 	{
@@ -230,7 +216,7 @@ double 	ft_wall_check(t_box *box, double theta)
 // 		while (start_x < x + sprt_height)
 // 		{
 // 			if (x >= 0 && x < box->win.width && y >= 0 && y < box->win.height)
-// 			{
+// 			{ c
 // 				ft_pixel_put(box, x, y + height, 0x111111);	
 // 			}
 // 			start_x++;
@@ -264,6 +250,7 @@ void	ft_sprite(t_box *box, double sprt_len, int sprt_x)
 				box->s.addr[(int)(x_index * x) + ((int)(y_index * y) * box->s.width)] &&
 				box->pos.x_height[start_x + x] < sprt_len)
 				ft_pixel_put(box, start_x + x, start_y + y, box->s.addr[(int)(x_index * x) + ((int)(y_index * y) * box->s.width)]);
+				// ft_pixel_put(box, start_x + x, start_y + y, 0x000000);
 			x++;
 		}
 		y++;
@@ -273,7 +260,7 @@ void	ft_sprite(t_box *box, double sprt_len, int sprt_x)
 void	ft_sprite_check(t_box *box)
 {
 	double	sprt_angle;
-	int		sprt_dis;
+	double		sprt_dis;
 	int 	i;
 	int		start_x;
 	double	sprt_height;
@@ -281,11 +268,12 @@ void	ft_sprite_check(t_box *box)
 	i = 0;
 	while (i < box->pos.visible_num)
 	{
-		printf("%d\n",i);
-		sprt_angle = box->pos.theta - box->visible[i].angle;
+		sprt_angle = ft_rot_angle(box->visible[i].angle, -1 * box->pos.theta);
+		// sprt_angle = box->visible[i].angle - box->pos.theta;
 		sprt_height = (box->win.height / box->visible[i].dist) / 2;
 		sprt_dis = (double)(sprt_angle * box->win.width) / box->win.fov;
-		start_x = (int)((box->win.width / 2) - sprt_dis);
+		printf("%d=%f\n%f\n\n",i,sprt_angle,sprt_dis);
+		start_x = (int)((box->win.width / 2) + sprt_dis);
 		ft_sprite(box, sprt_height, start_x);
 		i++;
 	}
@@ -315,16 +303,16 @@ void 	ft_draw_fov(t_box *box)
 int 	ft_main_loop(t_box *box)
 {
 	mlx_clear_window(box->mlx.ft_mlx, box->mlx.ft_win);
-	ft_player_move(box);
 	ft_background_init(box);
 	ft_draw_fov(box);
 	ft_sprt_calc(box);
 	ft_sprite_check(box);
-	ft_draw_wall(box);
+	// ft_draw_wall(box);
 	// ft_draw_grid(box);
-	// ft_draw_player(box);
+	ft_draw_player(box);
+	ft_player_move(box);
 	mlx_put_image_to_window(box->mlx.ft_mlx, box->mlx.ft_win, box->img.img, 0, 0);
-	mlx_put_image_to_window(box->mlx.ft_mlx, box->mlx.ft_win, box->s.addr, 0, 0);
+	// printf("%f\n",box->pos.theta);
 	return (0);
 }
 

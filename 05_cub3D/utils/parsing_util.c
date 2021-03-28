@@ -88,9 +88,9 @@ void	ft_dir_check(t_box *box)
 				else if (box->win.map[y][x] == 'S' && flag == 0)
 					box->pos.theta = ft_deg_to_rad(90);
 				else if (box->win.map[y][x] == 'W' && flag == 0)
-					box->pos.theta = ft_deg_to_rad(180);
+					box->pos.theta = ft_deg_to_rad(-180);
 				else if (box->win.map[y][x] == 'N' && flag == 0)
-					box->pos.theta = ft_deg_to_rad(270);
+					box->pos.theta = ft_deg_to_rad(-90);
 				else
 					ft_error();
 				box->win.map[y][x] = '0';

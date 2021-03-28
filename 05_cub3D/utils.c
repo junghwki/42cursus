@@ -12,6 +12,15 @@
 
 #include "cub3d.h"
 
+void 	ft_sprt_swap(t_sprt *a, t_sprt *b)
+{
+	t_sprt temp;
+
+	temp = *a;
+	*a = *b;
+	*b = temp;
+}
+
 void		ft_pixel_put(t_box *box, int x, int y, int color)
 {
 	box->img.addr[(box->win.width * y) + x] = color;
@@ -205,15 +214,15 @@ t_vec		ft_theta_check(double theta)
 		return (ft_new_vec(1, 1));
 	else if (theta > ft_deg_to_rad(90) && theta < ft_deg_to_rad(180))
 		return (ft_new_vec(-1, 1));
-	else if (theta > ft_deg_to_rad(180) && theta < ft_deg_to_rad(270))
+	else if (theta > ft_deg_to_rad(-180) && theta < ft_deg_to_rad(-90))
 		return (ft_new_vec(-1, -1));
-	else if (theta > ft_deg_to_rad(270) && theta < ft_deg_to_rad(360))
+	else if (theta > ft_deg_to_rad(-90) && theta < ft_deg_to_rad(0))
 		return (ft_new_vec(1, -1));
 	else if (theta == ft_deg_to_rad(90))
 		return (ft_new_vec(0, 1));
-	else if (theta == ft_deg_to_rad(180))
+	else if (theta == ft_deg_to_rad(180) || theta == ft_deg_to_rad(-180))
 		return (ft_new_vec(-1, 0));
-	else if (theta == ft_deg_to_rad(270))
+	else if (theta == ft_deg_to_rad(-90))
 		return (ft_new_vec(0, -1));
 	else if (theta == ft_deg_to_rad(360) || theta == ft_deg_to_rad(0))
 		return (ft_new_vec(1, 0));
@@ -226,26 +235,11 @@ double		ft_rot_angle(double angle, double theta)
 	double result;
 
 	result = angle + theta;
-	if (result <= 0)
+	if (result <= -1 * M_PI)
 		result = (result + (2 * M_PI));
-	else if (result >= 2 * M_PI)
+	else if (result >= M_PI)
 		result = (result - (2 * M_PI));
-		///////////
-	// if (result >= ft_deg_to_rad(180))
-	// {
-	// 	return(result - 2 * M_PI);
-	// }
-	// return (theta);
 	return (result);
-}
-
-double		theta_change(double theta)
-{
-	if (theta >= ft_deg_to_rad(180))
-	{
-		return(theta - 2 * M_PI);
-	}
-	return (theta);
 }
 
 void 		ft_box_set(t_box *box)

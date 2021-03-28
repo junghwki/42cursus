@@ -66,7 +66,7 @@ void        ft_move_left(t_box *box)
 	double	thick_x;
 	double	thick_y;
 
-    left_dir = box->pos.theta - ft_deg_to_rad(90);
+    left_dir = ft_rot_angle(box->pos.theta, ft_deg_to_rad(-90));
 	next_x = box->pos.x + box->win.move_speed * cos(left_dir);
 	next_y = box->pos.y + box->win.move_speed * sin(left_dir);
 	if(next_x > box->pos.x)
@@ -91,7 +91,7 @@ void        ft_move_right(t_box *box)
 	double	thick_x;
 	double	thick_y;
 
-	right_dir = box->pos.theta + ft_deg_to_rad(90);
+	right_dir = ft_rot_angle(box->pos.theta, ft_deg_to_rad(90));
 	next_x = box->pos.x + box->win.move_speed * cos(right_dir);
 	next_y = box->pos.y + box->win.move_speed * sin(right_dir);
 	if(next_x > box->pos.x)
