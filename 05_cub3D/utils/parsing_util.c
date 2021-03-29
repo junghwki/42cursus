@@ -81,7 +81,7 @@ void	ft_dir_check(t_box *box)
 		x = 0;
 		while (x < box->win.col)
 		{
-			if (box->win.map[y][x] == 'N' || box->win.map[y][x] == 'E' || box->win.map[y][x] == 'W' || box->win.map[y][x] == 'S')
+			if (box->win.map[y][x] == 'E' || box->win.map[y][x] == 'W' || box->win.map[y][x] == 'S' || box->win.map[y][x] == 'N')
 			{
 				if (box->win.map[y][x] == 'E' && flag == 0)
 					box->pos.theta = ft_deg_to_rad(0);

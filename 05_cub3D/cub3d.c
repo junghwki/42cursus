@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 14:21:20 by junghwki          #+#    #+#             */
-/*   Updated: 2021/03/28 21:22:51 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/03/29 19:48:18 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,22 +54,10 @@ void	ft_sprt_calc(t_box *box)
 	i = 0;
 	while (i < box->pars.s_cnt)
 	{
-		// box->sprt[i].angle = atan2(box->sprt[i].y - box->pos.y, box->sprt[i].x - box->pos.x);
-		// if (box->sprt[i].angle < box->pos.theta + ft_deg_to_rad(50) && box->sprt[i].angle > box->pos.theta + ft_deg_to_rad(-50))
 		box->sprt[i].angle = atan2(box->sprt[i].y - box->pos.y, box->sprt[i].x - box->pos.x);
-		if (box->sprt[i].angle < box->pos.theta + ft_deg_to_rad(50) && box->sprt[i].angle > box->pos.theta + ft_deg_to_rad(-50))
-		{
-			box->pos.visible_num++;
-			box->sprt[i].visible = 1;
-			box->sprt[i].dist = ft_dist_calc(box->sprt[i].y - box->pos.y, box->sprt[i].x - box->pos.x) * cos(box->sprt[i].angle - box->pos.theta);
-		}
-		else if (box->sprt[i].angle + M_PI * 2 < box->pos.theta + ft_deg_to_rad(50) && box->sprt[i].angle + M_PI * 2 > box->pos.theta + ft_deg_to_rad(-50))
-		{
-			box->pos.visible_num++;
-			box->sprt[i].visible = 1;
-			box->sprt[i].dist = ft_dist_calc(box->sprt[i].y - box->pos.y, box->sprt[i].x - box->pos.x) * cos(box->sprt[i].angle - box->pos.theta);
-		}
-		else if (box->sprt[i].angle - M_PI * 2 < box->pos.theta + ft_deg_to_rad(50) && box->sprt[i].angle - M_PI * 2 > box->pos.theta + ft_deg_to_rad(-50))
+		if (box->sprt[i].angle < box->pos.theta + ft_deg_to_rad(55) && box->sprt[i].angle > box->pos.theta + ft_deg_to_rad(-55) ||
+		box->sprt[i].angle + M_PI * 2 < box->pos.theta + (ft_deg_to_rad(55)) && box->sprt[i].angle + M_PI * 2 > box->pos.theta + (ft_deg_to_rad(-55)) ||
+		box->sprt[i].angle - M_PI * 2 < box->pos.theta + (ft_deg_to_rad(55)) && box->sprt[i].angle - M_PI * 2 > box->pos.theta + (ft_deg_to_rad(-55)))
 		{
 			box->pos.visible_num++;
 			box->sprt[i].visible = 1;
@@ -100,7 +88,6 @@ void	ft_sprt_calc(t_box *box)
 		}
 		j++;
 	}
-	printf("%d\n",box->pos.visible_num);
 }
 
 void 	ft_draw_tex(t_box *box, double wall_height, int x)
@@ -238,7 +225,6 @@ void	ft_sprite(t_box *box, double sprt_len, int sprt_x)
 				box->s.addr[(int)(x_index * x) + ((int)(y_index * y) * box->s.width)] &&
 				box->pos.x_height[start_x + x] < sprt_len)
 				ft_pixel_put(box, start_x + x, start_y + y, box->s.addr[(int)(x_index * x) + ((int)(y_index * y) * box->s.width)]);
-				// ft_pixel_put(box, start_x + x, start_y + y, 0x000000);
 			x++;
 		}
 		y++;
@@ -297,7 +283,14 @@ int 	ft_main_loop(t_box *box)
 	// ft_draw_grid(box);
 	// ft_draw_dir(box);
 	// ft_draw_player(box);
-	ft_player_move(box);
+	if (box->key.m)
+	{
+		ft_draw_wall(box);
+		ft_draw_grid(box);
+		ft_draw_dir(box);
+		ft_draw_player(box);
+	}
+	ft_key_function(box);
 	mlx_put_image_to_window(box->mlx.ft_mlx, box->mlx.ft_win, box->img.img, 0, 0);
 	return (0);
 }

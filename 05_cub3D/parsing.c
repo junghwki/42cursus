@@ -176,13 +176,13 @@ void 	ft_get_map(t_box *box, int fd)
 		}
 		else
 			ft_error();
-		// ft_array_free(box->pars.word);
+		ft_array_free(box->pars.word);
 	}
 	temp = ft_split(box->pars.map, '#');
 	ft_make_base(box);
 	ft_map_dup(box, temp);
-	// ft_array_free(temp);
-	// ft_map_print(box);
+	ft_array_free(temp);
+	ft_map_print(box);
 	ft_map_check(box);
 	box->sprt = (t_sprt *)malloc(sizeof(t_sprt) * box->pars.s_cnt);
 	box->visible = (t_sprt *)malloc(sizeof(t_sprt) * box->pars.s_cnt);

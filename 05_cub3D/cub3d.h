@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 14:21:41 by junghwki          #+#    #+#             */
-/*   Updated: 2021/03/24 19:29:38 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/03/29 19:45:57 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ typedef struct	s_key {
 	int			d;
 	int			left;
 	int			right;
+	int			m;
 }				t_key;
 
 typedef struct	s_box {
@@ -138,7 +139,7 @@ void		ft_box_set(t_box *box);
 int			ft_main_loop(t_box *box);
 int			ft_key_press(int keycode, t_box *box);
 int			ft_key_release(int keycode, t_box *box);
-int 		ft_player_move(t_box *box);
+int 		ft_key_function(t_box *box);
 
 void 		ft_box_set(t_box *box);
 void 		ft_sprt_swap(t_sprt *a, t_sprt *b);

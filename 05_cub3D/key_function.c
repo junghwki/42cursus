@@ -14,6 +14,10 @@ int ft_key_press(int keycode, t_box *box)
 		box->key.left = 1;
 	else if (keycode == 124) //우측 방향키124
 		box->key.right = 1;
+	else if (keycode == 46 && box->key.m == 0) //M
+		box->key.m = 1;
+	else if (keycode == 46 && box->key.m == 1) //M
+		box->key.m = 0;
 	else if (keycode == 53) //esc
 		exit(0);
 	return (0);
@@ -36,7 +40,7 @@ int ft_key_release(int keycode, t_box *box)
 	return (0);
 }
 
-int ft_player_move(t_box *box)
+int ft_key_function(t_box *box)
 {
 	if (box->key.w) //W
 		ft_move_up(box);
