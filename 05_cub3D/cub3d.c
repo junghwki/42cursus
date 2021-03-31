@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 14:21:20 by junghwki          #+#    #+#             */
-/*   Updated: 2021/03/29 19:48:18 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/03/31 16:53:14 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ void	ft_sprt_calc(t_box *box)
 	while (i < box->pars.s_cnt)
 	{
 		box->sprt[i].angle = atan2(box->sprt[i].y - box->pos.y, box->sprt[i].x - box->pos.x);
-		if (box->sprt[i].angle < box->pos.theta + ft_deg_to_rad(55) && box->sprt[i].angle > box->pos.theta + ft_deg_to_rad(-55) ||
-		box->sprt[i].angle + M_PI * 2 < box->pos.theta + (ft_deg_to_rad(55)) && box->sprt[i].angle + M_PI * 2 > box->pos.theta + (ft_deg_to_rad(-55)) ||
-		box->sprt[i].angle - M_PI * 2 < box->pos.theta + (ft_deg_to_rad(55)) && box->sprt[i].angle - M_PI * 2 > box->pos.theta + (ft_deg_to_rad(-55)))
+		if ((box->sprt[i].angle < box->pos.theta + ft_deg_to_rad(55) && box->sprt[i].angle > box->pos.theta + ft_deg_to_rad(-55)) ||
+		(box->sprt[i].angle + M_PI * 2 < box->pos.theta + (ft_deg_to_rad(55)) && box->sprt[i].angle + M_PI * 2 > box->pos.theta + (ft_deg_to_rad(-55))) ||
+		(box->sprt[i].angle - M_PI * 2 < box->pos.theta + (ft_deg_to_rad(55)) && box->sprt[i].angle - M_PI * 2 > box->pos.theta + (ft_deg_to_rad(-55))))
 		{
 			box->pos.visible_num++;
 			box->sprt[i].visible = 1;
@@ -234,7 +234,7 @@ void	ft_sprite(t_box *box, double sprt_len, int sprt_x)
 void	ft_sprite_check(t_box *box)
 {
 	double	sprt_angle;
-	double		sprt_dis;
+	double	sprt_dis;
 	int 	i;
 	int		start_x;
 	double	sprt_height;
@@ -256,7 +256,6 @@ void 	ft_draw_fov(t_box *box)
 	int x;
 	int ray;
 	double ray_theta;
-	double wall_height;
 
 	x = 0;
 	ray = -1 * (box->win.width / 2);
@@ -304,6 +303,7 @@ int 	main(void) //int argc, char *argv[])
 	// if(argc == 2)
 	// {
 	box = (t_box *)malloc(sizeof(t_box));
+	box->mlx.ft_mlx = mlx_init();
 	ft_get_map(box, fd);
 	ft_box_set(box);
 	mlx_loop_hook(box->mlx.ft_mlx, ft_main_loop, box);

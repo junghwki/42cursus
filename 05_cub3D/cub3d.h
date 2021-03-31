@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 14:21:41 by junghwki          #+#    #+#             */
-/*   Updated: 2021/03/29 19:45:57 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/03/31 19:36:40 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ typedef struct	s_image {
 }				t_img;
 
 typedef struct	s_texture {
-	char		*route;
 	int			*addr;
 	void		*ptr;
 	int			bits_per_pixel;

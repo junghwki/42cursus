@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 14:20:38 by junghwki          #+#    #+#             */
-/*   Updated: 2021/03/29 19:47:21 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/03/31 20:35:37 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,32 +59,17 @@ void 		ft_draw_dir(t_box *box)
 		y = box->pos.y * box->win.height_len;
 		while (i < box->win.width_len * 2)
 		{
-			ft_pixel_put(box, x, y, 0x00FF00);
-			x += cos(dir_theta);
-			y += sin(dir_theta);
+			if (box->win.map[(int)(y / box->win.height_len)][(int)(x / box->win.width_len)] == '0')
+			{
+				ft_pixel_put(box, x, y, 0x00FF00);
+				x += cos(dir_theta);
+				y += sin(dir_theta);
+			}
 			i++;
 		}
-		dir_theta += ft_deg_to_rad(5);
+		dir_theta += ft_deg_to_rad(1);
 	}
 }
-
-// void 		ft_draw_dir(t_box *box)
-// {
-// 	int i;
-// 	double x;
-// 	double y;
-
-// 	i = 0;
-// 	x = box->pos.x * box->win.width_len;
-// 	y = box->pos.y * box->win.height_len;
-// 	while (i < box->win.width_len / 2)
-// 	{
-// 		ft_pixel_put(box, x, y, 0x00FF00);
-// 		i++;
-// 		x += cos(box->pos.theta);
-// 		y += sin(box->pos.theta);
-// 	}
-// }
 
 void		ft_make_sprt(t_box *box, int x, int y)
 {
@@ -199,10 +184,10 @@ void		ft_background_init(t_box *box)
 		index++;
 	}
 	while (index < (box->win.width) * (box->win.height))
-    {
-        box->img.addr[index] = box->win.f_color;
-        index++;
-    }    
+	{
+		box->img.addr[index] = box->win.f_color;
+		index++;
+	}    
 }
 
 double		ft_gradient_cmp(double x, double y)
@@ -214,6 +199,7 @@ int         ft_exit(t_box *box)
 {
 	exit(0);
 	return (0);
+	box->pos.x = 0;
 }
 
 void		ft_error()
@@ -224,7 +210,7 @@ void		ft_error()
 
 double      ft_deg_to_rad(double x)
 {
-    return (x * M_PI / 180);
+	return (x * M_PI / 180);
 }
 
 double		ft_dist_calc(double x, double y)
@@ -281,19 +267,8 @@ void 		ft_box_set(t_box *box)
 	box->win.fov = ft_deg_to_rad(90);
 	box->win.dis = box->win.width / tan(box->win.fov / 2);
 	box->win.rotate_angle = ft_deg_to_rad(3);
-	box->mlx.ft_mlx = mlx_init();
 	box->mlx.ft_win = mlx_new_window(box->mlx.ft_mlx, box->win.width, box->win.height, "cub3D");
 	box->img.img = mlx_new_image(box->mlx.ft_mlx, box->win.width, box->win.height);
 	box->img.addr = (int *)mlx_get_data_addr(box->img.img, &box->img.bits_per_pixel, &box->img.size_line, &box->img.endian);
-	box->ea.ptr = mlx_xpm_file_to_image(box->mlx.ft_mlx, box->ea.route, &box->ea.width, &box->ea.height);
-	box->ea.addr = (int *)mlx_get_data_addr(box->ea.ptr, &box->ea.bits_per_pixel, &box->ea.size_line, &box->ea.endian);
-	box->we.ptr = mlx_xpm_file_to_image(box->mlx.ft_mlx, box->we.route, &box->we.width, &box->we.height);
-	box->we.addr = (int *)mlx_get_data_addr(box->we.ptr, &box->img.bits_per_pixel, &box->we.size_line, &box->we.endian);
-	box->so.ptr = mlx_xpm_file_to_image(box->mlx.ft_mlx, box->so.route, &box->so.width, &box->so.height);
-	box->so.addr = (int *)mlx_get_data_addr(box->so.ptr, &box->img.bits_per_pixel, &box->so.size_line, &box->so.endian);
-	box->no.ptr = mlx_xpm_file_to_image(box->mlx.ft_mlx, box->no.route, &box->no.width, &box->no.height);
-	box->no.addr = (int *)mlx_get_data_addr(box->no.ptr, &box->img.bits_per_pixel, &box->no.size_line, &box->no.endian);
-	box->s.ptr = mlx_xpm_file_to_image(box->mlx.ft_mlx, box->s.route, &box->s.width, &box->s.height);
-	box->s.addr = (int *)mlx_get_data_addr(box->s.ptr, &box->img.bits_per_pixel, &box->s.size_line, &box->s.endian);
 	box->pos.x_height = (double *)malloc(sizeof(double) * box->win.width);
 }

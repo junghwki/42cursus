@@ -51,14 +51,17 @@ void 	ft_make_base(t_box *box)
 void 	ft_get_map(t_box *box, int fd)
 {
 	char **temp;
+	int	eof;
 
 	ft_pars_init(box);
 	while (get_next_line(fd, &box->pars.line) > 0)
 	{
+		// eof = get_next_line(fd, &box->pars.line);
 		box->pars.word = ft_split(box->pars.line, ' ');
 		if (!(*box->pars.word)) //개행 처리
 			continue;
-		if (ft_check_flag(box)) //플래그 다들어왔나 확인
+		if (ft_isdigit(box->pars.word[0][0])) //플래그 다들어왔나 확인
+		// if (ft_check_flag(box) ) //플래그 다들어왔나 확인
 		{
 			if (!(box->pars.map))
 				box->pars.map = ft_strdup(box->pars.line);
@@ -85,45 +88,50 @@ void 	ft_get_map(t_box *box, int fd)
 		{
 			if (box->pars.ea_flag)
 				ft_error();
-			box->ea.route = ft_strdup(box->pars.word[1]);
-			if (open(box->ea.route, O_RDONLY) < 0)
+			if (open(box->pars.word[1], O_RDONLY) < 0)
 				ft_error();
+			box->ea.ptr = mlx_xpm_file_to_image(box->mlx.ft_mlx, box->pars.word[1], &box->ea.width, &box->ea.height);
+			box->ea.addr = (int *)mlx_get_data_addr(box->ea.ptr, &box->ea.bits_per_pixel, &box->ea.size_line, &box->ea.endian);
 			box->pars.ea_flag = 1;
 		}
 		else if (!(ft_strcmp(box->pars.word[0], "WE")) && ft_rowlen(box->pars.word) == 2)
 		{
 			if (box->pars.we_flag)
 				ft_error();
-			box->we.route = ft_strdup(box->pars.word[1]);
-			if (open(box->we.route, O_RDONLY) < 0)
+			if (open(box->pars.word[1], O_RDONLY) < 0)
 				ft_error();
+			box->we.ptr = mlx_xpm_file_to_image(box->mlx.ft_mlx, box->pars.word[1], &box->we.width, &box->we.height);
+			box->we.addr = (int *)mlx_get_data_addr(box->we.ptr, &box->img.bits_per_pixel, &box->we.size_line, &box->we.endian);
 			box->pars.we_flag = 1;
 		}
 		else if (!(ft_strcmp(box->pars.word[0], "SO")) && ft_rowlen(box->pars.word) == 2)
 		{
 			if (box->pars.so_flag)
 				ft_error();
-			box->so.route = ft_strdup(box->pars.word[1]);
-			if (open(box->so.route, O_RDONLY) < 0)
+			if (open(box->pars.word[1], O_RDONLY) < 0)
 				ft_error();
+			box->so.ptr = mlx_xpm_file_to_image(box->mlx.ft_mlx, box->pars.word[1], &box->so.width, &box->so.height);
+			box->so.addr = (int *)mlx_get_data_addr(box->so.ptr, &box->img.bits_per_pixel, &box->so.size_line, &box->so.endian);
 			box->pars.so_flag = 1;
 		}
 		else if (!(ft_strcmp(box->pars.word[0], "NO")) && ft_rowlen(box->pars.word) == 2)
 		{
 			if (box->pars.no_flag)
 				ft_error();
-			box->no.route = ft_strdup(box->pars.word[1]);
-			if (open(box->no.route, O_RDONLY) < 0)
+			if (open(box->pars.word[1], O_RDONLY) < 0)
 				ft_error();
+			box->no.ptr = mlx_xpm_file_to_image(box->mlx.ft_mlx, box->pars.word[1], &box->no.width, &box->no.height);
+			box->no.addr = (int *)mlx_get_data_addr(box->no.ptr, &box->img.bits_per_pixel, &box->no.size_line, &box->no.endian);
 			box->pars.no_flag = 1;
 		}
 		else if (!(ft_strcmp(box->pars.word[0], "S")) && ft_rowlen(box->pars.word) == 2)
 		{
 			if (box->pars.s_flag)
 				ft_error();
-			box->s.route = ft_strdup(box->pars.word[1]);
-			if (open(box->s.route, O_RDONLY) < 0)
+			if (open(box->pars.word[1], O_RDONLY) < 0)
 				ft_error();
+			box->s.ptr = mlx_xpm_file_to_image(box->mlx.ft_mlx, box->pars.word[1], &box->s.width, &box->s.height);
+			box->s.addr = (int *)mlx_get_data_addr(box->s.ptr, &box->img.bits_per_pixel, &box->s.size_line, &box->s.endian);
 			box->pars.s_flag = 1;
 		}
 		else if (!(ft_strcmp(box->pars.word[0], "C")) && ft_rowlen(box->pars.word) == 2)
@@ -171,7 +179,7 @@ void 	ft_get_map(t_box *box, int fd)
 			if (ft_atoi(temp[2]) > 255)
 				ft_error();
 			box->win.f_color += ft_atoi(temp[2]);
-			// ft_array_free(temp);
+			ft_array_free(temp);
 			box->pars.f_flag = 1;
 		}
 		else
