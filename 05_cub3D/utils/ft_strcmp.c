@@ -1,6 +1,6 @@
-int	ft_strcmp(const char *s1, const char *s2)
+int			ft_strcmp(const char *s1, const char *s2)
 {
-	int	index;
+	int		index;
 
 	index = 0;
 	while (s1[index] || s2[index])
