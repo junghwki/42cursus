@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 14:21:20 by junghwki          #+#    #+#             */
-/*   Updated: 2021/03/31 16:53:14 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/04/02 14:32:08 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -278,10 +278,6 @@ int 	ft_main_loop(t_box *box)
 	ft_draw_fov(box);
 	ft_sprt_calc(box);
 	ft_sprite_check(box);
-	// ft_draw_wall(box);
-	// ft_draw_grid(box);
-	// ft_draw_dir(box);
-	// ft_draw_player(box);
 	if (box->key.m)
 	{
 		ft_draw_wall(box);

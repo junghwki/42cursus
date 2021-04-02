@@ -10,6 +10,17 @@ void 	ft_nbr_check(char *nbr)
 	}
 }
 
+void	ft_map_nbr(char *nbr)
+{
+	while (*nbr)
+	{
+		if ((*nbr >= '0' && *nbr <= '2') || *nbr == 'E' || *nbr == 'W' || *nbr == 'S' || *nbr == 'N')
+			nbr++;
+		else
+			ft_error();
+	}
+}
+
 void 	ft_map_print(t_box *box)
 {
 	int i;
@@ -34,6 +45,7 @@ void 	ft_make_base(t_box *box)
 		box->win.map[i] = (char *)malloc(box->win.col + 1);
 		i++;
 	}
+	box->win.map[box->win.row] = NULL;
 	j = 0;
 	while (j < box->win.row)
 	{
@@ -56,7 +68,9 @@ void 	ft_get_map(t_box *box, int fd)
 	while (get_next_line(fd, &box->pars.line) > 0)
 	{
 		box->pars.word = ft_split(box->pars.line, ' ');
-		if (!(*box->pars.line) || !(*box->pars.word)) //개행 처리
+		if (!*box->pars.line && box->win.row)
+			ft_error();
+		if (!*box->pars.line) //개행 처리
 			continue;
 		if (!(ft_strcmp(box->pars.word[0], "R")) && ft_rowlen(box->pars.word) == 3)
 		{
@@ -158,11 +172,12 @@ void 	ft_get_map(t_box *box, int fd)
 		}
 		else if (ft_check_flag(box)) //플래그 다들어왔나 확인
 		{
-			if (!(*box->pars.word))
-				ft_error();
+			// if (!(*box->pars.word))
+			// 	ft_error();
+			ft_map_nbr(box->pars.line);
 			if (!(box->pars.map))
 			{
-				ft_nbr_check(box->pars.line);				
+				// ft_nbr_check(box->pars.line);
 				box->pars.map = ft_strdup(box->pars.line);
 			}
 			else
@@ -179,10 +194,13 @@ void 	ft_get_map(t_box *box, int fd)
 		ft_array_free(box->pars.word);
 		free(box->pars.line);
 	}
-	if (box->win.col < ft_strlen(box->pars.line))
-		box->win.col = ft_strlen(box->pars.line);
-	box->pars.map = ft_strjoin(box->pars.map, "#");
-	box->pars.map = ft_strjoin(box->pars.map, box->pars.line);
+	if (box->pars.line)
+	{
+		if (box->win.col < ft_strlen(box->pars.line))
+			box->win.col = ft_strlen(box->pars.line);
+		box->pars.map = ft_strjoin(box->pars.map, "#");
+		box->pars.map = ft_strjoin(box->pars.map, box->pars.line);
+	}
 	temp = ft_split(box->pars.map, '#');
 	ft_make_base(box);
 	ft_map_dup(box, temp);

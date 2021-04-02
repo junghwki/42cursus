@@ -43,9 +43,10 @@ int ft_rowlen(char **array)
 
 int ft_check_flag(t_box *box)
 {
-	if (box->pars.r_flag && box->pars.ea_flag &&
-		box->pars.we_flag && box->pars.so_flag && box->pars.no_flag &&
-		box->pars.s_flag && box->pars.f_flag && box->pars.c_flag)
+	if (box->pars.ea_flag && box->pars.we_flag && 
+		box->pars.so_flag && box->pars.no_flag && 
+		box->pars.r_flag && box->pars.s_flag && 
+		box->pars.f_flag && box->pars.c_flag)
 		return (1);
 	return (0);
 }
@@ -68,6 +69,24 @@ void ft_map_dup(t_box *box, char **src)
 	}
 }
 
+int		ft_set_player_pos(t_box *box, int x, int y)
+{
+	if (box->win.map[y][x] == 'E')
+		box->pos.theta = ft_deg_to_rad(0);
+	else if (box->win.map[y][x] == 'S')
+		box->pos.theta = ft_deg_to_rad(90);
+	else if (box->win.map[y][x] == 'W')
+		box->pos.theta = ft_deg_to_rad(-180);
+	else if (box->win.map[y][x] == 'N')
+		box->pos.theta = ft_deg_to_rad(-90);
+	else
+		ft_error();
+	box->win.map[y][x] = '0';
+	box->pos.x = x + 0.5;
+	box->pos.y = y + 0.5;
+	return (1);
+}
+
 void	ft_dir_check(t_box *box)
 {
 	int flag;
@@ -81,30 +100,20 @@ void	ft_dir_check(t_box *box)
 		x = 0;
 		while (x < box->win.col)
 		{
-			if (box->win.map[y][x] == 'E' || box->win.map[y][x] == 'W' || box->win.map[y][x] == 'S' || box->win.map[y][x] == 'N')
+			if (box->win.map[y][x] == 'E' || box->win.map[y][x] == 'W' ||
+			box->win.map[y][x] == 'S' || box->win.map[y][x] == 'N')
 			{
-				if (box->win.map[y][x] == 'E' && flag == 0)
-					box->pos.theta = ft_deg_to_rad(0);
-				else if (box->win.map[y][x] == 'S' && flag == 0)
-					box->pos.theta = ft_deg_to_rad(90);
-				else if (box->win.map[y][x] == 'W' && flag == 0)
-					box->pos.theta = ft_deg_to_rad(-180);
-				else if (box->win.map[y][x] == 'N' && flag == 0)
-					box->pos.theta = ft_deg_to_rad(-90);
-				else
-					ft_error();
-				box->win.map[y][x] = '0';
-				box->pos.x = x + 0.5;
-				box->pos.y = y + 0.5;
-				flag = 1;
+				if (flag == 0)
+					flag = ft_set_player_pos(box, x, y);
 			}
 			x++;
 		}
 		y++;
 	}
-	if (!(flag))
+	if (!flag)
 		ft_error();
 }
+
 void ft_map_check(t_box *box)
 {
 	int x;
