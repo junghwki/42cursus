@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 14:21:41 by junghwki          #+#    #+#             */
-/*   Updated: 2021/04/05 18:38:25 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/04/05 19:07:25 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ typedef struct	s_texture {
 	int			endian;
 	int			width;
 	int			height;
+	double		x_idx;
+	double		y_idx;
 }				t_tex;
 
 typedef struct	s_position {
@@ -104,13 +106,13 @@ typedef struct	s_parsing {
 }				t_pars;
 
 typedef struct	s_key {
-	int			w;
-	int			s;
-	int			a;
-	int			d;
-	int			left;
-	int			right;
-	int			m;
+	int			w_flag;
+	int			s_flag;
+	int			a_flag;
+	int			d_flag;
+	int			left_flag;
+	int			right_flag;
+	int			m_flag;
 }				t_key;
 
 typedef struct	s_box {
@@ -179,7 +181,7 @@ void 	ft_sprt_pos(t_box *box);
 void	ft_visible_init(t_box *box);
 void	ft_make_visible_array(t_box *box);
 void	ft_sort_sprt(t_box *box);
-void	ft_draw_sprt(t_box *box, double sprt_len, int sprt_x);
+void	ft_draw_sprt(t_box *box, double sprt_len, int start_x, int start_y);
 void	ft_sprt_check(t_box *box);
 //////////////////////////////sprt
 

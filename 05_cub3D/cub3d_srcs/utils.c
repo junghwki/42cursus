@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 14:20:38 by junghwki          #+#    #+#             */
-/*   Updated: 2021/04/05 16:49:57 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/04/05 18:51:43 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,13 @@ t_vec		ft_theta_check(double theta)
 
 void		ft_box_set(t_box *box)
 {
-	box->key.w = 0;
-	box->key.a = 0;
-	box->key.s = 0;
-	box->key.d = 0;
-	box->key.m = 0;
-	box->key.left = 0;
-	box->key.right = 0;
+	box->key.w_flag = 0;
+	box->key.a_flag = 0;
+	box->key.s_flag = 0;
+	box->key.d_flag = 0;
+	box->key.m_flag = 0;
+	box->key.left_flag = 0;
+	box->key.right_flag = 0;
 	box->win.width_len = box->win.width / box->win.col;
 	box->win.height_len = box->win.height / box->win.row;
 	box->win.move_speed = 0.06;
