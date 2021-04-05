@@ -6,13 +6,13 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 14:21:41 by junghwki          #+#    #+#             */
-/*   Updated: 2021/03/31 19:36:40 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/04/05 18:38:25 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
-# define BUFFER_SIZE 10
+# define BUFFER_SIZE 100
 
 // # include "./libft/libft.h"
 # include "./opengl/mlx.h"
@@ -153,10 +153,6 @@ double			ft_rot_angle(double angle, double theta);
 t_vec			ft_theta_check(double theta);
 void			ft_clear_sprt(t_box *box);//utils
 
-void			ft_make_wall(t_box *box, int x, int y);
-void			ft_draw_wall(t_box *box);
-void			ft_draw_grid(t_box *box);
-void			ft_draw_player(t_box *box);//utils
 
 void    		ft_move_up(t_box *box);//move
 void		    ft_move_down(t_box *box);
@@ -166,10 +162,6 @@ void			ft_rotate_left(t_box *box);
 void			ft_rotate_right(t_box *box);//move
 
 t_vec           ft_new_vec(double x, double y);//vector
-t_vec           ft_add_vec(t_vec a, t_vec b);
-t_vec           ft_sub_vec(t_vec a, t_vec b);
-t_vec           ft_mul_vec(t_vec a, double k);
-t_vec           ft_rot_vec(t_vec a, double theta);//vector
 
 int				get_next_line(int fd, char **line);//gnl
 ////////////////////libft
@@ -184,7 +176,11 @@ int		ft_strcmp(const char *s1, const char *s2);
 int		ft_isdigit(int c);
 ///////////////////////////////sprt
 void 	ft_sprt_pos(t_box *box);
-
+void	ft_visible_init(t_box *box);
+void	ft_make_visible_array(t_box *box);
+void	ft_sort_sprt(t_box *box);
+void	ft_draw_sprt(t_box *box, double sprt_len, int sprt_x);
+void	ft_sprt_check(t_box *box);
 //////////////////////////////sprt
 
 ///////////////////////////////parsing
@@ -200,11 +196,24 @@ void	ft_map_check(t_box *box);
 void	ft_error();
 void	ft_dir_check(t_box *box);
 void	ft_array_free(char **array);
+void ft_resolution(t_box *box);
+void ft_ea_route(t_box *box);
+void ft_we_route(t_box *box);
+void ft_so_route(t_box *box);
+void ft_no_route(t_box *box);
+void ft_s_route(t_box *box);
+void ft_c_color(t_box *box);
+void ft_f_color(t_box *box);
+
 ///////////////////////////////parsing
 ///////////////////////////////////////지워야될것
 void	ft_map_print(t_box *box);
 void	ft_make_sprt(t_box *box, int x, int y);
 void 	ft_draw_dir(t_box *box);
 double		theta_change(double theta);
+void		ft_make_wall(t_box *box, int x, int y);
+void		ft_draw_wall(t_box *box);
+void		ft_draw_grid(t_box *box);
+void		ft_draw_player(t_box *box);
 //////////////////////////////////////
 #endif
