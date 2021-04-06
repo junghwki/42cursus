@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 14:21:41 by junghwki          #+#    #+#             */
-/*   Updated: 2021/04/05 19:07:25 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/04/06 17:12:49 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,13 @@ typedef struct	s_key {
 	int			m_flag;
 }				t_key;
 
+typedef struct	s_dda {
+	double		delta_x;
+	double		delta_y;
+	double		side_x;
+	double		side_y;
+}				t_dda;
+
 typedef struct	s_box {
 	t_mlx		mlx;
 	t_win		win;
@@ -127,6 +134,7 @@ typedef struct	s_box {
 	t_tex		so;
 	t_tex		no;
 	t_tex		s;
+	t_dda		dda;
 	t_sprt		*sprt;
 	t_sprt		*visible;
 	t_vec		comp;
@@ -149,12 +157,16 @@ void			ft_clear_image(t_box *box);
 void			ft_background_init(t_box *box);
 double			ft_gradient_cmp(double x, double y);
 int				ft_exit(t_box *box);
-double			ft_deg_to_rad(double x);
+double			ft_deg2rad(double x);
 double			ft_dist_calc(double x, double y);
 double			ft_rot_angle(double angle, double theta);
 t_vec			ft_theta_check(double theta);
 void			ft_clear_sprt(t_box *box);//utils
 
+void draw_ea_tex(t_box *box, double wall_height, int x);
+void draw_we_tex(t_box *box, double wall_height, int x);
+void draw_so_tex(t_box *box, double wall_height, int x);
+void draw_no_tex(t_box *box, double wall_height, int x);
 
 void    		ft_move_up(t_box *box);//move
 void		    ft_move_down(t_box *box);
@@ -184,7 +196,7 @@ void	ft_sort_sprt(t_box *box);
 void	ft_draw_sprt(t_box *box, double sprt_len, int start_x, int start_y);
 void	ft_sprt_check(t_box *box);
 //////////////////////////////sprt
-
+int		ft_visible_check(t_box *box, double	sprt_angle);
 ///////////////////////////////parsing
 void 	ft_nbr_check(char *nbr);
 void 	ft_map_print(t_box *box);

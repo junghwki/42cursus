@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 14:20:31 by junghwki          #+#    #+#             */
-/*   Updated: 2021/04/05 16:52:15 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/04/06 16:33:30 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void		ft_move_left(t_box *box)
 	double	thick_x;
 	double	thick_y;
 
-	left_dir = ft_rot_angle(box->pos.theta, ft_deg_to_rad(-90));
+	left_dir = ft_rot_angle(box->pos.theta, ft_deg2rad(-90));
 	next_x = box->pos.x + box->win.move_speed * cos(left_dir);
 	next_y = box->pos.y + box->win.move_speed * sin(left_dir);
 	if (next_x > box->pos.x)
@@ -100,7 +100,7 @@ void		ft_move_right(t_box *box)
 	double	thick_x;
 	double	thick_y;
 
-	right_dir = ft_rot_angle(box->pos.theta, ft_deg_to_rad(90));
+	right_dir = ft_rot_angle(box->pos.theta, ft_deg2rad(90));
 	next_x = box->pos.x + box->win.move_speed * cos(right_dir);
 	next_y = box->pos.y + box->win.move_speed * sin(right_dir);
 	if (next_x > box->pos.x)

@@ -72,13 +72,13 @@ void ft_map_dup(t_box *box, char **src)
 int		ft_set_player_pos(t_box *box, int x, int y)
 {
 	if (box->win.map[y][x] == 'E')
-		box->pos.theta = ft_deg_to_rad(0);
+		box->pos.theta = ft_deg2rad(0);
 	else if (box->win.map[y][x] == 'S')
-		box->pos.theta = ft_deg_to_rad(90);
+		box->pos.theta = ft_deg2rad(90);
 	else if (box->win.map[y][x] == 'W')
-		box->pos.theta = ft_deg_to_rad(-180);
+		box->pos.theta = ft_deg2rad(-180);
 	else if (box->win.map[y][x] == 'N')
-		box->pos.theta = ft_deg_to_rad(-90);
+		box->pos.theta = ft_deg2rad(-90);
 	else
 		ft_error();
 	box->win.map[y][x] = '0';

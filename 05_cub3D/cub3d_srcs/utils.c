@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 14:20:38 by junghwki          #+#    #+#             */
-/*   Updated: 2021/04/05 18:51:43 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/04/06 16:33:29 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,21 +36,21 @@ void		ft_error(void)
 
 t_vec		ft_theta_check(double theta)
 {
-	if (theta > ft_deg_to_rad(0) && theta < ft_deg_to_rad(90))
+	if (theta > ft_deg2rad(0) && theta < ft_deg2rad(90))
 		return (ft_new_vec(1, 1));
-	else if (theta > ft_deg_to_rad(90) && theta < ft_deg_to_rad(180))
+	else if (theta > ft_deg2rad(90) && theta < ft_deg2rad(180))
 		return (ft_new_vec(-1, 1));
-	else if (theta > ft_deg_to_rad(-180) && theta < ft_deg_to_rad(-90))
+	else if (theta > ft_deg2rad(-180) && theta < ft_deg2rad(-90))
 		return (ft_new_vec(-1, -1));
-	else if (theta > ft_deg_to_rad(-90) && theta < ft_deg_to_rad(0))
+	else if (theta > ft_deg2rad(-90) && theta < ft_deg2rad(0))
 		return (ft_new_vec(1, -1));
-	else if (theta == ft_deg_to_rad(90))
+	else if (theta == ft_deg2rad(90))
 		return (ft_new_vec(0, 1));
-	else if (theta == ft_deg_to_rad(180) || theta == ft_deg_to_rad(-180))
+	else if (theta == ft_deg2rad(180) || theta == ft_deg2rad(-180))
 		return (ft_new_vec(-1, 0));
-	else if (theta == ft_deg_to_rad(-90))
+	else if (theta == ft_deg2rad(-90))
 		return (ft_new_vec(0, -1));
-	else if (theta == ft_deg_to_rad(360) || theta == ft_deg_to_rad(0))
+	else if (theta == ft_deg2rad(360) || theta == ft_deg2rad(0))
 		return (ft_new_vec(1, 0));
 	else
 		return (ft_new_vec(0, 0));
@@ -68,9 +68,9 @@ void		ft_box_set(t_box *box)
 	box->win.width_len = box->win.width / box->win.col;
 	box->win.height_len = box->win.height / box->win.row;
 	box->win.move_speed = 0.06;
-	box->win.fov = ft_deg_to_rad(90);
+	box->win.fov = ft_deg2rad(90);
 	box->win.dis = box->win.width / tan(box->win.fov / 2);
-	box->win.rotate_angle = ft_deg_to_rad(3);
+	box->win.rotate_angle = ft_deg2rad(3);
 	box->mlx.ft_win = mlx_new_window(box->mlx.ft_mlx,\
 		box->win.width, box->win.height, "cub3D");
 	box->img.img = mlx_new_image(box->mlx.ft_mlx,\

@@ -42,7 +42,7 @@ void 		ft_draw_dir(t_box *box)
 			}
 			i++;
 		}
-		dir_theta += ft_deg_to_rad(1);
+		dir_theta += ft_deg2rad(1);
 	}
 }
 
