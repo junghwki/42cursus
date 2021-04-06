@@ -23,10 +23,10 @@ void ft_pars_init(t_box *box)
 	box->pars.s_flag = 0;
 	box->pars.f_flag = 0;
 	box->pars.c_flag = 0;
-	box->win.col = 0;
-	box->win.row = 0;
 	box->pars.map = NULL;
 	box->pars.s_cnt = 0;
+	box->win.col = 0;
+	box->win.row = 0;
 	box->win.c_color = 0;
 	box->win.f_color = 0;
 }

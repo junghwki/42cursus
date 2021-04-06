@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 14:21:41 by junghwki          #+#    #+#             */
-/*   Updated: 2021/04/06 17:12:49 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/04/06 19:36:02 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,6 +195,7 @@ void	ft_make_visible_array(t_box *box);
 void	ft_sort_sprt(t_box *box);
 void	ft_draw_sprt(t_box *box, double sprt_len, int start_x, int start_y);
 void	ft_sprt_check(t_box *box);
+void		ft_sprt_calc(t_box *box);
 //////////////////////////////sprt
 int		ft_visible_check(t_box *box, double	sprt_angle);
 ///////////////////////////////parsing
