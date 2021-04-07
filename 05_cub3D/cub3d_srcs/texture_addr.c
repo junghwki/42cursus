@@ -1,8 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   texture_addr.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: junghwki <junghwki@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/07 14:19:49 by junghwki          #+#    #+#             */
+/*   Updated: 2021/04/07 14:19:50 by junghwki         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cub3d.h"
 
 void		ft_ea_route(t_box *box)
 {
-	if (box->pars.ea_flag || open(box->pars.word[1], O_RDONLY) < 0)
+	if (ft_rowlen(box->pars.word) != 2 || box->pars.ea_flag
+	|| open(box->pars.word[1], O_RDONLY) < 0)
 		ft_error();
 	box->ea.ptr = mlx_xpm_file_to_image(box->mlx.ft_mlx,\
 	box->pars.word[1], &box->ea.width, &box->ea.height);
@@ -13,7 +26,8 @@ void		ft_ea_route(t_box *box)
 
 void		ft_we_route(t_box *box)
 {
-	if (box->pars.we_flag || open(box->pars.word[1], O_RDONLY) < 0)
+	if (ft_rowlen(box->pars.word) != 2 || box->pars.we_flag
+	|| open(box->pars.word[1], O_RDONLY) < 0)
 		ft_error();
 	box->we.ptr = mlx_xpm_file_to_image(box->mlx.ft_mlx,\
 	box->pars.word[1], &box->we.width, &box->we.height);
@@ -24,7 +38,8 @@ void		ft_we_route(t_box *box)
 
 void		ft_so_route(t_box *box)
 {
-	if (box->pars.so_flag || open(box->pars.word[1], O_RDONLY) < 0)
+	if (ft_rowlen(box->pars.word) != 2 || box->pars.so_flag
+	|| open(box->pars.word[1], O_RDONLY) < 0)
 		ft_error();
 	box->so.ptr = mlx_xpm_file_to_image(box->mlx.ft_mlx,\
 	box->pars.word[1], &box->so.width, &box->so.height);
@@ -35,7 +50,8 @@ void		ft_so_route(t_box *box)
 
 void		ft_no_route(t_box *box)
 {
-	if (box->pars.no_flag || open(box->pars.word[1], O_RDONLY) < 0)
+	if (ft_rowlen(box->pars.word) != 2 || box->pars.no_flag
+	|| open(box->pars.word[1], O_RDONLY) < 0)
 		ft_error();
 	box->no.ptr = mlx_xpm_file_to_image(box->mlx.ft_mlx,\
 	box->pars.word[1], &box->no.width, &box->no.height);
@@ -46,7 +62,8 @@ void		ft_no_route(t_box *box)
 
 void		ft_s_route(t_box *box)
 {
-	if (box->pars.s_flag || open(box->pars.word[1], O_RDONLY) < 0)
+	if (ft_rowlen(box->pars.word) != 2 || box->pars.s_flag
+	|| open(box->pars.word[1], O_RDONLY) < 0)
 		ft_error();
 	box->s.ptr = mlx_xpm_file_to_image(box->mlx.ft_mlx,\
 	box->pars.word[1], &box->s.width, &box->s.height);

@@ -145,3 +145,15 @@ void		ft_clear_image(t_box *box)
 		idx++;
 	}
 }
+
+void		ft_map_print(t_box *box)
+{
+	int i;
+
+	i = 0;
+	while (i < box->win.row)
+	{
+		printf("%s\n", box->win.map[i]);
+		i++;
+	}
+}

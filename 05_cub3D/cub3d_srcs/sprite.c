@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 19:32:10 by junghwki          #+#    #+#             */
-/*   Updated: 2021/04/05 19:41:52 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/04/07 13:21:33 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void		ft_sprt_check(t_box *box)
 		sprt_dis = tan(sprt_angle) * box->win.dis;
 		start_x = (int)((box->win.width / 2) + sprt_dis);
 		ft_draw_sprt(box, sprt_height,\
-		start_x - sprt_height, (box->win.width / 2) - sprt_height);
+		start_x - sprt_height, (box->win.height / 2) - sprt_height);
 		i++;
 	}
 }

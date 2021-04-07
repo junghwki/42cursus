@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 17:17:02 by junghwki          #+#    #+#             */
-/*   Updated: 2021/04/06 17:17:59 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/04/07 14:04:29 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int			main(void) //int argc, char *argv[])
 	// {
 	box = (t_box *)malloc(sizeof(t_box));
 	box->mlx.ft_mlx = mlx_init();
-	ft_get_map(box, fd);
+	ft_parsing_cub(box, fd);
 	ft_box_set(box);
 	mlx_loop_hook(box->mlx.ft_mlx, ft_main_loop, box);
 	mlx_hook(box->mlx.ft_win, 2, 0, &ft_key_press, box);

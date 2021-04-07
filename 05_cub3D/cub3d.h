@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 14:21:41 by junghwki          #+#    #+#             */
-/*   Updated: 2021/04/06 19:36:02 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/04/07 14:59:56 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,16 +199,19 @@ void		ft_sprt_calc(t_box *box);
 //////////////////////////////sprt
 int		ft_visible_check(t_box *box, double	sprt_angle);
 ///////////////////////////////parsing
-void 	ft_nbr_check(char *nbr);
 void 	ft_map_print(t_box *box);
 void 	ft_make_base(t_box *box);
-void 	ft_get_map(t_box *box, int fd);
+void 	ft_parsing_cub(t_box *box, int fd);
+void	ft_parsing_data(t_box *box);
+void	ft_parsing_map(t_box *box, int eof);
 int		ft_check_flag(t_box *box);
 int		ft_rowlen(char **array);
 void	ft_pars_init(t_box *box);
-void	ft_map_dup(t_box *box, char **src);
+void	ft_map_dup(t_box *box);
 void	ft_map_check(t_box *box);
-void	ft_error();
+void	ft_nbr_check(char *nbr);
+void	ft_element_check(char *nbr);
+void	ft_error(void);
 void	ft_dir_check(t_box *box);
 void	ft_array_free(char **array);
 void ft_resolution(t_box *box);
