@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 14:21:20 by junghwki          #+#    #+#             */
-/*   Updated: 2021/04/06 17:16:23 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/04/08 19:47:44 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int			ft_visible_check(t_box *box, double sprt_angle)
 void		ft_sprt_calc(t_box *box)
 {
 	int		i;
-	int		j;
 
 	i = 0;
 	box->pos.visible_num = 0;

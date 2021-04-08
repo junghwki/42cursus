@@ -6,15 +6,15 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 20:12:23 by junghwki          #+#    #+#             */
-/*   Updated: 2020/10/13 19:30:23 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/04/02 14:26:11 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../cub3d.h"
 
-static char			**ft_free(char **array)
+static char	**ft_free(char **array)
 {
-	size_t	index;
+	int		index;
 
 	index = 0;
 	while (array[index])
@@ -26,10 +26,10 @@ static char			**ft_free(char **array)
 	return (NULL);
 }
 
-static size_t		ft_s_l(const char *s, char c)
+static int	ft_s_l(const char *s, char c)
 {
-	size_t	index;
-	size_t	result;
+	int		index;
+	int		result;
 
 	index = 0;
 	result = 1;
@@ -46,24 +46,22 @@ static size_t		ft_s_l(const char *s, char c)
 	return (result);
 }
 
-static size_t		ft_wordlen(const char *s, char c)
+static int	ft_wordlen(const char *s, char c)
 {
-	size_t	index;
+	int		index;
 
 	index = 0;
 	while (s[index] != c && s[index])
-	{
 		index++;
-	}
 	return (index);
 }
 
-char				**ft_split(const char *s, char c)
+char		**ft_split(const char *s, char c)
 {
 	char	**answer;
-	size_t	index;
-	size_t	w_l;
-	size_t	str_len;
+	int		index;
+	int		w_l;
+	int		str_len;
 
 	index = 0;
 	str_len = 0;

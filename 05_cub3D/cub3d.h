@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 14:21:41 by junghwki          #+#    #+#             */
-/*   Updated: 2021/04/08 18:10:27 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/04/08 19:02:29 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,7 @@ typedef struct	s_box {
 }				t_box;
 
 void	ft_write_bmp(t_box *box);
-void	ft_bmp(t_box *box);
+void	ft_save_bmp(t_box *box);
 void	ft_bitmap_info_header(t_box *box, int fd);
 void	ft_bitmap_file_header(t_box *box, int fd);
 int		mlx_get_screen_size(void *ft_mlx, int *x, int *y);

@@ -6,17 +6,17 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 14:51:05 by junghwki          #+#    #+#             */
-/*   Updated: 2021/03/11 14:11:12 by junghwki         ###   ########.fr       */
+/*   Updated: 2020/10/13 19:10:35 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "libft.h"
 
-int	ft_strlcat(char *dst, const char *src, int dstsize)
+size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 {
-	int	dst_len;
-	int	src_len;
-	int	src_index;
+	size_t	dst_len;
+	size_t	src_len;
+	size_t	src_index;
 
 	dst_len = ft_strlen(dst);
 	src_len = ft_strlen(src);

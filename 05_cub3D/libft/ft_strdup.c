@@ -6,16 +6,16 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 17:39:56 by junghwki          #+#    #+#             */
-/*   Updated: 2020/11/10 15:30:44 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/03/11 14:11:05 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../cub3d.h"
 
 char	*ft_strdup(const char *s1)
 {
 	char	*result;
-	size_t	index;
+	int		index;
 
 	if (!(result = (char *)malloc(sizeof(char) * (ft_strlen(s1) + 1))))
 		return (NULL);

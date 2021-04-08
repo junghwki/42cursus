@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 18:07:56 by junghwki          #+#    #+#             */
-/*   Updated: 2021/04/08 18:31:32 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/04/08 19:02:32 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void		ft_write_bmp(t_box *box)
 	exit(0);
 }
 
-void		ft_bmp(t_box *box)
+void		ft_save_bmp(t_box *box)
 {
 	ft_background_init(box);
 	ft_draw_fov(box);

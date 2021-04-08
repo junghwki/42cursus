@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/07 17:39:56 by junghwki          #+#    #+#             */
-/*   Updated: 2021/03/11 14:11:05 by junghwki         ###   ########.fr       */
+/*   Created: 2020/10/03 16:37:52 by junghwki          #+#    #+#             */
+/*   Updated: 2020/10/21 19:36:31 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "libft.h"
 
-char	*ft_strdup(const char *s1)
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
-	char	*result;
-	int		index;
+	size_t	index;
 
-	if (!(result = (char *)malloc(sizeof(char) * (ft_strlen(s1) + 1))))
-		return (NULL);
 	index = 0;
-	while (s1[index])
+	if (!dst || !src)
+		return (0);
+	if (dstsize == 0)
+		return (ft_strlen(src));
+	while ((index < dstsize - 1) && src[index])
 	{
-		result[index] = s1[index];
+		dst[index] = src[index];
 		index++;
 	}
-	result[index] = '\0';
-	return (result);
+	dst[index] = '\0';
+	return (ft_strlen(src));
 }

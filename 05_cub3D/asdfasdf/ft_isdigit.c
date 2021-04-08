@@ -1,23 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/03 16:38:17 by junghwki          #+#    #+#             */
-/*   Updated: 2021/03/11 14:11:19 by junghwki         ###   ########.fr       */
+/*   Created: 2020/10/03 16:37:41 by junghwki          #+#    #+#             */
+/*   Updated: 2020/10/05 19:33:01 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "libft.h"
 
-int	ft_strlen(const char *s)
+int	ft_isdigit(int c)
 {
-	int	index;
-
-	index = 0;
-	while (s[index])
-		index++;
-	return (index);
+	if (c >= '0' && c <= '9')
+		return (1);
+	return (0);
 }

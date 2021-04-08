@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 14:17:58 by junghwki          #+#    #+#             */
-/*   Updated: 2021/04/08 17:34:39 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/04/08 19:20:15 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,13 +92,13 @@ void		ft_parsing_cub(t_box *box, int fd)
 	int		eof;
 
 	ft_pars_init(box);
-	while (1)
+	while ((eof = get_next_line(fd, &box->pars.line)) >= 0)
 	{
-		eof = get_next_line(fd, &box->pars.line);
 		if (!(*box->pars.line) && eof && !(box->win.row))
+		{
 			free(box->pars.line);
-		if (!(*box->pars.line) && eof && !(box->win.row))
 			continue;
+		}
 		if (ft_check_flag(box) == 0)
 			ft_parsing_data(box);
 		else

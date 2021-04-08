@@ -6,15 +6,15 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/03 16:37:52 by junghwki          #+#    #+#             */
-/*   Updated: 2020/10/21 19:36:31 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/03/11 14:11:15 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../cub3d.h"
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+int	ft_strlcpy(char *dst, const char *src, int dstsize)
 {
-	size_t	index;
+	int	index;
 
 	index = 0;
 	if (!dst || !src)

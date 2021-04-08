@@ -6,11 +6,11 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/05 16:57:37 by junghwki          #+#    #+#             */
-/*   Updated: 2021/03/11 14:10:53 by junghwki         ###   ########.fr       */
+/*   Updated: 2020/11/05 21:19:37 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "libft.h"
 
 int	ft_atoi(const char *str)
 {

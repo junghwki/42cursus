@@ -1,38 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/14 16:57:37 by junghwki          #+#    #+#             */
-/*   Updated: 2021/03/15 18:11:34 by junghwki         ###   ########.fr       */
+/*   Created: 2020/10/07 17:39:56 by junghwki          #+#    #+#             */
+/*   Updated: 2020/11/10 15:30:44 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "libft.h"
 
-char		*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strdup(const char *s1)
 {
-	int		index;
-	int		result_index;
 	char	*result;
+	size_t	index;
 
+	if (!(result = (char *)malloc(sizeof(char) * (ft_strlen(s1) + 1))))
+		return (NULL);
 	index = 0;
-	result_index = 0;
-	if (!s1 && !s2)
-		return (NULL);
-	if (!s1)
-		return (ft_strdup(s2));
-	if (!s2)
-		return (ft_strdup(s1));
-	if (!(result = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1)))
-		return (NULL);
 	while (s1[index])
-		result[result_index++] = s1[index++];
-	index = 0;
-	while (s2[index])
-		result[result_index++] = s2[index++];
-	result[result_index] = '\0';
+	{
+		result[index] = s1[index];
+		index++;
+	}
+	result[index] = '\0';
 	return (result);
 }

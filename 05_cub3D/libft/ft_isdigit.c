@@ -6,11 +6,11 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/03 16:37:41 by junghwki          #+#    #+#             */
-/*   Updated: 2020/10/05 19:33:01 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/03/11 22:15:55 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../cub3d.h"
 
 int	ft_isdigit(int c)
 {
