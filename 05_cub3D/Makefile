@@ -1,22 +1,6 @@
 NAME = cub3D
 
-SRCS = ./cub3d.c \
-		./get_next_line.c \
-		./key_function.c \
-		./move.c \
-		./parsing.c \
-		./utils.c \
-		./vector.c \
-		./utils/ft_atoi.c \
-		./utils/ft_isdigit.c \
-		./utils/ft_split.c \
-		./utils/ft_strcmp.c \
-		./utils/ft_strdup.c \
-		./utils/ft_strjoin.c \
-		./utils/ft_strlcat.c \
-		./utils/ft_strlcpy.c \
-		./utils/ft_strlen.c \
-		./utils/parsing_util.c
+SRCS = *.c
 
 CC = gcc
 

@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 14:21:20 by junghwki          #+#    #+#             */
-/*   Updated: 2021/04/07 15:07:51 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/04/08 18:02:12 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,22 @@ void		ft_make_base(t_box *box)
 
 void		ft_resolution(t_box *box)
 {
+	int		width;
+	int		height;
+
+	mlx_get_screen_size(box->mlx.ft_mlx, &width, &height);
 	if (ft_rowlen(box->pars.word) != 3 || box->pars.r_flag)
 		ft_error();
 	ft_nbr_check(box->pars.word[1]);
 	ft_nbr_check(box->pars.word[2]);
 	box->win.width = ft_atoi(box->pars.word[1]);
+	if (box->win.width > width)
+		box->win.width = width;
 	box->win.height = ft_atoi(box->pars.word[2]);
+	if (box->win.height > height)
+		box->win.height = height;
+	if (box->win.width == 0 || box->win.height == 0)
+		ft_error();
 	box->pars.r_flag = 1;
 }
 

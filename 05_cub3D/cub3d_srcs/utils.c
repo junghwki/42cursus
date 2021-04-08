@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 14:20:38 by junghwki          #+#    #+#             */
-/*   Updated: 2021/04/06 16:33:29 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/04/08 17:28:46 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void		ft_sprt_swap(t_sprt *a, t_sprt *b)
 
 int			ft_exit(t_box *box)
 {
+	system("leaks a.out");
 	exit(0);
 	return (0);
 	box->pos.x = 0;

@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 14:17:58 by junghwki          #+#    #+#             */
-/*   Updated: 2021/04/07 15:03:45 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/04/08 17:34:39 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ void		ft_parsing_data(t_box *box)
 
 void		ft_parsing_map(t_box *box, int eof)
 {
+	char	*temp;
+
 	if (!(*box->pars.line) && box->win.row && eof)
 		ft_error();
 	ft_element_check(box->pars.line);
@@ -75,8 +77,12 @@ void		ft_parsing_map(t_box *box, int eof)
 	{
 		if (box->win.col < ft_strlen(box->pars.line))
 			box->win.col = ft_strlen(box->pars.line);
+		temp = box->pars.map;
 		box->pars.map = ft_strjoin(box->pars.map, "#");
+		free(temp);
+		temp = box->pars.map;
 		box->pars.map = ft_strjoin(box->pars.map, box->pars.line);
+		free(temp);
 	}
 	box->win.row++;
 }
@@ -90,6 +96,8 @@ void		ft_parsing_cub(t_box *box, int fd)
 	{
 		eof = get_next_line(fd, &box->pars.line);
 		if (!(*box->pars.line) && eof && !(box->win.row))
+			free(box->pars.line);
+		if (!(*box->pars.line) && eof && !(box->win.row))
 			continue;
 		if (ft_check_flag(box) == 0)
 			ft_parsing_data(box);
@@ -101,7 +109,6 @@ void		ft_parsing_cub(t_box *box, int fd)
 	}
 	ft_make_base(box);
 	ft_map_dup(box);
-	ft_map_print(box);
 	ft_dir_check(box);
 	ft_map_check(box);
 	box->sprt = (t_sprt *)malloc(sizeof(t_sprt) * box->pars.s_cnt);
