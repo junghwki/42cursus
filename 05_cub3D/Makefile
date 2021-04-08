@@ -17,15 +17,15 @@ SRCS =	cub3d_parsing/map_utils.c\
 		cub3d_srcs/texture_addr.c\
 		cub3d_srcs/texture.c\
 		cub3d_srcs/utils.c\
-		libft/ft_atoi.c\
-		libft/ft_isdigit.c\
-		libft/ft_split.c\
-		libft/ft_strcmp.c\
-		libft/ft_strdup.c\
-		libft/ft_strjoin.c\
-		libft/ft_strlcat.c\
-		libft/ft_strlcpy.c\
-		libft/ft_strlen.c
+		cub3d_libft/ft_atoi.c\
+		cub3d_libft/ft_isdigit.c\
+		cub3d_libft/ft_split.c\
+		cub3d_libft/ft_strcmp.c\
+		cub3d_libft/ft_strdup.c\
+		cub3d_libft/ft_strjoin.c\
+		cub3d_libft/ft_strlcat.c\
+		cub3d_libft/ft_strlcpy.c\
+		cub3d_libft/ft_strlen.c
 
 NAME	= cub3D
 CC		= gcc

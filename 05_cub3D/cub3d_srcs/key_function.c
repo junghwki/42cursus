@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 16:24:49 by junghwki          #+#    #+#             */
-/*   Updated: 2021/04/05 18:51:29 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/04/08 19:50:31 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,6 @@ int		ft_key_press(int keycode, t_box *box)
 		box->key.left_flag = 1;
 	else if (keycode == 124)
 		box->key.right_flag = 1;
-	else if (keycode == 46 && box->key.m_flag == 0)
-		box->key.m_flag = 1;
-	else if (keycode == 46 && box->key.m_flag == 1)
-		box->key.m_flag = 0;
 	else if (keycode == 53)
 		exit(0);
 	return (0);

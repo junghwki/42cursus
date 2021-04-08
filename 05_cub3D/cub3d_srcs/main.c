@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 17:17:02 by junghwki          #+#    #+#             */
-/*   Updated: 2021/04/08 19:15:06 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/04/08 19:50:11 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,6 @@ int			ft_main_loop(t_box *box)
 	ft_draw_fov(box);
 	ft_sprt_calc(box);
 	ft_sprt_check(box);
-	if (box->key.m_flag)
-	{
-		ft_draw_wall(box);
-		ft_draw_grid(box);
-		ft_draw_dir(box);
-		ft_draw_player(box);
-	}
 	ft_key_function(box);
 	mlx_put_image_to_window(box->mlx.ft_mlx,\
 	box->mlx.ft_win, box->img.img, 0, 0);
