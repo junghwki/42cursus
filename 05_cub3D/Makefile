@@ -41,7 +41,6 @@ $(NAME) : $(SRCS)
 clean : 
 	make -C opengl clean
 	make -C minilibx_mms clean
-	rm -f $(NAME)
 
 fclean : clean
 	rm -f libmlx.a

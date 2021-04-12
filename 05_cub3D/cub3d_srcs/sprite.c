@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 14:21:20 by junghwki          #+#    #+#             */
-/*   Updated: 2021/04/09 12:34:02 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/04/12 13:34:09 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void		ft_draw_sprt(t_box *box, double sprt_len, int x, int y)
 		while (i < (2 * sprt_len) - 1)
 		{
 			tex_idx = (int)(x_idx * i) + (int)(y_idx * j) * box->s.width;
-			if (x + i > 0 && x + i < box->win.width\
-				&& y + j > 0 && y + j < box->win.height\
+			if (x + i >= 0 && x + i < box->win.width\
+				&& y + j >= 0 && y + j < box->win.height\
 				&& box->s.addr[tex_idx] && box->pos.x_height[x + i] < sprt_len)
 				ft_pixel_put(box, x + i, y + j, box->s.addr[tex_idx]);
 			i++;

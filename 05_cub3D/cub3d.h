@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 14:21:41 by junghwki          #+#    #+#             */
-/*   Updated: 2021/04/09 19:14:55 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/04/12 14:19:16 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,7 @@ void				ft_array_free(char **array);
 int					ft_rowlen(char **array);
 void				ft_nbr_check(char *nbr);
 void				ft_element_check(char *nbr);
+int					ft_comma_check(char *str);
 void				ft_map_dup(t_box *box);
 void				ft_make_base(t_box *box);
 void				ft_resolution(t_box *box);

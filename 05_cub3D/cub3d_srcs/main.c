@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 17:17:02 by junghwki          #+#    #+#             */
-/*   Updated: 2021/04/09 13:31:55 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/04/12 18:56:01 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void		ft_box_set(t_box *box)
 	box->key.right_flag = 0;
 	box->win.width_len = box->win.width / box->win.col;
 	box->win.height_len = box->win.height / box->win.row;
-	box->win.move_speed = 0.06;
+	box->win.move_speed = 0.1;
 	box->win.fov = ft_deg2rad(90);
 	box->win.dis = box->win.width / tan(box->win.fov / 2);
 	box->win.rotate_angle = ft_deg2rad(3);
@@ -74,6 +74,5 @@ int			main(int argc, char *argv[])
 	mlx_hook(box->mlx.ft_win, 3, 0, &ft_key_release, box);
 	mlx_hook(box->mlx.ft_win, 17, 0, &ft_exit, box);
 	mlx_loop(box->mlx.ft_mlx);
-	free(box);
 	return (0);
 }

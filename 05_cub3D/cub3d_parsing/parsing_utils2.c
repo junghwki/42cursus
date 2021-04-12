@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 14:21:20 by junghwki          #+#    #+#             */
-/*   Updated: 2021/04/09 14:43:06 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/04/12 18:36:02 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,10 @@ void		ft_c_color(t_box *box)
 
 	if (ft_rowlen(box->pars.word) != 2 || box->pars.c_flag)
 		ft_error();
+	if (ft_comma_check(box->pars.word[1]) != 2)
+		ft_error();
 	temp = ft_split(box->pars.word[1], ',');
-	if (ft_rowlen(temp) != 3)
+	if (!temp[0] || !temp[1] || !temp[2])
 		ft_error();
 	ft_nbr_check(temp[0]);
 	ft_nbr_check(temp[1]);
@@ -115,8 +117,10 @@ void		ft_f_color(t_box *box)
 
 	if (ft_rowlen(box->pars.word) != 2 || box->pars.f_flag)
 		ft_error();
+	if (ft_comma_check(box->pars.word[1]) != 2)
+		ft_error();
 	temp = ft_split(box->pars.word[1], ',');
-	if (ft_rowlen(temp) != 3)
+	if (!temp[0] || !temp[1] || !temp[2])
 		ft_error();
 	ft_nbr_check(temp[0]);
 	ft_nbr_check(temp[1]);

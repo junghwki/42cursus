@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 14:48:00 by junghwki          #+#    #+#             */
-/*   Updated: 2021/04/07 15:03:46 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/04/12 14:19:52 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,18 @@ void		ft_element_check(char *nbr)
 		else
 			ft_error();
 	}
+}
+
+int			ft_comma_check(char *str)
+{
+	int		cnt;
+
+	cnt = 0;
+	while (*str)
+	{
+		if (*str == ',')
+			cnt++;
+		str++;
+	}
+	return (cnt);
 }

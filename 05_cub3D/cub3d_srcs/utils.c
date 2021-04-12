@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 14:20:38 by junghwki          #+#    #+#             */
-/*   Updated: 2021/04/09 14:54:08 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/04/12 18:56:43 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,13 @@ void		ft_sprt_swap(t_sprt *a, t_sprt *b)
 
 int			ft_exit(t_box *box)
 {
+	free(box->pos.x_height);
+	free(box->sprt);
+	free(box->visible);
+	ft_array_free(box->win.map);
+	free(box);
 	exit(0);
 	return (0);
-	box->pos.x = 0;
 }
 
 void		ft_error(void)

@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 16:24:49 by junghwki          #+#    #+#             */
-/*   Updated: 2021/04/08 19:50:31 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/04/12 18:56:54 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		ft_key_press(int keycode, t_box *box)
 	else if (keycode == 124)
 		box->key.right_flag = 1;
 	else if (keycode == 53)
-		exit(0);
+		ft_exit(box);
 	return (0);
 }
 
