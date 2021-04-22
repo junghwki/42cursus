@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 16:24:01 by junghwki          #+#    #+#             */
-/*   Updated: 2020/10/27 15:58:47 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/04/19 11:17:36 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int					get_next_line(int fd, char **line)
 	if (!(next_buffer[fd]))
 		next_buffer[fd] = ft_strdup("");
 	while (((str_len = ft_strclen(next_buffer[fd])) < 0) &&
-			((index = read(fd, buffer, BUFFER_SIZE)) > 0))
+		((index = read(fd, buffer, BUFFER_SIZE)) > 0))
 	{
 		buffer[index] = '\0';
 		temp = ft_strjoin(next_buffer[fd], buffer);
