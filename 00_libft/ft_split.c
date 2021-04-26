@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 20:12:23 by junghwki          #+#    #+#             */
-/*   Updated: 2020/10/13 19:30:23 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/04/26 19:15:26 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,7 @@ static size_t		ft_wordlen(const char *s, char c)
 
 	index = 0;
 	while (s[index] != c && s[index])
-	{
 		index++;
-	}
 	return (index);
 }
 
