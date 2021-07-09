@@ -1,4 +1,20 @@
 /*####################################################################################################*/
+pthread_create: 스레드를 생성한다.
+
+int pthread_create(pthread_t *restrict thread, const pthread_attr_t *restrict attr, void *(*start_routine)(void *), void *restrictarg);
+
+	반환 값
+	성공적으로 수행되면 0을 반환하고 생성된 스레드 ID는 thread에 저장된다, 그렇지 않다면 오류 값을 반환한다.
+
+	오류 값
+	EAGAIN
+	새로운 스레드를 생성하기 위한 자원이 부족하다.
+	EINVAL
+	스레드 속성 객체가 유효하지 않다.
+	EFAULT
+	스레드 ID를 반환할 주소나 시작 함수가 NULL로 설정되었다.
+
+/*####################################################################################################*/
 pthread_detach: 스레드를 프로세스로부터 분리한다.
 
 int pthread_detach(pthread_t thread);
@@ -15,7 +31,7 @@ int pthread_detach(pthread_t thread);
 /*####################################################################################################*/
 pthread_join: 스레드 종료를 대기한다.
 
-int pthread_join(	pthread_t thread, void **value_ptr);
+int pthread_join(pthread_t thread, void **value_ptr);
 
 	반환 값
 	성공적으로 수행되면 0을 반환하고, 그렇지 않다면 오류 값을 반환한다.

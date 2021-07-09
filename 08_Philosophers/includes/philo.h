@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/05 17:20:42 by junghwki          #+#    #+#             */
-/*   Updated: 2021/07/05 21:50:50 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/07/09 16:41:02 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,30 @@
 # define THINK_MSG	"is thinking"
 # define DIE_MSG	"is died"
 
-typedef struct	s_arguments
+typedef struct		s_arguments
 {
-	int	philo_num;
-	int time_to_die;
-	int time_to_eat;
-	int time_to_sleep;
+	int				philo_num;
+	int 			time_to_die;
+	int 			time_to_eat;
+	int 			time_to_sleep;
+	int				must_eat_num;
+	pthread_mutex_t	*fork;
+}					t_arg;
 
-}				t_arg;
+typedef struct		s_philosophers
+{
+	pthread_t		t_id;
+	int				philo_idx;
+	t_arg			*args;
+}					t_philo;
+/* philo.c */
+int		philo_take_fork(t_philo *philo);
+int		philo_eat(t_philo *philo);
+int		philo_sleep(t_philo *philo);
+int		philo_think(t_philo *philo);
+void	philosophers(void *philo);
+/* utils.c */
+int		ft_atoi(const char *str);
+int		ft_usleep(useconds_t microseconds);
 
 #endif
