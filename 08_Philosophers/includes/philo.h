@@ -33,6 +33,7 @@ typedef struct		s_arguments
 	int 			time_to_eat;
 	int 			time_to_sleep;
 	int				must_eat_num;
+	struct timeval	start_time;
 	pthread_mutex_t	*fork;
 }					t_arg;
 
@@ -40,6 +41,9 @@ typedef struct		s_philosophers
 {
 	pthread_t		t_id;
 	int				philo_idx;
+	int				left_fork;
+	int				right_fork;
+	struct timeval	last_eat_time;
 	t_arg			*args;
 }					t_philo;
 /* philo.c */
@@ -51,5 +55,7 @@ void	philosophers(void *philo);
 /* utils.c */
 int		ft_atoi(const char *str);
 int		ft_usleep(useconds_t microseconds);
+int		time_calc(struct timeval old_time, struct timeval new_time);
+int		current_time_calc(struct timeval old_time);
 
 #endif
