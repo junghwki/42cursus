@@ -2,17 +2,17 @@
 
 int					ft_atoi(const char *str)
 {
-	long long int	result;
+	long long int	ret;
 
-	result = 0;
+	ret = 0;
 	while (*str)
 	{
-		if (*str < '0' || *str > '9' || result > 2147483647)
+		if (*str < '0' || *str > '9' || ret > 2147483647)
 			return (-1);
-		result = result * 10 + (*str - '0');
+		ret = ret * 10 + (*str - '0');
 		str++;
 	}
-	return (result);
+	return (ret);
 }
 
 int					ft_usleep(useconds_t microseconds)
@@ -70,7 +70,15 @@ int					ft_strlen(char *str)
 	return (ret);
 }
 
-void				ft_putstr(char *str)
+void				ft_print_msg(t_philo *philo, char *msg)
 {
-	write(1, str, ft_strlen(str));
+	pthread_mutex_lock(&(philo->args->print));
+	printf("%d ms ", current_time_calc(philo->args->start_time));
+	printf("%d %s\n", philo->philo_idx + 1, msg);
+	pthread_mutex_unlock(&(philo->args->print));
 }
+
+//void				timestamp(char *str)
+//{
+
+//}
