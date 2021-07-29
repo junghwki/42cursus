@@ -1,23 +1,27 @@
-SRCS	= ./srcs/main.c \
-		  ./srcs/philo.c \
-		  ./srcs/utils.c
-
 NAME	= philosophers
 CC		= gcc
 CFLAGS	= -Wall -Wextra -Werror
 
+SRCS	= ./srcs/main.c \
+		  ./srcs/philo.c \
+		  ./srcs/utils.c
+
+
+OBJS	= $(SRCS:.c=.o)
+
 all : $(NAME)
 
-$(NAME) : $(SRCS:.c=.o)
-	ar rcs $(NAME) $(SRCS:.c=.o)
+$(NAME) : $(OBJS)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
 
 .c.o :
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 clean :
-	rm -f $(SRCS:.c=.o)
+	rm -f $(OBJS)
 
-fclean : clean
+fclean :
+	rm -f $(OBJS)
 	rm -f $(NAME)
 
 re : fclean all
