@@ -35,7 +35,7 @@ int					ft_usleep(useconds_t microseconds)
 			temp.tv_usec += temp.tv_sec * 1000000;
 		if ((useconds_t)temp.tv_usec >= microseconds)
 			break ;
-		usleep(1000);
+		usleep(10);
 	}
 	return (0);
 }

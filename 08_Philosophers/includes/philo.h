@@ -16,7 +16,6 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
-# include <string.h>
 # include <pthread.h>
 # include <sys/time.h>
 
@@ -24,7 +23,6 @@
 # define EAT_MSG	"is eating"
 # define SLEEP_MSG	"is sleeping"
 # define THINK_MSG	"is thinking"
-# define DIE_MSG	"is died"
 
 typedef struct		s_arguments
 {
@@ -48,12 +46,11 @@ typedef struct		s_philosophers
 	int				eat_cnt;
 	struct timeval	last_meal;
 }					t_philo;
-/* philo.c */
-int		philosophers(void *philo);
-/* utils.c */
-int		ft_atoi(const char *str);
-int		ft_usleep(useconds_t microseconds);
-int		runtime(struct timeval old_time);
-void	print_msg(t_philo *philo, char *msg);
+
+int					philosopher(void *philo);
+int					ft_atoi(const char *str);
+int					ft_usleep(useconds_t microseconds);
+int					runtime(struct timeval old_time);
+void				print_msg(t_philo *philo, char *msg);
 
 #endif
