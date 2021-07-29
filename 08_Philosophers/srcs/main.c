@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/05 17:20:39 by junghwki          #+#    #+#             */
-/*   Updated: 2021/07/30 00:09:23 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/07/30 00:39:53 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_arg	*argument_init(int argc, char **argv)
 	else
 		args->must_eat_num = 0;
 	args->fork = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t)
-		* args->philo_num);
+			* args->philo_num);
 	pthread_mutex_init(&args->print, NULL);
 	while (idx < args->philo_num)
 	{
@@ -50,20 +50,20 @@ t_philo	*philo_thread_create(t_arg *args)
 		philo[idx].philo_idx = idx;
 		philo[idx].args = args;
 		philo[idx].eat_cnt = 0;
-		pthread_create(&(philo[idx].t_id), NULL, (void *)philosopher, &philo[idx]);
+		pthread_create(&(philo[idx].t_id), NULL,
+			(void *)philosopher, &philo[idx]);
 		pthread_detach(philo[idx].t_id);
 		idx++;
 	}
 	return (philo);
 }
 
-void monitoring(t_arg *args, t_philo *philo)
+void	monitoring(t_arg *args, t_philo *philo)
 {
 	int	idx;
 	int	flag;
 	int	eat_cnt;
 
-	idx = 0;
 	flag = 0;
 	eat_cnt = 0;
 	while (!flag)
@@ -76,14 +76,14 @@ void monitoring(t_arg *args, t_philo *philo)
 				pthread_mutex_lock(&(args->print));
 				printf("%d ms %d is died\n", runtime(args->start_time), idx + 1);
 				flag = 1;
-				break;
+				break ;
 			}
-			if (args->must_eat_num && (philo[idx].eat_cnt <= args->must_eat_num))
+			if (args->must_eat_num && philo[idx].eat_cnt <= args->must_eat_num)
 				eat_cnt = philo[idx].eat_cnt;
 			idx++;
 		}
 		if (args->must_eat_num && (eat_cnt >= args->must_eat_num))
-			break;
+			break ;
 	}
 }
 
@@ -95,8 +95,9 @@ int	main(int argc, char **argv)
 	if (argc == 5 || argc == 6)
 	{
 		args = argument_init(argc, argv);
-		if (args->philo_num < 0 || args->time_to_die < 0 || args->time_to_eat < 0
-			|| args->time_to_sleep < 0 || args->must_eat_num < 0)
+		if (args->philo_num < 0 || args->time_to_die < 0
+			|| args->time_to_eat < 0 || args->time_to_sleep < 0
+			|| args->must_eat_num < 0)
 		{
 			write(2, "arguments error\n", 16);
 			free(args);
