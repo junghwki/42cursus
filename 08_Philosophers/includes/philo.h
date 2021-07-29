@@ -40,12 +40,12 @@ typedef struct		s_arguments
 
 typedef struct		s_philosophers
 {
+	t_arg			*args;
 	pthread_t		t_id;
 	int				philo_idx;
 	int				left_fork;
 	int				right_fork;
-	t_arg			*args;
-	struct timeval	current_time;
+	int				eat_cnt;
 	struct timeval	last_meal;
 }					t_philo;
 /* philo.c */
@@ -53,8 +53,7 @@ int		philosophers(void *philo);
 /* utils.c */
 int		ft_atoi(const char *str);
 int		ft_usleep(useconds_t microseconds);
-int		time_calc(struct timeval old_time, struct timeval new_time);
-int		current_time_calc(struct timeval old_time);
-void	ft_print_msg(t_philo *philo, char *msg);
+int		runtime(struct timeval old_time);
+void	print_msg(t_philo *philo, char *msg);
 
 #endif

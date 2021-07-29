@@ -12,19 +12,25 @@
 
 #include "../includes/philo.h"
 
+//t_arg		*argument_init(int argc, char **argv)
+//{
+
+//}
+
 int	main(int argc, char **argv)
 {
 	t_arg		*args;
 	t_philo		*philo;
 	int			idx;
+	int			eat_cnt;
 	int			flag;
 	
 	idx = 0;
 	flag = 0;
+	eat_cnt = 0;
 	if (argc == 5 || argc == 6)
 	{
 		args = (t_arg *)malloc(sizeof(t_arg));
-		gettimeofday(&args->start_time, NULL);
 		args->philo_num = ft_atoi(argv[1]);
 		args->time_to_die = ft_atoi(argv[2]);
 		args->time_to_eat = ft_atoi(argv[3]);
@@ -46,11 +52,12 @@ int	main(int argc, char **argv)
 		}
 		idx = 0;
 		philo = (t_philo *)malloc(sizeof(t_philo) * args->philo_num);
+		gettimeofday(&args->start_time, NULL);
 		while (idx < args->philo_num)
 		{
 			philo[idx].philo_idx = idx;
 			philo[idx].args = args;
-			gettimeofday(&(philo[idx].last_meal), NULL);
+			philo[idx].eat_cnt = 0;
 			pthread_create(&(philo[idx].t_id), NULL, (void *)philosophers, &philo[idx]);
 			pthread_detach(philo[idx].t_id);
 			idx++;
@@ -60,25 +67,25 @@ int	main(int argc, char **argv)
 			idx = 0;
 			while (idx < args->philo_num)
 			{
-				if (current_time_calc(philo[idx].last_meal) >= args->time_to_die)
+				if (runtime(philo[idx].last_meal) > args->time_to_die)
 				{
 					pthread_mutex_lock(&(philo->args->print));
-					printf("%d ms %d is died\n", current_time_calc(args->start_time), idx + 1);
+					printf("%d ms %d is died\n", runtime(args->start_time), idx + 1);
 					flag = 1;
 					break ;
 				}
-				else
-					idx++;
+				if ((argc == 6) && (philo[idx].eat_cnt <= args->must_eat_num))
+					eat_cnt = philo[idx].eat_cnt;
+				idx++;
 			}
+			if ((argc == 6) && (eat_cnt >= args->must_eat_num))
+				break ;
 		}
-		printf("why\n");
 		free(args->fork);
 		free(args);
 	}
 	else
-	{
 		write(2, "arguments error\n", 16);
-	}
 	return (0);
 }
 
