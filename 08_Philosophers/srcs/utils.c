@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: junghwki <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/30 00:05:28 by junghwki          #+#    #+#             */
+/*   Updated: 2021/07/30 00:05:30 by junghwki         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/philo.h"
 
-int					ft_atoi(const char *str)
+int	ft_atoi(const char *str)
 {
 	long long int	ret;
 
@@ -15,7 +27,7 @@ int					ft_atoi(const char *str)
 	return (ret);
 }
 
-int					ft_usleep(useconds_t microseconds)
+int	ft_usleep(useconds_t microseconds)
 {
 	struct timeval	old_time;
 	struct timeval	new_time;
@@ -40,7 +52,7 @@ int					ft_usleep(useconds_t microseconds)
 	return (0);
 }
 
-int					runtime(struct timeval old_time)
+int	runtime(struct timeval old_time)
 {
 	struct timeval	new_time;
 	int				ret;
@@ -51,9 +63,10 @@ int					runtime(struct timeval old_time)
 	return (ret);
 }
 
-void				print_msg(t_philo *philo, char *msg)
+void	print_msg(t_philo *philo, char *msg)
 {
 	pthread_mutex_lock(&(philo->args->print));
-	printf("%d ms %d %s\n", runtime(philo->args->start_time), philo->philo_idx + 1, msg);
+	printf("%d ms %d %s\n", runtime(philo->args->start_time),
+		philo->philo_idx + 1, msg);
 	pthread_mutex_unlock(&(philo->args->print));
 }

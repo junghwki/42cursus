@@ -6,7 +6,7 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/05 17:20:42 by junghwki          #+#    #+#             */
-/*   Updated: 2021/07/09 16:41:02 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/07/30 00:07:32 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,19 @@
 # define SLEEP_MSG	"is sleeping"
 # define THINK_MSG	"is thinking"
 
-typedef struct		s_arguments
+typedef struct s_arguments
 {
 	int				philo_num;
-	int 			time_to_die;
-	int 			time_to_eat;
-	int 			time_to_sleep;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
 	int				must_eat_num;
 	struct timeval	start_time;
 	pthread_mutex_t	*fork;
 	pthread_mutex_t	print;
 }					t_arg;
 
-typedef struct		s_philosophers
+typedef struct s_philosophers
 {
 	t_arg			*args;
 	pthread_t		t_id;

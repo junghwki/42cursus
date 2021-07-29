@@ -6,13 +6,13 @@
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/05 17:20:39 by junghwki          #+#    #+#             */
-/*   Updated: 2021/07/09 17:28:13 by junghwki         ###   ########.fr       */
+/*   Updated: 2021/07/30 00:09:23 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-t_arg		*argument_init(int argc, char **argv)
+t_arg	*argument_init(int argc, char **argv)
 {
 	t_arg	*args;
 	int		idx;
@@ -42,20 +42,20 @@ int	main(int argc, char **argv)
 	int			idx;
 	int			eat_cnt;
 	int			flag;
-	
+
 	idx = 0;
 	flag = 0;
 	eat_cnt = 0;
 	if (argc == 5 || argc == 6)
 	{
 		args = argument_init(argc, argv);
-		if (args->philo_num < 0 || args->time_to_die < 0 || args->time_to_eat < 0 ||
-			args->time_to_sleep < 0 || args->must_eat_num < 0)
-			{
-				write(2, "arguments error\n", 16);
-				free(args);
-				return (0);
-			}
+		if (args->philo_num < 0 || args->time_to_die < 0 || args->time_to_eat < 0
+			|| args->time_to_sleep < 0 || args->must_eat_num < 0)
+		{
+			write(2, "arguments error\n", 16);
+			free(args);
+			return (0);
+		}
 		idx = 0;
 		philo = (t_philo *)malloc(sizeof(t_philo) * args->philo_num);
 		while (idx < args->philo_num)

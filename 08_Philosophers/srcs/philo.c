@@ -1,12 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: junghwki <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/30 00:05:21 by junghwki          #+#    #+#             */
+/*   Updated: 2021/07/30 00:05:23 by junghwki         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/philo.h"
 
-void		philo_sleep(t_philo *philo)
+void	philo_sleep(t_philo *philo)
 {
 	print_msg(philo, SLEEP_MSG);
 	ft_usleep(philo->args->time_to_sleep * 1000);
 }
 
-void		philo_eat(t_philo *philo)
+void	philo_eat(t_philo *philo)
 {
 	print_msg(philo, EAT_MSG);
 	ft_usleep(philo->args->time_to_eat * 1000);
@@ -16,14 +28,14 @@ void		philo_eat(t_philo *philo)
 	philo->eat_cnt++;
 }
 
-void		philo_take_fork(t_philo *philo)
+void	philo_take_fork(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->args->fork[philo->left_fork]);
 	pthread_mutex_lock(&philo->args->fork[philo->right_fork]);
 	print_msg(philo, FORK_MSG);
 }
 
-int		philosopher(void *philo)
+int	philosopher(void *philo)
 {
 	t_philo	*temp;
 
