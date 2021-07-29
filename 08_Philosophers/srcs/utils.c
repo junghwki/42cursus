@@ -35,21 +35,12 @@ int					ft_usleep(useconds_t microseconds)
 			temp.tv_usec += temp.tv_sec * 1000000;
 		if ((useconds_t)temp.tv_usec >= microseconds)
 			break ;
-		usleep(100);
+		usleep(1000);
 	}
 	return (0);
 }
 
-int					time_calc(struct timeval old_time, struct timeval new_time)
-{
-	int				ret;
-
-	ret = (new_time.tv_sec - old_time.tv_sec) * 1000;
-	ret += (new_time.tv_usec - old_time.tv_usec) / 1000;
-	return (ret);
-}
-
-int					current_time_calc(struct timeval old_time)
+int					runtime(struct timeval old_time)
 {
 	struct timeval	new_time;
 	int				ret;
@@ -60,25 +51,9 @@ int					current_time_calc(struct timeval old_time)
 	return (ret);
 }
 
-int					ft_strlen(char *str)
-{
-	int				ret;
-
-	ret = 0;
-	while (str[ret])
-		ret++;
-	return (ret);
-}
-
-void				ft_print_msg(t_philo *philo, char *msg)
+void				print_msg(t_philo *philo, char *msg)
 {
 	pthread_mutex_lock(&(philo->args->print));
-	printf("%d ms ", current_time_calc(philo->args->start_time));
-	printf("%d %s\n", philo->philo_idx + 1, msg);
+	printf("%d ms %d %s\n", runtime(philo->args->start_time), philo->philo_idx + 1, msg);
 	pthread_mutex_unlock(&(philo->args->print));
 }
-
-//void				timestamp(char *str)
-//{
-
-//}
