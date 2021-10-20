@@ -100,6 +100,7 @@ int	main(int argc, char **argv)
 			|| args->must_eat_num < 0)
 		{
 			write(2, "arguments error\n", 16);
+			free(args->fork);
 			free(args);
 			return (0);
 		}

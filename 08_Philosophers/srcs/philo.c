@@ -52,6 +52,7 @@ int	philosopher(void *philo)
 		philo_eat(temp);
 		philo_sleep(temp);
 		print_msg(temp, THINK_MSG);
+		ft_usleep(10);
 	}
 	return (0);
 }
