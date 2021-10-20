@@ -92,7 +92,7 @@ int	main(int argc, char **argv)
 	t_arg		*args;
 	t_philo		*philo;
 
-	if (argc == 5 || argc == 6)
+	if (argc == 5 || (argc == 6 && ft_atoi(argv[5]) != 0))
 	{
 		args = argument_init(argc, argv);
 		if (args->philo_num < 0 || args->time_to_die < 0
