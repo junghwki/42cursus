@@ -36,7 +36,7 @@ typedef struct s_arguments
 	pthread_mutex_t	print;
 }					t_arg;
 
-typedef struct s_philosophers
+typedef struct s_philosopher
 {
 	t_arg			*args;
 	pthread_t		t_id;
