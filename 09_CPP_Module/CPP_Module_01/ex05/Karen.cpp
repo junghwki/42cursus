@@ -34,4 +34,11 @@ void Karen::error(void)
 
 void Karen::complain(std::string level)
 {
+	int idx;
+
+	idx = 0;
+	while (this->_level[idx] != level && idx < 4)
+		idx++;
+	if (idx != 4)
+		(this->*_levelPtr[idx])();
 }

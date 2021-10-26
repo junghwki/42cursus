@@ -14,7 +14,8 @@ private:
 
 public:
 	Karen();
-	void complain(std::string level);
+	int complain(std::string level);
+	void filter(std::string level);
 };
 
 #endif

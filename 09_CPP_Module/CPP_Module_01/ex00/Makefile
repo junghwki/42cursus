@@ -2,10 +2,12 @@ CC		= clang++
 CFLAGS	= -Wall -Werror -Wextra
 RM		= rm -f
 
-NAME	= phonebook
+NAME	= Zombie
 
-SRCS	= ./contact.cpp \
-		  ./main.cpp
+SRCS	= ./main.cpp \
+		  ./newZombie.cpp \
+		  ./randomChump.cpp \
+		  ./Zombie.cpp
 
 OBJS	= $(SRCS:.cpp=.o)
 

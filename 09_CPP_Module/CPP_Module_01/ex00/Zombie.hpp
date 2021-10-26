@@ -3,11 +3,12 @@
 
 # include <iostream>
 
-class Zombie {
-	private:
-	std::string name;
+class Zombie
+{
+private:
+	std::string _name;
 
-	public:
+public:
 	std::string get_name();
 	void announce(void);
 	void set_name(std::string name);
