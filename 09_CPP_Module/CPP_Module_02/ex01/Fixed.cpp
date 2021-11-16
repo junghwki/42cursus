@@ -51,7 +51,8 @@ int Fixed::toInt(void) const
 Fixed::Fixed(const int num)
 {
 	std::cout << "Int constructor called" << std::endl;
-	this->_rawBits = (num * (1 << this->_fractonalBits));
+	//this->_rawBits = (num * (1 << this->_fractonalBits));
+	this->setRawBits(num);
 }
 
 Fixed::Fixed(const float num)

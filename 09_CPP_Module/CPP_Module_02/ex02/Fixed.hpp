@@ -26,10 +26,17 @@ public:
 	Fixed& operator-(const Fixed& fixed);
 	Fixed& operator*(const Fixed& fixed);
 	Fixed& operator/(const Fixed& fixed);
+
 	Fixed& operator++(void);
 	Fixed& operator--(void);
-	Fixed& operator++(int);
-	Fixed& operator--(int);
+	//후위연산 구분을위해 int
+	Fixed operator++(int);
+	Fixed operator--(int);
+	static Fixed& min(Fixed& fixed1, Fixed& fixed2);
+	static Fixed& max(Fixed& fixed1, Fixed& fixed2);
+	static const Fixed& min(const Fixed& fixed1, const Fixed& fixed2);
+	static const Fixed& max(const Fixed& fixed1, const Fixed& fixed2);
+
 	int getRawBits(void) const;
 	void setRawBits(int const raw);
 	float toFloat(void) const;
