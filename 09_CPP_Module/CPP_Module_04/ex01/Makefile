@@ -4,7 +4,10 @@ RM		= rm -f
 
 NAME	= main
 SRCS	= ./main.cpp \
-		  ./Fixed.cpp
+		  ./Animal.cpp \
+		  ./Cat.cpp \
+		  ./Dog.cpp \
+		  ./Brain.cpp
 
 OBJS	= $(SRCS:.cpp=.o)
 
