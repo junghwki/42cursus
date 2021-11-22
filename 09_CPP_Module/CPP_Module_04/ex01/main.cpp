@@ -46,10 +46,10 @@ void test() {
     const Animal* j = new Dog();
     const Animal* i = new Cat();
 
-    std::cout << j->getType() << " " << std::endl;
-    std::cout << i->getType() << " " << std::endl;
-    i->makeSound(); //will output the cat sound!
-    j->makeSound();
+    // std::cout << j->getType() << " " << std::endl;
+    // std::cout << i->getType() << " " << std::endl;
+    // i->makeSound(); //will output the cat sound!
+    // j->makeSound();
 
     std::cout << "-----------make half Dog half Cat--------------" << std::endl;
     const Animal* animal[10];
@@ -75,6 +75,8 @@ void test() {
     Cat *a = new Cat();
     Cat *b = new Cat(*a);
     a->setType("original");
+    std::cout << a->getBrain() << " " << std::endl;
+    std::cout << b->getBrain() << " " << std::endl;
     std::cout << a->getType() << " " << std::endl;
     std::cout << b->getType() << " " << std::endl;
 	delete a;
@@ -85,5 +87,5 @@ int main() {
 
     test();
     //  while (1) ;
-    system("leaks main");
+    // system("leaks main");
 }

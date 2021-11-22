@@ -28,11 +28,6 @@ Dog &Dog::operator=(const Dog &dog)
 	return (*this);
 }
 
-Brain* Dog::getBrain()
-{
-	return (this->_brain);
-}
-
 void Dog::makeSound() const
 {
 	std::cout << "Woof" << std::endl;
