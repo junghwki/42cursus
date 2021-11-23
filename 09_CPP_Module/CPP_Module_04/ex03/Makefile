@@ -5,6 +5,9 @@ RM		= rm -f
 NAME	= main
 SRCS	= ./main.cpp \
 		  ./AMateria.cpp \
+		  ./Character.cpp \
+		  ./Cure.cpp \
+		  ./Ice.cpp
 
 OBJS	= $(SRCS:.cpp=.o)
 

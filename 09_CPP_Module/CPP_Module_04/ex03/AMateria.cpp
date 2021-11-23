@@ -2,30 +2,39 @@
 
 AMateria::AMateria()
 {
+	// std::cout << "AMateria Default constructor called" << std::endl;
+	this->_type = "AMateria";
 }
 
 AMateria::~AMateria()
 {
+	// std::cout << "AMateria Destructor called" << std::endl;
 }
 
-AMateria::AMateria(AMateria& copy)
+AMateria::AMateria(const AMateria& copy)
 {
+	// std::cout << "AMateria Copy constructor called" << std::endl;
+	*this = copy;
 }
 
-AMateria::AMateria& operator=(const AMateria& amateria)
+AMateria& AMateria::operator=(const AMateria& amateria)
 {
+	// std::cout << "AMateria Assignation operator called" << std::endl;
+	this->_type = amateria._type;
+	return (*this);
 }
 
-AMateria(std::string const & type)
+AMateria::AMateria(std::string const& type)
 {
 	this->_type = type;
 }
 
-std::string const & getType() const; //Returns the materia typ
+std::string const& AMateria::getType() const
 {
 	return (this->_type);
 }
 
-virtual void use(ICharacter& target)
+void AMateria::use(ICharacter& target)
 {
+	std::cout << "* AMateria " << target.getName() << " *" << std::endl;
 }
