@@ -102,7 +102,7 @@ void Character::unequip(int idx)
 	this->_inventory[idx] = NULL;
 	while (i < 4)
 	{
-		if (!this->_inventory[i] && i < 3);
+		if (!this->_inventory[i] && i < 3)
 		{
 			this->_inventory[i] = this->_inventory[i + 1];
 			this->_inventory[i + 1] = NULL;

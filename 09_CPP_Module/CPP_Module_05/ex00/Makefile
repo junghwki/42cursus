@@ -4,11 +4,7 @@ RM		= rm -f
 
 NAME	= main
 SRCS	= ./main.cpp \
-		  ./AMateria.cpp \
-		  ./Cure.cpp \
-		  ./Ice.cpp \
-		  ./Character.cpp \
-		  ./MateriaSource.cpp
+		  ./Bureaucrat.cpp
 
 OBJS	= $(SRCS:.cpp=.o)
 
