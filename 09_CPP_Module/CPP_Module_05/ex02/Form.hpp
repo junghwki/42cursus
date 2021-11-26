@@ -18,12 +18,12 @@ public:
 	Form();
 	Form(const Form& arg);
 	Form(std::string name, int toSign, int toExecute);
-	~Form();
+	virtual ~Form();
 	Form& operator=(const Form& arg);
-	const std::string getName();
+	const std::string getName() const;
 	bool getSigned();
 	const int getToSign();
-	const int getToExecute();
+	const int getToExecute() const;
 	void beSigned(Bureaucrat& arg);
 	class GradeTooLowException : public std::exception
 	{
@@ -33,9 +33,14 @@ public:
 	{
 		const char* what() const throw();
 	};
-
+	class NotSignedException : public std::exception
+	{
+		const char* what() const throw();
+	};
+	void execute(Bureaucrat const& executor) const;
+	virtual void Action() const = 0;
 };
 
-std::ostream &operator<<(std::ostream& out,Form& value);
+std::ostream &operator<<(std::ostream& out, Form& value);
 
 #endif

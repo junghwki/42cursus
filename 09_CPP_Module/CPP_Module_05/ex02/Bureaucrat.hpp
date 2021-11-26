@@ -19,7 +19,7 @@ public:
 	Bureaucrat(const Bureaucrat& arg);
 	Bureaucrat(const std::string name, int grade);
 	std::string getName();
-	int getGrade();
+	int getGrade() const;
 	void incrementGrade();
 	void decrementGrade();
 	class GradeTooHighException : public std::exception
@@ -33,6 +33,7 @@ public:
 		const char* what() const throw();
 	};
 	void signForm(Form& form);
+	void executeForm(Form const & form);
 };
 
 std::ostream& operator<<(std::ostream &out, Bureaucrat& value);

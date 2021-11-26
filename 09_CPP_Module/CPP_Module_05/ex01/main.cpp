@@ -1,47 +1,24 @@
 #include "Bureaucrat.hpp"
+#include "Form.hpp"
 
-int main(void)
+int main()
 {
-	try
-	{
-		// fuck you1
-		Bureaucrat a("juyang", 150);
-		// fuck you2
-		Bureaucrat b("juyang", 550);
-	}
-	catch(const std::exception& e)
-	{
-		std::cerr << e.what() << '\n';
-	}
-	try
-	{
-		//fuck you3
-		Bureaucrat c("juyang", 0);
-		//fuck you4
-		Bureaucrat d("juyang", 1);
-	}
-	catch(const std::exception& e)
-	{
-		std::cerr << e.what() << '\n';
-	}
-	try
-	{
-		Bureaucrat e("junghwki", 1);
-		e.incrementGrade();
-	}
-	catch(const std::exception& e)
-	{
-		std::cerr << e.what() << '\n';
-	}
-	try
-	{
-		Bureaucrat f("junghwki", 150);
-		f.decrementGrade();
-	}
-	catch(const std::exception& e)
-	{
-		std::cerr << e.what() << '\n';
-	}
-	Bureaucrat g("mki", 150);
-	std::cout << g << std::endl;
+    try
+    {
+        Bureaucrat b1("jimkwon", 100);
+        // ! 범위는 1 ~ 150
+        Form f1("wrong form", 41, 41);
+        Form f2("jimkwon's form", 150, 150);
+        // f1.beSigned(b1);
+        // f2.beSigned(b1);
+        std::cout << "---------print Form-----------" << std::endl;
+        // std::cout << f1 << std::endl;
+        // std::cout << f2 << std::endl;
+		b1.signForm(f1);
+		b1.signForm(f2);
+    }
+    catch (std::exception & e)
+    {
+        std::cerr << e.what() << std::endl;
+    }
 }

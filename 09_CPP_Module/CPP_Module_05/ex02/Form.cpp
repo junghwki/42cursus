@@ -20,7 +20,6 @@ Form::Form(std::string name, int toSign, int toExecute) : _name(name), _signed(f
 	}
 }
 
-
 Form::~Form()
 {
 }
@@ -30,7 +29,7 @@ Form& Form::operator=(const Form& arg)
 	return (*this);
 }
 
-const std::string Form::getName()
+const std::string Form::getName() const
 {
 	return (this->_name);
 }
@@ -45,7 +44,7 @@ const int Form::getToSign()
 	return (this->_toSign);
 }
 
-const int Form::getToExecute()
+const int Form::getToExecute() const
 {
 	return (this->_toExecute);
 }
@@ -66,6 +65,25 @@ const char* Form::GradeTooHighException::what() const throw()
 const char* Form::GradeTooLowException::what() const throw()
 {
 	return ("grade is too low");
+}
+
+const char* Form::NotSignedException::what() const throw()
+{
+	return ("not signed");
+}
+
+void Form::execute(Bureaucrat const& executor) const
+{
+	if (this->_signed == false)
+	{
+		throw Form::NotSignedException();
+	}
+	else if (executor.getGrade() > this->getToExecute())
+	{
+		throw Form::GradeTooLowException();
+	}
+	else
+		this->Action();
 }
 
 std::ostream &operator<<(std::ostream& out, Form& value)
