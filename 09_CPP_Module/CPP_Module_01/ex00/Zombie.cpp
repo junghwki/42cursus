@@ -1,5 +1,10 @@
 #include "Zombie.hpp"
 
+Zombie::~Zombie()
+{
+	std::cout << "Zombie Destructor called" << std::endl;
+}
+
 void Zombie::set_name(std::string name)
 {
 	this->_name = name;

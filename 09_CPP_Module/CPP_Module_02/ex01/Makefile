@@ -5,9 +5,7 @@ RM		= rm -f
 NAME	= main
 
 SRCS	= ./main.cpp \
-		  ./newZombie.cpp \
-		  ./randomChump.cpp \
-		  ./Zombie.cpp
+		  ./Fixed.cpp
 
 OBJS	= $(SRCS:.cpp=.o)
 

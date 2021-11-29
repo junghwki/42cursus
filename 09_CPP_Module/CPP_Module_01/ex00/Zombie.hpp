@@ -9,6 +9,7 @@ private:
 	std::string _name;
 
 public:
+	~Zombie();
 	std::string get_name();
 	void announce(void);
 	void set_name(std::string name);

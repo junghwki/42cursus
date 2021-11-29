@@ -2,7 +2,7 @@
 #include <fstream>
 #include "Replace.hpp"
 
-void	ft_replace(Replace replace)
+int	ft_replace(Replace replace)
 {
 	std::ifstream f_in;
 	std::ofstream f_out(replace.GetFileName().append(".replace"));
@@ -31,7 +31,11 @@ void	ft_replace(Replace replace)
 		f_out.close();
 	}
 	else
+	{
 		std::cout << "Arguments Error" << std::endl;
+		return (-1);
+	}
+	return (0);
 }
 
 int	main(int argc, char *argv[])
@@ -39,7 +43,7 @@ int	main(int argc, char *argv[])
 	if (argc == 4)
 	{
 		Replace replace(argv[1], argv[2], argv[3]);
-		ft_replace(replace);
+		return (ft_replace(replace));
 	}
 	else
 	{

@@ -11,6 +11,7 @@ private:
 	void error(void);
 	std::string _level[4];
 	void (Karen::*_levelPtr[4])(void);
+	//함수포인터 잘모르겠음
 
 public:
 	Karen();

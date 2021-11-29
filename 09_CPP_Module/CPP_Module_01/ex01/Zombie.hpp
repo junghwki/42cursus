@@ -4,10 +4,10 @@
 # include <iostream>
 
 class Zombie {
-	private:
+private:
 	std::string name;
 
-	public:
+public:
 	std::string get_name();
 	void announce(void);
 	void set_name(std::string name);

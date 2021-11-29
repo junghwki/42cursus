@@ -1,10 +1,5 @@
 #include "Replace.hpp"
 
-Replace::Replace()
-{
-
-}
-
 Replace::Replace(std::string filename, std::string before, std::string after)
 {
 	this->_filename = filename;

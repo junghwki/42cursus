@@ -3,11 +3,13 @@ CFLAGS	= -Wall -Werror -Wextra
 RM		= rm -f
 
 NAME	= main
-
 SRCS	= ./main.cpp \
-		  ./newZombie.cpp \
-		  ./randomChump.cpp \
-		  ./Zombie.cpp
+		  ./Bureaucrat.cpp \
+		  ./Form.cpp \
+		  ./PresidentialPardonForm.cpp \
+		  ./RobotomyRequestForm.cpp \
+		  ./ShrubberyCreationForm.cpp \
+		  ./Intern.cpp
 
 OBJS	= $(SRCS:.cpp=.o)
 
@@ -24,4 +26,4 @@ fclean : clean
 
 re : fclean all
 
-.PHONY : all clean fclean re
+.PHONY : all clean fclean re 
