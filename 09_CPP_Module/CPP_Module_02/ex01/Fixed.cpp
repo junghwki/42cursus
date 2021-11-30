@@ -7,15 +7,15 @@ Fixed::Fixed()
 	this->_rawBits = 0;
 }
 
-Fixed::~Fixed()
-{
-	std::cout << "Destructor called" << std::endl;
-}
-
 Fixed::Fixed(const Fixed &fixed)
 {
 	std::cout << "Copy constructor called" << std::endl;
 	*this = fixed;
+}
+
+Fixed::~Fixed()
+{
+	std::cout << "Destructor called" << std::endl;
 }
 
 Fixed& Fixed::operator=(const Fixed &fixed)
@@ -50,7 +50,6 @@ int Fixed::toInt(void) const
 Fixed::Fixed(const int num)
 {
 	std::cout << "Int constructor called" << std::endl;
-	//this->_rawBits = (num * (1 << this->_fractonalBits));
 	this->setRawBits(num);
 }
 

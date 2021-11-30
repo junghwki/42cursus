@@ -16,7 +16,6 @@ Fixed::Fixed(const Fixed &fixed)
 {
 	//std::cout << "Copy constructor called" << std::endl;
 	*this = fixed;
-	//this->_rawBits = fixed.getRawBits();
 }
 
 Fixed &Fixed::operator=(const Fixed &fixed)
@@ -92,25 +91,25 @@ bool Fixed::operator!=(Fixed &fixed)
 
 Fixed& Fixed::operator+(const Fixed& fixed)
 {
-	this->_rawBits = this->_rawBits + fixed.getRawBits();
+	this->_rawBits += fixed.getRawBits();
 	return (*this);
 }
 
 Fixed& Fixed::operator-(const Fixed& fixed)
 {
-	this->_rawBits = this->_rawBits - fixed.getRawBits();
+	this->_rawBits -= fixed.getRawBits();
 	return (*this);
 }
 
 Fixed& Fixed::operator*(const Fixed& fixed)
 {
-	this->_rawBits = this->_rawBits * fixed.getRawBits() / (1 << this->_fractonalBits);
+	this->_rawBits *= fixed.getRawBits() / (1 << this->_fractonalBits);
 	return (*this);
 }
 
 Fixed& Fixed::operator/(const Fixed& fixed)
 {
-	this->_rawBits = this->_rawBits / fixed.getRawBits() * (1 << this->_fractonalBits);
+	this->_rawBits /= fixed.getRawBits() * (1 << this->_fractonalBits);
 	return (*this);
 }
 
