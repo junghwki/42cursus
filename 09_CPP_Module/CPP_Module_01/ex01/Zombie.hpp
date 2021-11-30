@@ -10,9 +10,9 @@ private:
 
 public:
 	~Zombie();
-	std::string get_name();
 	void announce(void);
-	void set_name(std::string name);
+	std::string getName();
+	void setName(std::string name);
 };
 
 Zombie* zombieHorde( int N, std::string name );

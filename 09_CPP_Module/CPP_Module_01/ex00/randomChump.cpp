@@ -4,6 +4,6 @@ void randomChump(std::string name)
 {
 	Zombie ret;
 
-	ret.set_name(name);
+	ret.setName(name);
 	ret.announce();
 }
