@@ -1,69 +1,74 @@
-// #include "Bureaucrat.hpp"
-// #include "Form.hpp"
-// #include "PresidentialPardonForm.hpp"
-// #include "RobotomyRequestForm.hpp"
-// #include "ShrubberyCreationForm.hpp"
-
-// int main()
-// {
-//     try
-//     {
-//         Bureaucrat b1("jimkwon", 10);
-//         // ! 범위는 1 ~ 150
-//         Form* f1 = new ShrubberyCreationForm("wrong form");
-//         // Form f2("jimkwon's form", 150, 150);
-//         f1->beSigned(b1);
-//         // f2.beSigned(b1);
-//         std::cout << "---------print Form-----------" << std::endl;
-//         // std::cout << f1 << std::endl;
-//         // std::cout << f2 << std::endl;
-// 		// b1.signForm(f1);
-// 		// b1.signForm(f2);
-// 		f1->execute(b1);
-//     }
-//     catch (std::exception & e)
-//     {
-//         std::cerr << e.what() << std::endl;
-//     }
-
-// }
-
 #include "Bureaucrat.hpp"
 #include "ShrubberyCreationForm.hpp"
 #include "RobotomyRequestForm.hpp"
 #include "PresidentialPardonForm.hpp"
+#include "Intern.hpp"
 
-int main()
+void test(Bureaucrat& b, Form* f){
+    std::cout << "------------test case --------------" << std::endl;
+    try {
+        b.executeForm(*f);
+    }
+    catch (std::exception& e){
+        std::cerr << e.what() << std::endl;
+    }
+    try {
+        b.signForm(*f);
+    }
+    catch (std::exception& e){
+        std::cerr << e.what() << std::endl;
+    }
+    std::cout << *f;
+    try {
+        b.executeForm(*f);
+    }
+    catch (std::exception& e){
+        std::cerr << e.what() << std::endl;
+    }
+    try {
+        b.signForm(*f);
+    }
+    catch (std::exception& e){
+        std::cerr << e.what() << std::endl;
+    }
+    std::cout << std::endl << std::endl;
+}
+
+int main_main(void){
+    Intern someRandomIntern;
+    Form* s;
+    Form* r;
+    Form* p;
+    Form* nothing;
+    Bureaucrat jeongwle("jeongwle", 1);
+    Bureaucrat junghwki("junghwki", 25);
+    Bureaucrat mki("mki", 72);
+    Bureaucrat ukwon("ukwon", 145);
+
+    s = someRandomIntern.makeForm("ShrubberyCreationForm", "juyang");
+    r = someRandomIntern.makeForm("RobotomyRequestForm", "juyang1");
+    p = someRandomIntern.makeForm("PresidentialPardonForm", "juyang2");
+    nothing = someRandomIntern.makeForm("nothing", "sehan");
+    std::cout << std::endl << std::endl;
+    std::cout << *s;
+    std::cout << *r;
+    std::cout << *p;
+    test(ukwon, s);
+    test(ukwon, r);
+    test(ukwon, p);
+    mki.executeForm(*s);
+    std::cout << std::endl;
+    test(junghwki, r);
+    test(jeongwle, p);
+    delete p;
+    delete r;
+    delete s;
+    return (0);
+}
+
+int main(void)
 {
-	try
-	{
-        std::cout << "-------_Action_-------------\n";
-		ShrubberyCreationForm sForm("sForm");
-        sForm.Action();
-
-		RobotomyRequestForm rForm("rForm");
-		rForm.Action();
-
-		PresidentialPardonForm pForm("pForm");
-		pForm.Action();
-
-		Bureaucrat b("b", 1);
-
-        std::cout << "-------sign and excute-------------\n";
-		sForm.beSigned(b);
-		b.signForm(sForm);
-		sForm.execute(b);
-        std::cout << "-------print sForm information-------------\n";
-		std::cout << sForm << '\n';
-		pForm.beSigned(b);
-		b.executeForm(pForm);
-        std::cout << "-------rForm is not signed-------------\n";
-        // ? pForm.beSigned(b);
-		rForm.execute(b);
-	}
-	catch (std::exception &e)
-	{
-		std::cout << e.what() << '\n';
-	}
-	return 0;
+	main_main();
+	system("leaks main");
+	return (0);
 }

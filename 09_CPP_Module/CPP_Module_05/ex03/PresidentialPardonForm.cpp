@@ -30,3 +30,9 @@ void PresidentialPardonForm::Action() const
 	std::cout << "Tells us " << this->_target << " has been pardoned by Zafod Beeblebrox." << std::endl;
 }
 
+Form* PresidentialPardonForm::makePForm(std::string target)
+{
+	Form* ret = new PresidentialPardonForm(target);
+
+	return (ret);
+}

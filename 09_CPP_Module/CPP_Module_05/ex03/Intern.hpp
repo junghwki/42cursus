@@ -9,6 +9,8 @@
 
 class Intern
 {
+private:
+	Form* (*_makeFormPtr[4])(std::string);
 public:
 	Intern();
 	Intern(const Intern& arg);

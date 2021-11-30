@@ -48,3 +48,11 @@ void ShrubberyCreationForm::Action() const
         ofs.close();
     }
 }
+
+
+Form* ShrubberyCreationForm::makeSForm(std::string target)
+{
+	Form* ret = new ShrubberyCreationForm(target);
+
+	return (ret);
+}

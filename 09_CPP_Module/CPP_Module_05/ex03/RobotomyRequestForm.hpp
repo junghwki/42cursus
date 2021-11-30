@@ -19,6 +19,7 @@ public:
 	~RobotomyRequestForm();
 	RobotomyRequestForm& operator=(const RobotomyRequestForm& arg);
 	void Action() const;
+	static Form* makeRForm(std::string target);
 };
 
 #endif

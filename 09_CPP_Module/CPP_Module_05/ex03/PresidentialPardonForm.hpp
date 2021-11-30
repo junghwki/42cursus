@@ -17,6 +17,7 @@ public:
 	~PresidentialPardonForm();
 	PresidentialPardonForm& operator=(const PresidentialPardonForm& arg);
 	void Action() const;
+	static Form* makePForm(std::string target);
 };
 
 #endif

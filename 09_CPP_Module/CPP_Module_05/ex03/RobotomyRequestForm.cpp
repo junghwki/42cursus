@@ -35,3 +35,10 @@ void RobotomyRequestForm::Action() const
 	else
 		std::cout << "It’s a failure\n";
 }
+
+Form* RobotomyRequestForm::makeRForm(std::string target)
+{
+	Form* ret = new RobotomyRequestForm(target);
+
+	return (ret);
+}

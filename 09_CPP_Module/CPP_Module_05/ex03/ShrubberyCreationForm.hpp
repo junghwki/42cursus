@@ -18,6 +18,7 @@ public:
 	~ShrubberyCreationForm();
 	ShrubberyCreationForm& operator=(const ShrubberyCreationForm& arg);
 	void Action() const;
+	static Form* makeSForm(std::string target);
 };
 
 #endif
