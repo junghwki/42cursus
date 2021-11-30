@@ -5,9 +5,9 @@ int	main(void)
 	Karen karen;
 
 	karen.complain("DEBUG");
-	karen.complain("HI");
-	karen.complain("WARNING");
 	karen.complain("INFO");
+	karen.complain("WARNING");
 	karen.complain("ERROR");
+	karen.complain("42");
 	return (0);
 }

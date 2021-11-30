@@ -3,7 +3,8 @@
 
 # include <iostream>
 
-class Replace {
+class Replace
+{
 private:
 	std::string _filename;
 	std::string _before;
@@ -11,9 +12,9 @@ private:
 	
 public:
 	Replace(std::string filename, std::string before, std::string after);
-	std::string GetFileName();
-	std::string GetBefore();
-	std::string GetAfter();
+	std::string getFileName();
+	std::string getBefore();
+	std::string getAfter();
 };
 
 #endif

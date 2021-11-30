@@ -7,17 +7,17 @@ Replace::Replace(std::string filename, std::string before, std::string after)
 	this->_after = after;
 }
 
-std::string Replace::GetFileName()
+std::string Replace::getFileName()
 {
 	return (_filename);
 }
 
-std::string Replace::GetBefore()
+std::string Replace::getBefore()
 {
 	return (_before);
 }
 
-std::string Replace::GetAfter()
+std::string Replace::getAfter()
 {
 	return (_after);
 }

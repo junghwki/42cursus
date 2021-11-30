@@ -5,22 +5,22 @@
 int	ft_replace(Replace replace)
 {
 	std::ifstream f_in;
-	std::ofstream f_out(replace.GetFileName().append(".replace"));
+	std::ofstream f_out(replace.getFileName().append(".replace"));
 	std::string desc;
 	size_t	position;
 	size_t	idx;
 
-	f_in.open(replace.GetFileName());
+	f_in.open(replace.getFileName());
 	if (f_in.is_open())
 	{
 		while (getline(f_in, desc))
 		{
-			while (desc.find(replace.GetBefore()) != std::string::npos)
+			while (desc.find(replace.getBefore()) != std::string::npos)
 			{
-				position = desc.find(replace.GetBefore());
-				desc.erase(position, replace.GetBefore().length());
-				desc.insert(position, replace.GetAfter());
-				idx = position + replace.GetAfter().length();
+				position = desc.find(replace.getBefore());
+				desc.erase(position, replace.getBefore().length());
+				desc.insert(position, replace.getAfter());
+				idx = position + replace.getAfter().length();
 				f_out << desc.substr(0, idx);
 				desc.erase(0, idx);
 			}

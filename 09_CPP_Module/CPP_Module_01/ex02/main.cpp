@@ -8,10 +8,10 @@ int	main(void)
 
 	str = "HI THIS IS BRAIN";
 	stringPTR = &str;
-	std::cout << "string Address:" << &str << std::endl;
-	std::cout << "stringPTR Address:" << &stringPTR << std::endl;
-	std::cout << "stringREF Address:" << &stringREF << std::endl;
-	std::cout << "stringPTR:"  << *stringPTR << std::endl;
-	std::cout << "stringREF:"  << stringREF << std::endl;
+	std::cout << "string Address    : " << &str << std::endl;
+	std::cout << "stringPTR Address : " << &stringPTR << std::endl;
+	std::cout << "stringREF Address : " << &stringREF << std::endl;
+	std::cout << "stringPTR         : " << *stringPTR << std::endl;
+	std::cout << "stringREF         : " << stringREF << std::endl;
 	return (0);
 }
