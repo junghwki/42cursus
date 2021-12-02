@@ -34,12 +34,18 @@ int Fixed::getRawBits(void) const
 void Fixed::setRawBits(int const raw)
 {
 	std::cout << "setRawBits member function called" << std::endl;
-	this->_rawBits = raw * (1 << this->_fractonalBits);
+	this->_rawBits = raw << this->_fractonalBits;
+}
+
+void Fixed::setRawBits(float const raw)
+{
+	std::cout << "setRawBits member function called" << std::endl;
+	this->_rawBits = roundf(raw * (1 << this->_fractonalBits));
 }
 
 float Fixed::toFloat(void) const
 {
-	return ((float)this->_rawBits / (1 << this->_fractonalBits));
+	return ((float)(this->_rawBits) / (1 << this->_fractonalBits));
 }
 
 int Fixed::toInt(void) const
@@ -56,7 +62,7 @@ Fixed::Fixed(const int num)
 Fixed::Fixed(const float num)
 {
 	std::cout << "Float constructor called" << std::endl;
-	this->_rawBits = roundf(num * (1 << this->_fractonalBits));
+	this->setRawBits(num);
 }
 
 std::ostream &operator<<(std::ostream &out, Fixed const &value)

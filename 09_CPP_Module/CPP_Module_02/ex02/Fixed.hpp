@@ -8,7 +8,6 @@ class Fixed
 private:
 	int _rawBits;
 	static const int _fractonalBits = 8;
-
 public:
 	Fixed();
 	~Fixed();
@@ -39,6 +38,7 @@ public:
 
 	int getRawBits(void) const;
 	void setRawBits(int const raw);
+	void setRawBits(float const raw);
 	float toFloat(void) const;
 	int toInt(void) const;
 };

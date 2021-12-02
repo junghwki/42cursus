@@ -7,15 +7,15 @@ Fixed::Fixed()
 	this->_rawBits = 0;
 }
 
-Fixed::~Fixed()
-{
-	//std::cout << "Destructor called" << std::endl;
-}
-
 Fixed::Fixed(const Fixed &fixed)
 {
 	//std::cout << "Copy constructor called" << std::endl;
 	*this = fixed;
+}
+
+Fixed::~Fixed()
+{
+	//std::cout << "Destructor called" << std::endl;
 }
 
 Fixed &Fixed::operator=(const Fixed &fixed)
@@ -34,12 +34,18 @@ int Fixed::getRawBits(void) const
 void Fixed::setRawBits(int const raw)
 {
 	//std::cout << "setRawBits member function called" << std::endl;
-	this->_rawBits = raw * (1 << this->_fractonalBits);
+	this->_rawBits = raw << this->_fractonalBits;
+}
+
+void Fixed::setRawBits(float const raw)
+{
+	// std::cout << "setRawBits member function called" << std::endl;
+	this->_rawBits = roundf(raw * (1 << this->_fractonalBits));
 }
 
 float Fixed::toFloat(void) const
 {
-	return ((float)this->_rawBits / (1 << this->_fractonalBits));
+	return ((float)(this->_rawBits) / (1 << this->_fractonalBits));
 }
 
 int Fixed::toInt(void) const
@@ -56,7 +62,7 @@ Fixed::Fixed(const int num)
 Fixed::Fixed(const float num)
 {
 	//std::cout << "Float constructor called" << std::endl;
-	this->_rawBits = roundf(num * (1 << this->_fractonalBits));
+	this->setRawBits(num);
 }
 
 bool Fixed::operator>(Fixed &fixed)
@@ -109,7 +115,7 @@ Fixed& Fixed::operator*(const Fixed& fixed)
 
 Fixed& Fixed::operator/(const Fixed& fixed)
 {
-	this->_rawBits /= fixed.getRawBits() * (1 << this->_fractonalBits);
+	this->_rawBits /= fixed.getRawBits() << this->_fractonalBits;
 	return (*this);
 }
 
