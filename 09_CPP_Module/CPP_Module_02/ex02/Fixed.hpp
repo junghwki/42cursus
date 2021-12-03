@@ -21,10 +21,10 @@ public:
 	bool operator==(Fixed &fixed);
 	bool operator!=(Fixed &fixed);
 	Fixed& operator=(const Fixed& fixed);
-	Fixed& operator+(const Fixed& fixed);
-	Fixed& operator-(const Fixed& fixed);
-	Fixed& operator*(const Fixed& fixed);
-	Fixed& operator/(const Fixed& fixed);
+	const Fixed& operator+(const Fixed& fixed);
+	const Fixed& operator-(const Fixed& fixed);
+	const Fixed& operator*(const Fixed& fixed);
+	const Fixed& operator/(const Fixed& fixed);
 
 	Fixed& operator++(void);
 	Fixed& operator--(void);

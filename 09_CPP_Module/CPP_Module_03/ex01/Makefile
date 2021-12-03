@@ -1,4 +1,4 @@
-CC		= clang++
+CC		= clang++ -std=c++98
 CFLAGS	= -Wall -Werror -Wextra
 RM		= rm -f
 

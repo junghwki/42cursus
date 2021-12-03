@@ -10,7 +10,6 @@ protected:
 	int _hitPoint;
 	int _energyPoint;
 	int _attackDemage;
-
 public:
 	ClapTrap();
 	~ClapTrap();
