@@ -3,12 +3,13 @@
 
 # include "ClapTrap.hpp"
 
+// class ScavTrap : public ClapTrap
 class ScavTrap : virtual public ClapTrap
 {
 public:
 	ScavTrap();
 	~ScavTrap();
-	ScavTrap(ScavTrap& scavtrap);
+	ScavTrap(const ScavTrap& scavtrap);
 	ScavTrap& operator=(const ScavTrap& scavtrap);
 	ScavTrap(std::string name);
 	void attack(std::string const& target);
