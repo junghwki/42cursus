@@ -2,9 +2,7 @@
 #include "Cure.hpp"
 #include "Ice.hpp"
 #include "Character.hpp"
-#include "ICharacter.hpp"
 #include "MateriaSource.hpp"
-#include "IMateriaSource.hpp"
 
 int main()
 {

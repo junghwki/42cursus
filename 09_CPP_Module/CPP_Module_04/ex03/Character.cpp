@@ -1,10 +1,10 @@
 #include "Character.hpp"
 
 Character::Character()
+: _name("default name")
 {
 	int idx;
 
-	this->_name = "default name";
 	// std::cout << "Character Default constructor called" << std::endl;
 	while (idx < 4)
 	{
@@ -14,16 +14,22 @@ Character::Character()
 }
 
 Character::Character(std::string name)
+: _name(name)
 {
 	int idx;
 
-	this->_name = name;
 	// std::cout << "Character Name constructor called" << std::endl;
 	while (idx < 4)
 	{
 		this->_inventory[idx] = NULL;
 		idx++;
 	}
+}
+
+Character::Character(const Character& copy)
+{
+	// std::cout << "Character Copy constructor called" << std::endl;
+	*this = copy;
 }
 
 Character::~Character()
@@ -38,12 +44,6 @@ Character::~Character()
 			delete this->_inventory[idx];
 		idx++;
 	}
-}
-
-Character::Character(const Character& copy)
-{
-	// std::cout << "Character Copy constructor called" << std::endl;
-	*this = copy;
 }
 
 Character& Character::operator=(const Character& character)

@@ -13,15 +13,15 @@ Brain::Brain()
 	}
 }
 
-Brain::~Brain()
-{
-	std::cout << "Brain Destructor called" << std::endl;
-}
-
 Brain::Brain(const Brain& brain)
 {
 	std::cout << "Brain Copy constructor called" << std::endl;
 	*this = brain;
+}
+
+Brain::~Brain()
+{
+	std::cout << "Brain Destructor called" << std::endl;
 }
 
 Brain& Brain::operator=(const Brain& brain)

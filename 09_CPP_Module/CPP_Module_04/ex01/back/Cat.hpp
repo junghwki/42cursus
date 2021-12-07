@@ -14,6 +14,8 @@ public:
 	Cat(const Cat& cat);
 	Cat& operator=(const Cat& cat);
 	void makeSound() const;
+	Brain* getBrain();
+	// void setType(std::string type);
 };
 
 #endif

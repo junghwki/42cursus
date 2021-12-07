@@ -6,21 +6,21 @@ Dog::Dog()
 	this->_type = "Dog";
 }
 
+Dog::Dog(const Dog &dog)
+: Animal(dog)
+{
+	std::cout << "Dog Copy constructor called" << std::endl;
+}
+
 Dog::~Dog()
 {
 	std::cout << "Dog Destructor called" << std::endl;
 }
 
-Dog::Dog(const Dog &dog)
-{
-	std::cout << "Dog Copy constructor called" << std::endl;
-	*this = dog;
-}
-
 Dog &Dog::operator=(const Dog &dog)
 {
+	Animal::operator=(dog);
 	std::cout << "Dog Assignation operator called" << std::endl;
-	this->_type = dog.getType();
 	return (*this);
 }
 
