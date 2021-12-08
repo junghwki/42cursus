@@ -21,5 +21,6 @@ int main()
 	delete bob;
 	delete me;
 	delete src;
+	system("leaks main");
 	return 0;
 }

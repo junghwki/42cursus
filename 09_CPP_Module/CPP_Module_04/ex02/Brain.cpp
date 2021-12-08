@@ -8,7 +8,7 @@ Brain::Brain()
 	std::cout << "Brain Default constructor called" << std::endl;
 	while (idx < 100)
 	{
-		this->_ideas[idx] = idx;
+		this->_ideas[idx] = "idea";
 		idx++;
 	}
 }

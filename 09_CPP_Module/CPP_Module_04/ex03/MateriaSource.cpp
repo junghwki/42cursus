@@ -47,16 +47,18 @@ void MateriaSource::learnMateria(AMateria* amateria)
 	int idx;
 
 	idx = 0;
+	if (!amateria)
+		return ;
 	while (idx < 4)
 	{
 		if (!this->_amateria[idx])
 		{
-			delete this->_amateria[idx];
-			this->_amateria[idx] = amateria->clone();
-			break ;
+			this->_amateria[idx] = amateria;
+			return ;
 		}
 		idx++;
 	}
+	//delete amateria;
 }
 
 AMateria* MateriaSource::createMateria(std::string const& type)
