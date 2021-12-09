@@ -4,71 +4,73 @@
 #include "PresidentialPardonForm.hpp"
 #include "Intern.hpp"
 
-void test(Bureaucrat& b, Form* f){
-    std::cout << "------------test case --------------" << std::endl;
-    try {
+void test(Bureaucrat& b, Form* f)
+{
+    std::cout << "============================== TESTCASE ==============================" << std::endl;
+    try
+	{
         b.executeForm(*f);
     }
-    catch (std::exception& e){
+    catch (std::exception& e)
+	{
         std::cerr << e.what() << std::endl;
     }
-    try {
+    try
+	{
         b.signForm(*f);
     }
-    catch (std::exception& e){
+    catch (std::exception& e)
+	{
         std::cerr << e.what() << std::endl;
     }
     std::cout << *f;
-    try {
+    try
+	{
         b.executeForm(*f);
     }
-    catch (std::exception& e){
+    catch (std::exception& e)
+	{
         std::cerr << e.what() << std::endl;
     }
-    try {
+    try
+	{
         b.signForm(*f);
     }
-    catch (std::exception& e){
+    catch (std::exception& e)
+	{
         std::cerr << e.what() << std::endl;
     }
-    std::cout << std::endl << std::endl;
 }
 
-int main_main(void){
-    Intern someRandomIntern;
-    Form* s;
-    Form* r;
+int main(void)
+{
+    Intern intern;
     Form* p;
+    Form* r;
+    Form* s;
     Form* nothing;
     Bureaucrat jeongwle("jeongwle", 1);
     Bureaucrat junghwki("junghwki", 25);
     Bureaucrat mki("mki", 72);
     Bureaucrat ukwon("ukwon", 145);
 
-    s = someRandomIntern.makeForm("ShrubberyCreationForm", "juyang");
-    r = someRandomIntern.makeForm("RobotomyRequestForm", "juyang1");
-    p = someRandomIntern.makeForm("PresidentialPardonForm", "juyang2");
-    nothing = someRandomIntern.makeForm("nothing", "sehan");
-    std::cout << std::endl << std::endl;
-    std::cout << *s;
-    std::cout << *r;
-    std::cout << *p;
-    test(ukwon, s);
-    test(ukwon, r);
-    test(ukwon, p);
-    mki.executeForm(*s);
+    p = intern.makeForm("PresidentialPardonForm", "juyang2");
+    r = intern.makeForm("RobotomyRequestForm", "juyang1");
+    s = intern.makeForm("ShrubberyCreationForm", "juyang");
+    nothing = intern.makeForm("nothing", "sehan");
     std::cout << std::endl;
-    test(junghwki, r);
+    std::cout << *p << std::endl;
+    std::cout << *r << std::endl;
+    std::cout << *s << std::endl;
+    test(ukwon, p);
+    test(ukwon, r);
+    test(ukwon, s);
     test(jeongwle, p);
+    test(junghwki, r);
+    test(mki, s);
     delete p;
     delete r;
     delete s;
-    return (0);
-}
-
-int main(void)
-{
-	main_main();
 	system("leaks main");
-	return (0);
+    return (0);
 }

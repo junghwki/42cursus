@@ -2,14 +2,16 @@
 
 Intern::Intern()
 {
-	_makeFormPtr[0] = &PresidentialPardonForm::makePForm;
-	_makeFormPtr[1] = &RobotomyRequestForm::makeRForm;
-	_makeFormPtr[2] = &ShrubberyCreationForm::makeSForm;
+	this->_makeFormPtr[0] = &PresidentialPardonForm::makePForm;
+	this->_makeFormPtr[1] = &RobotomyRequestForm::makeRForm;
+	this->_makeFormPtr[2] = &ShrubberyCreationForm::makeSForm;
 }
 
 Intern::Intern(const Intern& arg)
 {
-	*this = arg;
+	this->_makeFormPtr[0] = &PresidentialPardonForm::makePForm;
+	this->_makeFormPtr[1] = &RobotomyRequestForm::makeRForm;
+	this->_makeFormPtr[2] = &ShrubberyCreationForm::makeSForm;
 }
 
 Intern::~Intern()
@@ -42,5 +44,6 @@ Form* Intern::makeForm(std::string name, std::string target)
 		}
 		idx++;
 	}
-	return (ret);
+	std::cout << "can't find form" <<std::endl;
+	return (NULL);
 }

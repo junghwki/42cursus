@@ -1,16 +1,17 @@
 #include "Bureaucrat.hpp"
 
-Bureaucrat::Bureaucrat() : _name("default name")
+Bureaucrat::Bureaucrat()
+: _name("default name"), _grade(150)
 {
-	this->_grade = 150;
 }
 
-Bureaucrat::Bureaucrat(const Bureaucrat& arg) : _name(arg._name)
+Bureaucrat::Bureaucrat(const Bureaucrat& arg)
+: _name(arg._name), _grade(arg._grade)
 {
-	*this = arg;
 }
 
-Bureaucrat::Bureaucrat(const std::string name, int grade) : _name(name)
+Bureaucrat::Bureaucrat(const std::string name, int grade)
+: _name(name)
 {
 	if (grade < 1)
 	{
@@ -32,7 +33,6 @@ Bureaucrat& Bureaucrat::operator=(const Bureaucrat& arg)
 	this->_grade = arg._grade;
 	return (*this);
 }
-
 
 std::string Bureaucrat::getName()
 {
@@ -74,7 +74,7 @@ const char* Bureaucrat::GradeTooLowException::what() const throw()
 
 std::ostream& operator<<(std::ostream &out, Bureaucrat& value)
 {
-	out << "<" << value.getName() << ">" << ", bureaucrat grade <" << value.getGrade() << ">." << std::endl;
+	out << "<" << value.getName() << ">, bureaucrat grade <" << value.getGrade() << ">." << std::endl;
 	return (out);
 }
 
@@ -91,7 +91,6 @@ void Bureaucrat::signForm(Form& form)
 		std::cerr << e.what() << '\n';
 	}
 }
-
 
 void Bureaucrat::executeForm(Form const& form)
 {

@@ -4,9 +4,7 @@ int main(void)
 {
 	try
 	{
-		// fuck you1
 		Bureaucrat a("juyang", 150);
-		// fuck you2
 		Bureaucrat b("juyang", 550);
 	}
 	catch(const std::exception& e)
@@ -15,10 +13,8 @@ int main(void)
 	}
 	try
 	{
-		//fuck you3
-		Bureaucrat c("juyang", 0);
-		//fuck you4
 		Bureaucrat d("juyang", 1);
+		Bureaucrat c("juyang", 0);
 	}
 	catch(const std::exception& e)
 	{

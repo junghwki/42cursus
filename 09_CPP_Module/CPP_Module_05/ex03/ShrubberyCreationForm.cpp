@@ -1,18 +1,18 @@
 #include "ShrubberyCreationForm.hpp"
 
-ShrubberyCreationForm::ShrubberyCreationForm() : Form("ShrubberyCreationForm", 25, 5)
+ShrubberyCreationForm::ShrubberyCreationForm()
+: Form("ShrubberyCreationForm", 25, 5), _target("default target")
 {
-	this->_target = "default target";
 }
 
-ShrubberyCreationForm::ShrubberyCreationForm(std::string target) : Form("ShrubberyCreationForm", 25, 5)
+ShrubberyCreationForm::ShrubberyCreationForm(std::string target)
+: Form("ShrubberyCreationForm", 25, 5), _target(target)
 {
-	this->_target = target;
 }
 
-ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm& arg) : Form("ShrubberyCreationForm", 25, 5)
+ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm& arg)
+: Form("ShrubberyCreationForm", 25, 5), _target(arg._target)
 {
-	*this = arg;
 }
 
 ShrubberyCreationForm::~ShrubberyCreationForm()
@@ -27,8 +27,9 @@ ShrubberyCreationForm& ShrubberyCreationForm::operator=(const ShrubberyCreationF
 
 void ShrubberyCreationForm::Action() const
 {
-    std::string file_name = this->_target + "_shrubbery";
-    std::ofstream ofs(file_name, std::ios::trunc);
+    std::string fileName = this->_target + "_shrubbery";
+    std::ofstream ofs(fileName, std::ios::trunc);
+
 	if (ofs.fail())
 	{
 		std::cerr << "Error!" << std::endl;
@@ -48,7 +49,6 @@ void ShrubberyCreationForm::Action() const
         ofs.close();
     }
 }
-
 
 Form* ShrubberyCreationForm::makeSForm(std::string target)
 {
