@@ -24,6 +24,11 @@ Intern& Intern::operator=(const Intern& arg)
 	return (*this);
 }
 
+const char* Intern::CannotFindForm::what() const throw()
+{
+	return ("can't find form");
+}
+
 Form* Intern::makeForm(std::string name, std::string target)
 {
 	Form* ret;
@@ -44,6 +49,5 @@ Form* Intern::makeForm(std::string name, std::string target)
 		}
 		idx++;
 	}
-	std::cout << "can't find form" <<std::endl;
-	return (NULL);
+	throw Intern::CannotFindForm();
 }

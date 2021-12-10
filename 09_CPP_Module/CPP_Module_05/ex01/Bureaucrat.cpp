@@ -1,9 +1,8 @@
 #include "Bureaucrat.hpp"
 
 Bureaucrat::Bureaucrat()
-: _name("default name")
+: _name("default name"), _grade(150)
 {
-	this->_grade = 150;
 }
 
 Bureaucrat::Bureaucrat(const Bureaucrat& arg)

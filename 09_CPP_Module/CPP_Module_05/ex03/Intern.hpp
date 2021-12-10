@@ -17,6 +17,11 @@ public:
 	~Intern();
 	Intern& operator=(const Intern& arg);
 	Form* makeForm(std::string name, std::string target);
+	class CannotFindForm : public std::exception
+	{
+	public:
+		const char* what() const throw();
+	};
 };
 
 #endif

@@ -5,7 +5,7 @@ int main(void)
 	try
 	{
 		Bureaucrat a("juyang", 150);
-		Bureaucrat b("juyang", 550);
+		std::cout << a;
 	}
 	catch(const std::exception& e)
 	{
@@ -13,8 +13,8 @@ int main(void)
 	}
 	try
 	{
-		Bureaucrat d("juyang", 1);
-		Bureaucrat c("juyang", 0);
+		Bureaucrat b("juyang", 1);
+		std::cout << b;
 	}
 	catch(const std::exception& e)
 	{
@@ -22,8 +22,8 @@ int main(void)
 	}
 	try
 	{
-		Bureaucrat e("junghwki", 1);
-		e.incrementGrade();
+		Bureaucrat c("junghwki", 1);
+		c.incrementGrade();
 	}
 	catch(const std::exception& e)
 	{
@@ -31,13 +31,27 @@ int main(void)
 	}
 	try
 	{
-		Bureaucrat f("junghwki", 150);
-		f.decrementGrade();
+		Bureaucrat d("junghwki", 150);
+		d.decrementGrade();
 	}
 	catch(const std::exception& e)
 	{
 		std::cerr << e.what() << '\n';
 	}
-	Bureaucrat g("mki", 150);
-	std::cout << g << std::endl;
+	try
+	{
+		Bureaucrat f("junghwki", 0);
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
+	try
+	{
+		Bureaucrat e("junghwki", 151);
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
 }

@@ -54,10 +54,17 @@ int main(void)
     Bureaucrat mki("mki", 72);
     Bureaucrat ukwon("ukwon", 145);
 
-    p = intern.makeForm("PresidentialPardonForm", "juyang2");
-    r = intern.makeForm("RobotomyRequestForm", "juyang1");
-    s = intern.makeForm("ShrubberyCreationForm", "juyang");
-    nothing = intern.makeForm("nothing", "sehan");
+	try
+	{
+		p = intern.makeForm("PresidentialPardonForm", "juyang2");
+		r = intern.makeForm("RobotomyRequestForm", "juyang1");
+		s = intern.makeForm("ShrubberyCreationForm", "juyang");
+	    nothing = intern.makeForm("nothing", "sehan");
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
     std::cout << std::endl;
     std::cout << *p << std::endl;
     std::cout << *r << std::endl;
@@ -71,6 +78,6 @@ int main(void)
     delete p;
     delete r;
     delete s;
-	system("leaks main");
+	// system("leaks main");
     return (0);
 }
