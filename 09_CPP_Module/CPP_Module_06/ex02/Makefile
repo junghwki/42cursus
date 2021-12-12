@@ -2,9 +2,8 @@ CC		= clang++
 CFLAGS	= -Wall -Werror -Wextra
 RM		= rm -f
 
-NAME	= convert
+NAME	= main
 SRCS	= ./main.cpp \
-		  ./Convert.cpp
 
 OBJS	= $(SRCS:.cpp=.o)
 
