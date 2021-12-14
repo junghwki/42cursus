@@ -1,38 +1,43 @@
-// #include <iostream>
-
-// struct Data
-// {
-// 	int i;
-// };
-
-// Data* deserialize(uintptr_t raw)
-// {
-
-// }
-
-// uintptr_t serialize(Data* ptr)
-// {
-// 	Data i;
-
-// 	i.i = ptr->i;
-// }
-
-
 #include "Data.hpp"
 
 int main()
 {
-	t_Data data = {1, 2, 3};
+	t_Data data = {-1, -2, 'a', 'b'};
 
 	uintptr_t ptr = serialize(&data);
-	t_Data2 *data_ptr = deserialize(ptr);
+	t_Data *data_ptr = deserialize(ptr);
 
-	std::cout << "----------data origin------------" << std::endl;
-	std::cout << "integer1 : " << data.integer << std::endl;
-	std::cout << "integer2 : " << data.integer2 << std::endl;
-	std::cout << "integer3 : " << data.integer3 << std::endl;
-	std::cout << "-------after selialize and deserialize---------" << std::endl;
-	std::cout << "integer1 : " << data_ptr->a << std::endl;
-	std::cout << "integer2 : " << data_ptr->b << std::endl;
-	std::cout << "integer3 : " << data_ptr->c << std::endl;
+	std::cout << ptr << std::endl;
+	std::cout << &data << std::endl;
+	std::cout << "================== before ==================" << std::endl;
+	std::cout << "integer    : " << data.integer << std::endl;
+	std::cout << "integer2   : " << data.integer2 << std::endl;
+	std::cout << "character  : " << data.character << std::endl;
+	std::cout << "character2 : " << data.character2 << std::endl;
+	std::cout << "================== after ===================" << std::endl;
+	std::cout << "integer1   : " << data_ptr->integer << std::endl;
+	std::cout << "integer2   : " << data_ptr->integer2 << std::endl;
+	std::cout << "character  : " << data_ptr->character << std::endl;
+	std::cout << "character2 : " << data_ptr->character2 << std::endl;
 }
+
+// #include <iostream>
+
+// int main(void)
+// {
+// 	struct dat
+// 	{
+// 		short a;
+// 		short b;
+// 	};
+// 	int value = 128;
+// 	// int value = 0x000000080;
+// 	// std::cout << value << std::endl;
+// 	dat * pd = reinterpret_cast<dat *>(&value);
+// 	std::cout << pd->b;
+// }
+
+// 10000000
+
+// 00 00 00 80
+// 80 00 00 00
