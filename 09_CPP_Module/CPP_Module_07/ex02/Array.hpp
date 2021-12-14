@@ -5,7 +5,7 @@ template<typename T>
 class Array
 {
 public:
-	Array() : _array(new T()), _n(0);
+	Array() : _array(new T()), _n(0)
 	{};
 	
 	Array(unsigned int n) : _array(new T[n]()), _n(n)
@@ -19,7 +19,7 @@ public:
 		idx = 0;
 		while (idx < arg._n)
 		{
-			ret->_array[idx] = arg._array[idx]
+			ret->_array[idx] = arg._array[idx];
 			idx++;
 		}
 		this->_array = ret;
@@ -30,7 +30,7 @@ public:
 		int idx;
 
 		idx = 0;
-		this->_n = array._n;
+		this->_n = arg._n;
 		while (idx < this->_n)
 		{
 			this->_array[idx] = arg._array[idx];
