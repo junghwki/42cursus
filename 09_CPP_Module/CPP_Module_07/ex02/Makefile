@@ -3,7 +3,8 @@ CFLAGS	= -Wall -Werror -Wextra
 RM		= rm -f
 
 NAME	= main
-SRCS	= ./main.cpp
+SRCS	= ./main.cpp \
+		  ./Array.cpp
 
 OBJS	= $(SRCS:.cpp=.o)
 
