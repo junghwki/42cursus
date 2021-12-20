@@ -1,43 +1,53 @@
 #include "easyfind.hpp"
 #include <iostream>
-#include <string>
 #include <vector>
 #include <list>
-#include <algorithm>
 
-int main()
+int	main(void)
 {
-	std::vector<int> v_int;
-	std::list<int> l_int;
-	std::list<int> wrong_int;
+	std::vector<int> a;
+	std::vector<int>::iterator iter1;
+	std::vector<int>::iterator iter2;
+	int idx = 0;
+	std::list<int> b;
+	std::list<int>::iterator iter3;
+	std::list<int>::iterator iter4;
+	std::vector<int> c;
+	std::vector<int>::iterator iter5;
 
-	const std::vector<int> v_int_const(3, 42);
-	const std::list<int> l_int_const(3, 42);
-
-	std::vector<int>::iterator v_iter;
-	std::list<int>::iterator l_iter;
-
-	std::vector<int>::const_iterator v_iter_const;
-	std::list<int>::const_iterator l_iter_const;
-
-	for (int i = 0; i < 42; i++)
+	while (idx < 10)
 	{
-		v_int.push_back(i + 1);
-		l_int.push_back(i + 1);
+		a.push_back(idx);
+		b.push_back(idx);
+		idx++;
 	}
-
 	try
 	{
-		v_iter = easyfind(v_int, 42);
-		v_iter_const = easyfind(v_int_const, 42);
-		l_iter = easyfind(l_int, 42);
-		l_iter_const = easyfind(l_int_const, 49);
+		iter1 = easyfind(a, 9);
+		iter2 = easyfind(a, 10);
 	}
-	catch (std::exception &e)
+	catch(const std::exception& e)
 	{
-		std::cout << e.what() << std::endl;
+		std::cerr << e.what() << '\n';
 	}
-	std::cout << *v_iter << std::endl;
-	std::cout << *v_iter_const << std::endl;
-	std::cout << *l_iter << std::endl;
+	try
+	{
+		iter3 = easyfind(b, 1);
+		iter4 = easyfind(b, 10);
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
+	try
+	{
+		iter5 = easyfind(c, 1);
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
+	std::cout << *iter1 << std::endl;
+	std::cout << *iter3 << std::endl;
+	return (0);
 }

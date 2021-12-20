@@ -64,7 +64,6 @@ int Span::shortestSpan()
 	unsigned int temp;
 
 	max = 4294967295;
-
 	if (this->_container.size() < 2)
 	{
 		throw NoSpan();
@@ -103,8 +102,10 @@ void Span::showElements()
 	std::vector<int>::iterator iter = this->_container.begin();
 	while (iter != this->_container.end())
 	{
-		std::cout << *iter << ", ";
+		std::cout << *iter;
 		iter++;
+		if (iter != this->_container.end())
+			std::cout << ", ";
 	}
 	std::cout << std::endl;
 }

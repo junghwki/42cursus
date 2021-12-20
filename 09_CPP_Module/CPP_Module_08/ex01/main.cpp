@@ -1,62 +1,63 @@
 #include "span.hpp"
 
-void longest_error(Span &span)
+int	main(void)
 {
-    try {
-        std::cout << "Longest span" << span.longestSpan() << std::endl;
-    } catch (std::exception &e) {
-        std::cout << e.what() << std::endl;
-    }
-}
-void shortest_error(Span &span)
-{
-    try {
-        std::cout << "Shortest span" << span.shortestSpan() << std::endl;
-    } catch (std::exception &e) {
-        std::cout << e.what() << std::endl;
-    }
-}
-void full_span_error(Span &span)
-{
-    try {
-        std::cout << "full_span" << std::endl;
-        span.addNumber(18);
-    } catch (std::exception &e) {
-        std::cout << e.what() << std::endl;
-    }
-}
+	Span a(10);
+	Span b(10);
+	std::vector<int> vec;
+	std::vector<int> vec2;
+	Span c(10000);
 
-int main()
-{
-    Span span_with_num(5);
-    std::cout << "-------------Vector is Empty.. So Throw Error---------------" << std::endl;
-    longest_error(span_with_num);
-    shortest_error(span_with_num);
-    span_with_num.addNumber(7);
-    span_with_num.addNumber(3);
-    span_with_num.addNumber(1);
-    span_with_num.addNumber(42);
-    span_with_num.addNumber(17);
-    std::cout << "--------------Vector is Full.. So Throw Error---------------" << std::endl;
-    full_span_error(span_with_num);
-    std::cout << "----------All Element..----------" << std::endl;
-    span_with_num.showElements();
-    std::cout << "LongestSpan : " << span_with_num.longestSpan() << std::endl;
-    std::cout << "ShortestSpan : " << span_with_num.shortestSpan() << std::endl;
+	int idx = 0;
 
-    std::cout << "----------add with iterator----------" << std::endl;
-    srand(time(NULL));
-    Span span_with_iter(10000);
-    std::vector<int> vec(10000);
-    std::vector<int>::iterator begin = vec.begin();
-    *begin++ = rand() % 10000 + 10000;
-    for (int i = 0; begin != vec.end(); i++) {
-        *begin = i;
-        begin++;
-    } 
-    span_with_iter.addNumber(vec.begin(), vec.end());
-    span_with_iter.showElements();
-    std::cout << "LongestSpan : " << span_with_iter.longestSpan() << std::endl;
-    std::cout << "ShortestSpan : " << span_with_iter.shortestSpan() << std::endl;
-
+	while (idx < 9)
+	{
+		a.addNumber(idx);
+		idx++;
+	}
+	try
+	{
+		a.addNumber(8);
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
+	try
+	{
+		a.addNumber(9);
+		a.addNumber(10);
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
+	idx = 0;
+	while (idx < 10)
+	{
+		vec.push_back(idx);
+		idx++;
+	}
+	b.addNumber(vec.begin(), vec.end());
+	std::cout << a.shortestSpan() << std::endl;
+	std::cout << a.longestSpan() << std::endl;
+	b.showElements();
+	idx = 0;
+	while (idx < 10000)
+	{
+		c.addNumber(idx * 10);
+		idx++;
+	}
+	try
+	{
+		c.addNumber(vec.begin(), vec.end());
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
+	
+	std::cout << c.shortestSpan() << std::endl;
+	std::cout << c.longestSpan() << std::endl;
+	return (0);
 }

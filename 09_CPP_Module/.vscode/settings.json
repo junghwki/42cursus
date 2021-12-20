@@ -68,5 +68,6 @@
 		"__functional_03": "cpp",
 		"memory_resource": "cpp",
 		"cfloat": "cpp"
-	}
+	},
+	"C_Cpp.errorSquiggles": "Disabled"
 }

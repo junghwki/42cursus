@@ -5,7 +5,6 @@
 # include <exception>
 # include <vector>
 
-// template<typename T>
 class Span
 {
 public:
