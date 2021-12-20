@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/07 15:04:16 by junghwki          #+#    #+#             */
-/*   Updated: 2021/04/26 20:22:23 by junghwki         ###   ########.fr       */
+/*   Created: 2020/10/11 14:09:00 by wopark            #+#    #+#             */
+/*   Updated: 2021/05/07 13:41:13 by junghwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int			ft_strcmp(const char *s1, const char *s2)
+void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
-	int		index;
+	t_list	*cur;
+	t_list	*next;
 
-	index = 0;
-	while (s1[index] || s2[index])
+	cur = *lst;
+	while (cur)
 	{
-		if (s1[index] != s2[index] || s1[index] == '\0' || s2[index] == '\0')
-			return ((unsigned char)s1[index] - (unsigned char)s2[index]);
-		index++;
+		next = cur->next;
+		ft_lstdelone(cur, del);
+		cur = next;
 	}
-	return (0);
+	*lst = NULL;
 }

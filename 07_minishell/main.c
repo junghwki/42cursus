@@ -1,84 +1,81 @@
-#include "minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: junghwki <junghwki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/05/07 13:07:54 by wopark            #+#    #+#             */
+/*   Updated: 2021/07/02 18:13:28 by junghwki         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void	put_face(void)
+#include "includes/minish.h"
+
+char				*realloc_input(char *ptr, size_t size)
 {
-	printf("o-------------------------.--------~--------.-------------------------o\n");
-	printf("|                          \\   minishell   /                          |\n");
-	printf("|                           \\_____________/                           |\n");
-	printf("|      _(@)_                            _.-=-._                       |\n");
-	printf("|    /.~'\"'~.\\   .---------------.     /  ///\\ \\   .---------------.  |\n");
-	printf("|   |/--- ---\\| <  Hello, Cadet! |    | /-- --\\_| <  Hello, Cadet! |  |\n");
-	printf("|  (]  O)_ O) [) | I am junghwki |   (|/ O)_ O) |) |  I am wopark  |  |\n");
-	printf("|   (  .___,  )  '---------------'     \\ .___, /   '---------------'  |\n");
-	printf("|    \\__  .__/                          \\_   _/                       |\n");
-	printf("|                                                                     |\n");
-	printf("o----------------------------------~----------------------------------o\n");
+	char			*ret;
+
+	ret = (char *)malloc(size);
+	if (!ret)
+		return (0);
+	ft_memmove(ret, ptr, size);
+	free(ptr);
+	return (ret);
 }
 
-void		ft_sep_env(char **envv)
+void				init_input(t_dllist *h_list)
 {
-	int		i;
-	int		j;
+	char			*pending;
+	char			*finished;
 
-	i = 0;
-	j = 0;
-	while (envv[j])
-	{
-		while (envv[j][i])
-		{
-			
-			i++;
-		}
-		j++;
-	}
+	pending = (char *)malloc(sizeof(char));
+	*pending = 0;
+	finished = NULL;
+	ft_dll_addhisnode(h_list, pending, finished);
+	free(pending);
 }
 
-int			main(int argc, char **argv, char **envv)
+int					get_input(char **input, t_dllist *h_list)
 {
-	int		read_ret;
-	char 	*buff;
-	char	**array;
+	struct termios	term;
+	struct termios	term_backup;
+	t_cursor		*cursor;
 
-	buff = (char *)malloc(1000);
-	put_face();
+	cursor = get_cursor();
+	term_init(&term, &term_backup);
+	cursor_init(cursor, h_list);
+	init_input(h_list);
+	cursor->cur = h_list->tail->prev;
 	while (1)
 	{
-		write(1, "minishell$ ", 11);
-		read_ret = read(0, buff, 1000);
-		array = ft_split(buff, ' ');
-		if (!(ft_strcmp(array[0], "echo")))
-			printf("%s",array[1]);
-		// else if (!(ft_strcmp(array[0], "cd")))
-		// {
-
-		// }
-		else if (!(ft_strcmp(array[0], "pwd")))
+		cursor->buf = 0;
+		cursor->r_nbr = read(STDIN_FILENO, &cursor->buf, sizeof(cursor->buf));
+		if (!term_key_handler(cursor, h_list, input))
 		{
-			printf("%s",);
+			tcsetattr(STDIN_FILENO, TCSANOW, &term_backup);
+			return (READ_SUC);
 		}
-		// else if (!(ft_strcmp(array[0], "export")))
-		// {
-
-		// }
-		// else if (!(ft_strcmp(array[0], "unset")))
-		// {
-
-		// }
-		// else if (!(ft_strcmp(array[0], "env")))
-		// {
-
-		// }
-		// else if (!(ft_strcmp(array[0], "exit")))
-		// {
-
-		// }
-		// else
-		// {
-
-		// }
 	}
-	(void)argv;
-	(void)argc;
+	tcsetattr(STDIN_FILENO, TCSANOW, &term_backup);
+	return (READ_ERR);
+}
+
+int					main(int argc, char **argv, char **envv)
+{
+	t_dllist		history_lst;
+	char			*input;
+
+	ft_dll_init(&history_lst);
+	signal_init(argc, argv);
+	envv_lst_make(envv);
+	while (1)
+	{
+		write(1, "minish $> ", 10);
+		if (get_input(&input, &history_lst) == READ_ERR)
+			printf("Error");
+		if (parse_input(input) == ERROR)
+			parse_error_msg(SYNTAX_ERROR_MSG);
+	}
 	return (0);
-	printf("%s\n",envv[10]);
 }
